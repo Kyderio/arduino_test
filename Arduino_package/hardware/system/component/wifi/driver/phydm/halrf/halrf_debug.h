@@ -1,0 +1,74 @@
+/******************************************************************************
+ *
+ * Copyright(c) 2007 - 2017  Realtek Corporation.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of version 2 of the GNU General Public License as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * The full GNU General Public License is included in this distribution in the
+ * file called LICENSE.
+ *
+ * Contact Information:
+ * wlanfae <wlanfae@realtek.com>
+ * Realtek Corporation, No. 2, Innovation Road II, Hsinchu Science Park,
+ * Hsinchu 300, Taiwan.
+ *
+ * Larry Finger <Larry.Finger@lwfinger.net>
+ *
+ *****************************************************************************/
+
+#ifndef __HALRF_DEBUG_H__
+#define __HALRF_DEBUG_H__
+
+/*@============================================================*/
+/*@include files*/
+/*@============================================================*/
+
+/*@============================================================*/
+/*@Definition */
+/*@============================================================*/
+
+#if DBG
+/*
+#define RF_DBG(comp, fmt, args...)                     \
+	do {                                               \
+		if ((comp) & g_odm.rf_table.rf_dbg_comp) { \
+			RT_DEBUG(COMP_PHYDM, DBG_DMESG, "[RF] " fmt, ##args);  \
+		}                                          \
+	} while (0)
+*/
+#define RF_DBG(comp, fmt, args...)                     \
+    do {                                               \
+        if ((comp) & g_odm.rf_table.rf_dbg_comp) { \
+            RTK_LOGA("RFK", fmt, ##args);\
+        }                                          \
+    } while (0)
+#else /*#if DBG*/
+
+#define RF_DBG(comp, fmt, args...)
+
+#endif /*#if DBG*/
+
+/*@============================================================*/
+/*@ enumeration */
+/*@============================================================*/
+
+/*@============================================================*/
+/*@ structure */
+/*@============================================================*/
+
+/*@============================================================*/
+/*@ function prototype */
+/*@============================================================*/
+
+void halrf_cmd_parser(char input[][16], u32 *_used, char *output, u32 *_out_len);
+
+void halrf_init_debug_setting(void);
+
+#endif /*__HALRF_H__*/

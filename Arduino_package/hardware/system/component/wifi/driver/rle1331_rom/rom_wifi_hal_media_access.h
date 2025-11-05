@@ -1,0 +1,103 @@
+#ifndef __ROM_WIFI_HAL_MEDIA_ACCESS_H__
+#define __ROM_WIFI_HAL_MEDIA_ACCESS_H__
+
+/***************************** DEFINE of BCN INTERRUPT ******************************/
+#define RT_BCN_INT_HIMR0_MASKS	(BIT_HS_BCNELY1_INT | BIT_HS_TXBCNERR1_INT_EN | BIT_HS_TXBCNOK1_INT_EN)
+
+/***************************** DEFINE of CTRLINFO ******************************/
+#define CONTROL_INFO_ENTRY_SIZE	16	//unit: bytes
+#define CRC5_SIZE			6	//unit: bits
+#define RATE_MASK			0x3F
+
+#define CRC5_VALID			BIT(5)
+
+/******************************** RXFILTER_CAM START **********************************/
+
+/***************************** DEFINE of ADDRESSCAM entry ******************************/
+#define ADDRCAM_VALID			BIT(31)
+#define ADDRCAM_SUBTYPE_MASK		BIT(30)
+#define ADDRCAM_NO_A2			BIT(29)
+#define ADDRCAM_NORMAL		BIT(28)
+#define ADDRCAM_UL			BIT(27)
+#define ADDRCAM_RELAY			BIT(26)
+#define ADDRCAM_RSVD			BIT(25)
+#define ADDRCAM_DATA			BIT(24)
+#define ADDRCAM_MGNT			BIT(23)
+#define ADDRCAM_CTRL			BIT(22)
+#define ADDRCAM_SUBTYPE_SHIFT		18
+#define ADDRCAM_BC			BIT(17)
+#define ADDRCAM_MC			BIT(16)
+#define ADDRCAM_UC			BIT(15)
+#define ADDRCAM_A1_SHIFT		10
+#define ADDRCAM_A2_SHIFT		5
+#define ADDRCAM_A3_SHIFT		0
+
+enum ADDRCAM_ENTRY_IDX {
+	ADDRCAM_IDX_SCAN_BCN = 0,
+	ADDRCAM_IDX_SCAN_PROBE_RSP,	//1
+	ADDRCAM_IDX_STA,			//2
+	ADDRCAM_IDX_PROBE_REQ,		//3
+	ADDRCAM_IDX_PS_POLL,		//4
+	ADDRCAM_IDX_AP,				//5
+	ADDRCAM_IDX_PROMISC_ALL,	//6
+	ADDRCAM_IDX_PROMISC_A2,		//7
+	ADDRCAM_IDX_CTRL_ALL,		//8
+	ADDRCAM_IDX_CTRL_ALL_AP,	//9
+#ifdef CONFIG_NAN
+	ADDRCAM_IDX_NAN_BCN_ALL,
+	ADDRCAM_IDX_NAN_DW_FAW,
+#endif
+#ifdef CONFIG_MBSSID_AX
+	ADDRCAM_IDX_MBSSID_BCN,
+	ADDRCAM_IDX_MBSSID_PROBE_RSP,
+#endif
+	ADDRCAM_IDX_MAX,
+};
+
+#define ADDRCAM_ENTRY_SCAN		(BIT(ADDRCAM_IDX_SCAN_BCN) | BIT(ADDRCAM_IDX_SCAN_PROBE_RSP))			/*entry 0/1*/
+#define ADDRCAM_ENTRY_STA		BIT(ADDRCAM_IDX_STA)							/*entry 2*/
+#define ADDRCAM_ENTRY_SOFTAP		(BIT(ADDRCAM_IDX_PROBE_REQ) | BIT(ADDRCAM_IDX_PS_POLL) | BIT(ADDRCAM_IDX_AP))		/*entry 3/4/5*/
+#define ADDRCAM_ENTRY_PROMISC_ALL	BIT(ADDRCAM_IDX_PROMISC_ALL)						/*entry 6*/
+#define ADDRCAM_ENTRY_PROMISC_A2	BIT(ADDRCAM_IDX_PROMISC_A2)						/*entry 7*/
+#define ADDRCAM_ENTRY_CTRL_ALL		BIT(ADDRCAM_IDX_CTRL_ALL)						/*entry 8*/
+#define ADDRCAM_ENTRY_CTRL_ALL_AP	BIT(ADDRCAM_IDX_CTRL_ALL_AP)						/*entry 9*/
+#define ADDRCAM_ENTRY_NAN_BCN		BIT(ADDRCAM_IDX_NAN_BCN_ALL)
+#define ADDRCAM_ENTRY_NAN_DW_FAW	BIT(ADDRCAM_IDX_NAN_DW_FAW)
+#define ADDRCAM_ENTRY_MBSSID		(BIT(ADDRCAM_IDX_MBSSID_BCN) | BIT(ADDRCAM_IDX_MBSSID_PROBE_RSP))
+
+
+/******************************** DEFINE of ADDRESS TABLE **********************************/
+/* normal mode (STA+AP) */
+#define ADDRCAM_TABLE_INDEX_ALL_FIT		0x0
+#define ADDRCAM_TABLE_INDEX_MAC0 		0x1
+#define ADDRCAM_TABLE_INDEX_BSSID0 		0x2
+#define ADDRCAM_TABLE_INDEX_MAC1 		0x3
+
+/* special mode (refugee/relay/booster) */
+#define ADDRCAM_TABLE_INDEX_BOOSTER_A1			0x4
+#define ADDRCAM_TABLE_INDEX_MBID_A1				0x5
+#define ADDRCAM_TABLE_INDEX_RELAY_RFG_A1		0x6
+#define ADDRCAM_TABLE_INDEX_RELAY_RFG_A2		0x7
+#define ADDRCAM_TABLE_INDEX_RELAY_FATHER		0x8
+#define ADDRCAM_TABLE_INDEX_VAP_A1_FIT			0xD
+
+/* NAN mode */
+#define ADDRCAM_TABLE_INDEX_MACID_NAN		0x9
+#define ADDRCAM_TABLE_INDEX_TA_NAN			0xA
+#define ADDRCAM_TABLE_INDEX_BSSID_NAN		0xB
+#define ADDRCAM_TABLE_INDEX_BSSID_NAN_HIGH	0xC
+
+/* MBSSID */
+#define ADDRCAM_TABLE_INDEX_MBSSID			0xE
+
+/* user define */
+#define ADDRCAM_TABLE_INDEX_USER_DEFINE_0
+#define ADDRCAM_TABLE_INDEX_USER_DEFINE_1
+#define ADDRCAM_TABLE_INDEX_USER_DEFINE_2
+#define ADDRCAM_TABLE_INDEX_USER_DEFINE_3
+
+/******************************** RXFILTER_CAM END **********************************/
+
+/******************************** function declaration **********************************/
+
+#endif

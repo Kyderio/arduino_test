@@ -1,0 +1,293 @@
+
+# Realtek Ameba Core and platform.
+# ------------------------------
+#
+# For more info:
+# https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
+
+name=Ameba ARM (32-bits) Boards
+version=1.0.X
+
+# Ameba project settings
+# ----------------------
+ameba.sdkpath={build.system.path}
+ameba.project={build.project}_gcc_project
+
+# Ameba compile variables
+# ----------------------
+compiler.path={runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/bin/
+
+# O2 = optimize for code size and execution speed
+# Og = optimize for debugging experience
+# g3 = add in maximum debug info
+# gdwarf-3 = debug info in DWARF-3 format
+compiler.optimization_flags=-Os
+compiler.optimization_flags.release=-Os
+compiler.optimization_flags.debug=-Og -g3 -gdwarf-3
+
+###--save-temps
+## AmebaD
+#compiler.c.flags={compiler.optimization_flags} -ffunction-sections -march=armv8-m.main+dsp -mthumb -mcmse -mfloat-abi=hard -mfpu=fpv5-sp-d16 -nostartfiles -nodefaultlibs -nostdlib -D__FPU_PRESENT -fstack-usage -fdata-sections -nostartfiles -nostdlib -Wall -Wpointer-arith -Wstrict-prototypes -Wundef -Wno-write-strings -Wno-maybe-uninitialized -c -MMD -Wextra
+## AmebaGreen2
+#compiler.c.flags={compiler.optimization_flags} -ffunction-sections -march=armv8-m.main -mthumb -mcmse -nostartfiles -nodefaultlibs -nostdlib -D__FPU_PRESENT -fstack-usage -fdata-sections -nostartfiles -nostdlib -Wall -Wpointer-arith -Wstrict-prototypes -Wundef -Wno-write-strings -Wno-maybe-uninitialized -c -MMD -Wextra
+compiler.c.flags={compiler.optimization_flags} -fdata-sections -ffunction-sections -g -c -MMD -MP -nostartfiles -nodefaultlibs -nostdlib -fno-strict-aliasing -fno-strict-overflow -fno-delete-null-pointer-checks -fno-tree-loop-distribute-patterns -flax-vector-conversions -fstack-usage -Wundef -Wpointer-arith -Wstrict-prototypes -Wno-write-strings -Wno-maybe-uninitialized -Wall -Wextra -fno-builtin -save-temps=obj -mthumb -march=armv8.1-m.main -mcmse
+
+compiler.c.cmd=arm-none-eabi-gcc
+
+### -Wl,--warn-section-align
+## AmebaD
+#compiler.c.elf.flags={compiler.optimization_flags} -march=armv8-m.main+dsp -mthumb -mcmse -mfloat-abi=hard -mfpu=fpv5-sp-d16 -nostartfiles -specs nosys.specs -Wl,--gc-sections
+## AmebaGreen2
+compiler.c.elf.flags={compiler.optimization_flags} -march=armv8.1-m.main -mthumb -mcmse -nostartfiles -specs nosys.specs -Wl,--gc-sections,-u,main,-u,_init
+
+compiler.c.elf.cmd=arm-none-eabi-gcc
+
+compiler.S.flags=-c -g -x assembler-with-cpp
+
+### --save-temps
+## AmebaD
+#compiler.cpp.flags={compiler.optimization_flags} -ffunction-sections -march=armv8-m.main+dsp -mthumb -mcmse -mfloat-abi=hard -mfpu=fpv5-sp-d16 -nostartfiles -nodefaultlibs -nostdlib -D__FPU_PRESENT -fstack-usage -fdata-sections -nostartfiles -nostdlib -Wall -Wpointer-arith -Wundef -Wno-write-strings -Wno-maybe-uninitialized -c -MMD -Wextra 
+## AmebaGreen2
+#compiler.cpp.flags={compiler.optimization_flags} -ffunction-sections -march=armv8-m.main -mthumb -mcmse -nostartfiles -nodefaultlibs -nostdlib -D__FPU_PRESENT -fstack-usage -fdata-sections -nostartfiles -nostdlib -Wall -Wpointer-arith -Wundef -Wno-write-strings -Wno-maybe-uninitialized -c -MMD -Wextra 
+compiler.cpp.flags={compiler.optimization_flags} -fdata-sections -ffunction-sections -g -c -MMD -nostartfiles -nodefaultlibs -nostdlib -fno-strict-aliasing -fno-strict-overflow -fno-delete-null-pointer-checks -fno-tree-loop-distribute-patterns -flax-vector-conversions -fstack-usage -Wundef -Wpointer-arith -Wno-write-strings -Wno-maybe-uninitialized -Wall -Wextra -fno-builtin -save-temps=obj -mthumb -march=armv8.1-m.main -mcmse
+
+compiler.cpp.cmd=arm-none-eabi-g++
+
+compiler.ar.cmd=arm-none-eabi-ar
+compiler.ar.flags=rcs
+compiler.strip.cmd=arm-none-eabi-strip
+compiler.nm.cmd=arm-none-eabi-nm
+compiler.objcopy.cmd=arm-none-eabi-objcopy
+#compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
+#compiler.elf2hex.flags=-O binary
+#compiler.elf2hex.cmd=arm-none-eabi-objcopy
+#compiler.ldflags=
+compiler.libraries.ldflags=
+#compiler.size.cmd=arm-none-eabi-size
+#compiler.define=-DARDUINO=
+
+# this can be overriden in boards.txt
+build.extra_flags=
+
+# These can be overridden in platform.local.txt
+compiler.c.extra_flags=
+### -save-temps
+## AmebaD
+#compiler.c.elf.extra_flags= -Wl,--cref -Wl,--build-id=none -Wl,-wrap,strcat -Wl,-wrap,strchr -Wl,-wrap,strcmp -Wl,-wrap,strncmp -Wl,-wrap,strcpy -Wl,-wrap,strncpy -Wl,-wrap,strlen -Wl,-wrap,strnlen -Wl,-wrap,strncat -Wl,-wrap,strpbrk -Wl,-wrap,strstr -Wl,-wrap,strtok -Wl,-wrap,strsep -Wl,-wrap,strtoll -Wl,-wrap,strtoul -Wl,-wrap,strtoull -Wl,-wrap,atoi -Wl,-wrap,malloc -Wl,-wrap,free -Wl,-wrap,realloc -Wl,-wrap,memcmp -Wl,-wrap,memcpy -Wl,-wrap,memmove -Wl,-wrap,memset -Wl,--no-enum-size-warning -Wl,--warn-common
+## AmebaGreen2
+compiler.c.elf.extra_flags=-Wl,--cref -Wl,--build-id=none -Wl,--warn-common -Wl,-wrap,memchr -Wl,-wrap,memcmp -Wl,-wrap,memcpy -Wl,-wrap,memmove -Wl,-wrap,memset -Wl,-wrap,rand -Wl,-wrap,strcmp -Wl,-wrap,stricmp -Wl,-wrap,strlen -Wl,-wrap,strtoul -Wl,-wrap,strupr -Wl,-wrap,strcpy -Wl,-wrap,strncpy -Wl,-wrap,strtol -Wl,-wrap,calloc -Wl,-wrap,free -Wl,-wrap,malloc -Wl,-wrap,realloc -Wl,-wrap,_calloc_r -Wl,-wrap,_free_r -Wl,-wrap,_malloc_r -Wl,-wrap,_realloc_r -Wl,-wrap,printf -Wl,-wrap,fopen -Wl,-wrap,fclose -Wl,-wrap,fread -Wl,-wrap,fwrite -Wl,-wrap,fseek -Wl,-wrap,fsetpos -Wl,-wrap,fgetpos -Wl,-wrap,rewind -Wl,-wrap,fflush -Wl,-wrap,remove -Wl,-wrap,rename -Wl,-wrap,feof -Wl,-wrap,ferror -Wl,-wrap,ftell -Wl,-wrap,ftruncate -Wl,-wrap,fputc -Wl,-wrap,fputs -Wl,-wrap,fgets -Wl,-wrap,stat -Wl,-wrap,mkdir -Wl,-wrap,scandir -Wl,-wrap,readdir -Wl,-wrap,opendir -Wl,-wrap,access -Wl,-wrap,rmdir -Wl,-wrap,closedir -Wl,--no-enum-size-warning
+
+compiler.cpp.extra_flags=
+compiler.ar.extra_flags=
+compiler.elf2hex.extra_flags=
+
+# Ameba include path
+# ------------------
+###"-I{ameba.sdkpath}/component/common/network/ssl/polarssl-1.3.8/include"
+## AmebaD c include
+#compiler.ameba.c.include= "-I." "-I{build.system.path}/{ameba.project}/inc" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/include" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/GCC/ARM_CM23" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/GCC/ARM_CM23_NTZ" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/GCC/ARM_CM33" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/GCC/ARM_CM33_NTZ" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/IAR/ARM_CM23" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/IAR/ARM_CM23_NTZ" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/IAR/ARM_CM33" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/IAR/ARM_CM33_NTZ" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/secure/context" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/secure/heap" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/secure/init" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/secure/macros" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}_KM0" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}_KM4/non_secure" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}_KM4/secure" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}plus_KM0" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}plus_KM4/non_secure" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}plus_KM4/secure" "-I{build.system.path}/component/soc/{build.project}/app/hal/config" "-I{build.system.path}/component/soc/{build.project}/app/hal/interfaces/hardware/audio" "-I{build.system.path}/component/soc/{build.project}/app/hal/src/audio" "-I{build.system.path}/component/soc/{build.project}/app/hal/src/audio/include" "-I{build.system.path}/component/soc/{build.project}/app/monitor/include" "-I{build.system.path}/component/soc/{build.project}/app/touch_key" "-I{build.system.path}/component/soc/{build.project}/cmsis-dsp/include" "-I{build.system.path}/component/soc/{build.project}/fwlib/include" "-I{build.system.path}/component/soc/{build.project}/fwlib/include/cmsis" "-I{build.system.path}/component/soc/{build.project}/fwlib/include/rom" "-I{build.system.path}/component/soc/{build.project}/fwlib/include/cmsis/source" "-I{build.system.path}/component/soc/{build.project}/fwlib/usb_otg/host/inc" "-I{build.system.path}/component/soc/{build.project}/hal/include" "-I{build.system.path}/component/soc/{build.project}/hal/src" "-I{build.system.path}/component/soc/{build.project}/lib/chipinfo" "-I{build.system.path}/component/soc/{build.project}/loader/imgtool_floader/include" "-I{build.system.path}/component/soc/{build.project}/misc" "-I{build.system.path}/component/soc/{build.project}/rom/download/xmodem" "-I{build.system.path}/component/soc/{build.project}/swlib" "-I{build.system.path}/component/soc/common/mbed/hal" "-I{build.system.path}/component/soc/common/cmsis-dsp/Include" "-I{build.system.path}/component/soc/common/cmsis-dsp/PrivateInclude" "-I{build.system.path}/component/soc/common/cmsis-dsp/Source/DistanceFunctions" "-I{build.system.path}/component/soc/common/crashdump/include" "-I{build.system.path}/component/soc/common/diagnose" "-I{build.system.path}/component/soc/common/flash_download/imgtool_floader" "-I{build.system.path}/component/soc/common/flash_download/rt_xmodem" "-I{build.system.path}/component/soc/common/flash_download/usb_download" "-I{build.system.path}/component/soc/common/flash_download/xmodem_test" "-I{build.system.path}/component/soc/common/flash_wrapper/inc" "-I{build.system.path}/component/soc/common/imgtool_floader/inc" "-I{build.system.path}/component/soc/common/include" "-I{build.system.path}/component/soc/common/include/cmsis" "-I{build.system.path}/component/soc/common/include/cmsis/source" "-I{build.system.path}/component/soc/common/lzma" "-I{build.system.path}/component/soc/usrcfg/{build.project}/include" "-I{build.system.path}/component/soc/usrcfg/common" "-I{build.system.path}/component/os/freertos/freertos_posix/FreeRTOS-Plus-POSIX/include" "-I{build.system.path}/component/os/freertos/freertos_posix/FreeRTOS-Plus-POSIX/include/portable/realtek" "-I{build.system.path}/component/os/freertos/freertos_posix/FreeRTOS-Plus-POSIX/source" "-I{build.system.path}/component/os/freertos/freertos_posix/include/FreeRTOS_POSIX" "-I{build.system.path}/component/os/freertos/freertos_posix/include/FreeRTOS_POSIX/sys" "-I{build.system.path}/component/os/freertos/heap_trace" "-I{build.system.path}/component/os/freertos/os_wrapper/include" "-I{build.system.path}/component/os/os_wrapper/include"
+## AmebaGreen2 c include
+compiler.ameba.c.include= "-I." "-I{build.system.path}/{ameba.project}/inc" "-I{build.system.path}/component/ssl/mbedtls_ram_map/rom" "-I{build.system.path}/component/ssl/mbedtls-3.6.2/hw_alt" "-I{build.system.path}/component/ssl/mbedtls-3.6.2/hw_alt_legacy" "-I{build.system.path}/component/ssl/mbedtls-3.6.2/include/mbedtls" "-I{build.system.path}/component/ssl/mbedtls-3.6.2/include/psa" "-I{build.system.path}/component/ssl/mbedtls-3.6.2/library" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/include" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/GCC/ARM_CM23" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/GCC/ARM_CM23_NTZ" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/GCC/ARM_CM33" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/GCC/ARM_CM33_NTZ" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/IAR/ARM_CM23" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/IAR/ARM_CM23_NTZ" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/IAR/ARM_CM33" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/non_secure/portable/IAR/ARM_CM33_NTZ" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/secure/context" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/secure/heap" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/secure/init" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/ARMv8M/secure/macros" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}_KM0" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}_KM4/non_secure" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}_KM4/secure" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}plus_KM0" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}plus_KM4/non_secure" "-I{build.system.path}/component/os/freertos/freertos_v10.4.3/Source/portable/GCC/{build.project}plus_KM4/secure" "-I{build.system.path}/component/soc/{build.project}/app/hal/interfaces/hardware/rpc" "-I{build.system.path}/component/soc/{build.project}/fwlib/include" "-I{build.system.path}/component/soc/{build.project}/fwlib/include/rom" "-I{build.system.path}/component/soc/{build.project}/fwlib/jpeg_decoder/common" "-I{build.system.path}/component/soc/{build.project}/fwlib/jpeg_decoder/dwl" "-I{build.system.path}/component/soc/{build.project}/fwlib/jpeg_decoder/inc" "-I{build.system.path}/component/soc/{build.project}/fwlib/jpeg_decoder/jpeg" "-I{build.system.path}/component/soc/{build.project}/fwlib/jpeg_decoder/pp" "-I{build.system.path}/component/soc/{build.project}/hal/include" "-I{build.system.path}/component/soc/{build.project}/hal/src" "-I{build.system.path}/component/soc/{build.project}/loader/bootloader" "-I{build.system.path}/component/soc/{build.project}/loader/bootloader/hci/core" "-I{build.system.path}/component/soc/{build.project}/loader/bootloader/hci/sdio" "-I{build.system.path}/component/soc/{build.project}/loader/bootloader/hci/usb" "-I{build.system.path}/component/soc/{build.project}/rom/download/usb" "-I{build.system.path}/component/soc/{build.project}/rom/download/xmodem" "-I{build.system.path}/component/soc/{build.project}/rom/include" "-I{build.system.path}/component/soc/{build.project}/swlib/libnosys" "-I{build.system.path}/component/soc/common/mbed/hal" "-I{build.system.path}/component/soc/common/cmsis-dsp/Include" "-I{build.system.path}/component/soc/common/cmsis-dsp/PrivateInclude" "-I{build.system.path}/component/soc/common/cmsis-dsp/Source/DistanceFunctions" "-I{build.system.path}/component/soc/common/crashdump/include" "-I{build.system.path}/component/soc/common/diagnose" "-I{build.system.path}/component/soc/common/flash_download/imgtool_floader" "-I{build.system.path}/component/soc/common/flash_download/rt_xmodem" "-I{build.system.path}/component/soc/common/flash_download/usb_download" "-I{build.system.path}/component/soc/common/flash_download/xmodem_test" "-I{build.system.path}/component/soc/common/flash_wrapper/inc" "-I{build.system.path}/component/soc/common/imgtool_floader/inc" "-I{build.system.path}/component/soc/common/include" "-I{build.system.path}/component/soc/common/include/cmsis" "-I{build.system.path}/component/soc/common/include/cmsis/source" "-I{build.system.path}/component/soc/common/lzma" "-I{build.system.path}/component/soc/usrcfg/{build.project}/include" "-I{build.system.path}/component/soc/usrcfg/common" "-I{build.system.path}/component/os/freertos/freertos_rom/{build.project}/freertos_v10.4.3/os_cfg" "-I{build.system.path}/component/os/freertos/freertos_rom/{build.project}/freertos_v10.4.3/Source/include" "-I{build.system.path}/component/os/freertos/freertos_posix/FreeRTOS-Plus-POSIX/include" "-I{build.system.path}/component/os/freertos/freertos_posix/FreeRTOS-Plus-POSIX/include/portable/realtek" "-I{build.system.path}/component/os/freertos/freertos_posix/FreeRTOS-Plus-POSIX/source" "-I{build.system.path}/component/os/freertos/freertos_posix/include/FreeRTOS_POSIX" "-I{build.system.path}/component/os/freertos/freertos_posix/include/FreeRTOS_POSIX/sys" "-I{build.system.path}/component/os/freertos/heap_trace" "-I{build.system.path}/component/os/freertos/os_wrapper/include" "-I{build.system.path}/component/os/os_wrapper/include"
+
+compiler.arduino.c.include="-I{build.core.path}"
+
+## AmebaD c flags
+#compiler.ameba.c.flags= -DARDUINO_SDK -DCONFIG_PLATFORM_8721D -DCONFIG_USE_MBEDTLS_ROM_ALG -DCONFIG_FUNCION_O0_OPTIMIZE -DDM_ODM_SUPPORT_TYPE=32 {compiler.arduino.c.include}
+## AmebaGreen2 c flags
+#compiler.ameba.c.flags= -DARDUINO_SDK -DCONFIG_PLATFORM_8721F -DCONFIG_USE_MBEDTLS_ROM_ALG -DCONFIG_FUNCION_O0_OPTIMIZE -DDM_ODM_SUPPORT_TYPE=32 {compiler.arduino.c.include}
+compiler.ameba.c.flags={compiler.arduino.c.include}
+
+# Ameba archive list
+# -------------------
+###compiler.ameba.ar.list= "{build.variant.path}/lib_cmsis_dsp.a" "{build.variant.path}/lib_coap.a" "{build.variant.path}/lib_dct.a" "{build.variant.path}/lib_eap.a" "{build.variant.path}/lib_httpc.a" "{build.variant.path}/lib_httpd.a" "{build.variant.path}/lib_m4a_self.a" "{build.variant.path}/lib_mdns.a" "{build.variant.path}/lib_tftp.a" "{build.variant.path}/lib_usbd.a" "{build.variant.path}/lib_usbh.a" "{build.variant.path}/lib_usbd_new.a" "{build.variant.path}/lib_user.a" "{build.variant.path}/lib_websocket.a" "{build.variant.path}/lib_wlan.a" "{build.variant.path}/lib_wps.a" "{build.variant.path}/lib_arduino_bt.a" "{build.variant.path}/btgap.a" "{build.variant.path}/lib_arduino.a" "{build.variant.path}/lib_arduino_mbedtls240.a" "{build.variant.path}/lib_pmc_hp.a" "{build.variant.path}/lib_pmc_lp.a"
+
+#"{runtime.platform.path}/variants/common_libs/lib_arduino_bt.a" 
+#compiler.ameba.ar.list= "{runtime.platform.path}/variants/common_libs/lib_cmsis_dsp.a" "{runtime.platform.path}/variants/common_libs/lib_coap.a" "{runtime.platform.path}/variants/common_libs/lib_dct.a" "{runtime.platform.path}/variants/common_libs/lib_eap.a" "{runtime.platform.path}/variants/common_libs/lib_httpc.a" "{runtime.platform.path}/variants/common_libs/lib_httpd.a" "{runtime.platform.path}/variants/common_libs/lib_m4a_self.a" "{runtime.platform.path}/variants/common_libs/lib_mdns.a" "{runtime.platform.path}/variants/common_libs/lib_tftp.a" "{runtime.platform.path}/variants/common_libs/lib_usbd.a" "{runtime.platform.path}/variants/common_libs/lib_usbh.a" "{runtime.platform.path}/variants/common_libs/lib_usbd_new.a" "{runtime.platform.path}/variants/common_libs/lib_user.a" "{runtime.platform.path}/variants/common_libs/lib_websocket.a" "{runtime.platform.path}/variants/common_libs/lib_wlan.a" "{runtime.platform.path}/variants/common_libs/lib_wps.a" "{runtime.platform.path}/variants/common_libs/btgap.a" "{runtime.platform.path}/variants/common_libs/lib_arduino.a" "{runtime.platform.path}/variants/common_libs/lib_arduino_mbedtls240.a" "{runtime.platform.path}/variants/common_libs/lib_pmc_hp.a" "{runtime.platform.path}/variants/common_libs/lib_pmc_lp.a"
+#compiler.ameba.ar.list="{ameba.sdkpath}/{ameba.project}/libs/lib_at_cmd.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_chipinfo.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_cJSON.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_cmsis_dsp.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_coap.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_crashdump.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_dhcp.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_diagnose.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_eap.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_fatfs.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_freertos.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_freertos_os_wrapper.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_freertos_posix.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_fwlib_common.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_fwlib_crypto.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_fwlib_hp.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_hal.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_httpc.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_httpd.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_httplite.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_ip6_rlocal.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_ipdnrd.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_iperf.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_iperf3.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_ipnat.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_kv.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_littlefs.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_lwip.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_mbedtls.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_misc.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_monitor.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_MQTTClient.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_MQTTPacket.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_pingtest.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_pmc.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_project_src.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_rpc_ringbuffer.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_rtk_assert.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_rtw_event.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_sntp.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_swlib.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_usb.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_usbd.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_usbh.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_usrcfg.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_vfs.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_websocket.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_api.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_com_sec.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_feature_disable.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_rtk_app.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_rtk_app_open.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_single_core.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wpa_lite.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wps.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_xml.a"
+#compiler.ameba.ar.list="@{ameba.sdkpath}/{ameba.project}/libs/list.rsp"
+#compiler.ameba.ar.list="@C:/Users/kevin_si/AppData/Local/Arduino15/packages/realtek_test/hardware/Ameba/1.0.0/system/amebagreen2_gcc_project/libs/list.rsp"
+#compiler.ameba.ar.list="C:/Users/kevin_si/AppData/Local/Arduino15/packages/realtek_test/hardware/Ameba/1.0.0/system/amebagreen2_gcc_project/libs/lib_arduino.a"
+compiler.ameba.ar.list="{ameba.sdkpath}/{ameba.project}/libs/lib_arduino.a"
+
+# USB Flags
+# ---------
+# Default blank usb manufacturer will be filled in at compile time
+# - from numeric vendor ID, set to Unknown otherwise
+build.usb_manufacturer="Unknown"
+build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} -DUSBCON '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
+
+# Ameba compile patterns
+# ---------------------
+## Compile c files
+## AmebaD
+#recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -mcpu={build.tarch} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} -Wl,--start-group {compiler.ameba.c.include} -Wl,--end-group {compiler.ameba.c.flags} {includes} "{source_file}" -o "{object_file}"
+## AmebaGreen2
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} -Wl,--start-group {compiler.ameba.c.include} -Wl,--end-group {compiler.ameba.c.flags} {includes} "{source_file}" -o "{object_file}"
+
+## Compile c++ files
+## AmebaD
+#recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -mcpu={build.tarch} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} -Wl,--start-group {compiler.ameba.c.include} -Wl,--end-group {compiler.ameba.c.flags} -std=c++11 -fno-use-cxa-atexit {includes} "{source_file}" -o "{object_file}"
+## AmebaGreen2
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} -Wl,--start-group {compiler.ameba.c.include} -Wl,--end-group {compiler.ameba.c.flags} -std=c++11 -fno-use-cxa-atexit {includes} "{source_file}" -o "{object_file}"
+
+## Create archives
+recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
+
+## Prelink
+recipe.hooks.linking.prelink.1.pattern="{compiler.path}{compiler.c.elf.cmd}" -E -P -x c "{ameba.sdkpath}/{ameba.project}/ld/{build.ldscript}.in" -o "{ameba.sdkpath}/{ameba.project}/ld/{build.ldscript}"
+
+## Delete exist folder
+postbuild.output.folder={build.path}\output
+recipe.hooks.linking.prelink.2.pattern=cmd /c if exist {postbuild.output.folder} rmdir /s /q {postbuild.output.folder}
+recipe.hooks.linking.prelink.2.pattern.windows=cmd /c if exist {postbuild.output.folder} rmdir /s /q {postbuild.output.folder}
+
+## Create output folder
+recipe.hooks.linking.prelink.3.pattern=cmd /c if not exist {postbuild.output.folder} mkdir {postbuild.output.folder}
+recipe.hooks.linking.prelink.3.pattern.windows=cmd /c if not exist {postbuild.output.folder} mkdir {postbuild.output.folder}
+
+## Combine gc-sections, archives, and objects
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" "-L{runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/lib/" "-L{ameba.sdkpath}/{ameba.project}/libs/" "-T{ameba.sdkpath}/{ameba.project}/ld/{build.ldscript}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -o "{postbuild.output.folder}/application.axf" -Wl,--start-group {object_files} {compiler.libraries.ldflags} -Wl,--end-group -Wl,--start-group -Wl,--whole-archive "{build.path}/{archive_file}" -Wl,--no-whole-archive {compiler.ameba.ar.list} -lm -lstdc++ -Wl,--end-group
+
+## Create nm map
+recipe.nm.pattern=cmd /c "{compiler.path}{compiler.nm.cmd}" "{postbuild.output.folder}\application.axf" > "{postbuild.output.folder}\application_temp.map"
+
+## Create strip
+recipe.strip.pattern="{compiler.path}{compiler.strip.cmd}" "{postbuild.output.folder}/application.axf"
+
+## Create image
+#recipe.objcopy.hex.cmd=postbuild_img2_arduino_windows.exe
+#recipe.objcopy.hex.cmd.windows=postbuild_img2_arduino_windows.exe
+#recipe.objcopy.hex.cmd.linux=postbuild_img2_arduino_linux
+#recipe.objcopy.hex.cmd.macosx=postbuild_img2_arduino_macos
+recipe.objcopy.hex.cmd=axf2bin_arduino_windows.exe
+recipe.objcopy.hex.cmd.windows=axf2bin_arduino_windows.exe
+
+recipe.objcopy.hex.imagepath={postbuild.output.folder}\application.axf
+recipe.objcopy.hex.imagepath.windows="{postbuild.output.folder}\application.axf"
+recipe.objcopy.hex.imagepath.linux="{postbuild.output.folder}/application.axf"
+recipe.objcopy.hex.imagepath.macosx="{postbuild.output.folder}/application.axf"
+
+#recipe.objcopy.hex.pattern="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" "{runtime.tools.ameba_tools.path}" "{recipe.objcopy.hex.imagepath}" "{compiler.path}" "{build.variant.path}/{build.sym_bklist}"
+
+# 01 Create map
+recipe.hooks.objcopy.preobjcopy.01.pattern={recipe.nm.pattern}
+# 02 Sort map
+recipe.hooks.objcopy.preobjcopy.02.pattern=sort /O "{postbuild.output.folder}\application.map" "{postbuild.output.folder}\application_temp.map"
+recipe.hooks.objcopy.preobjcopy.02.pattern.windows=sort /O "{postbuild.output.folder}\application.map" "{postbuild.output.folder}\application_temp.map"
+recipe.hooks.objcopy.preobjcopy.02.pattern.linux=sort "{postbuild.output.folder}/application_temp.map" | tee "{postbuild.output.folder}/application.map"
+# 03 Create strip axf
+recipe.hooks.objcopy.preobjcopy.03.pattern={recipe.strip.pattern}
+# 04 Extract xip
+postbuild.objcopy.xip.flags=-j .xip_image2.text -Obinary {recipe.objcopy.hex.imagepath}
+postbuild.objcopy.xip.output={postbuild.output.folder}\xip_image2.bin
+recipe.hooks.objcopy.preobjcopy.04.pattern="{compiler.path}{compiler.objcopy.cmd}" {postbuild.objcopy.xip.flags} {postbuild.objcopy.xip.output}
+# 05 Extract sram
+postbuild.objcopy.sram.flags=-j .sram_image2.text.data -j .ARM.extab -j .ARM.exidx -Obinary {recipe.objcopy.hex.imagepath}
+postbuild.objcopy.sram.output={postbuild.output.folder}\sram_2.bin
+recipe.hooks.objcopy.preobjcopy.05.pattern="{compiler.path}{compiler.objcopy.cmd}" {postbuild.objcopy.sram.flags} {postbuild.objcopy.sram.output}
+# 06 Extract psram
+postbuild.objcopy.psram.flags=-j .psram_image2.text.data -Obinary {recipe.objcopy.hex.imagepath}
+postbuild.objcopy.psram.output={postbuild.output.folder}\psram_2.bin
+recipe.hooks.objcopy.preobjcopy.06.pattern="{compiler.path}{compiler.objcopy.cmd}" {postbuild.objcopy.psram.flags} {postbuild.objcopy.psram.output}
+# 07 Create project folder
+recipe.hooks.objcopy.preobjcopy.07.pattern=cmd /c mkdir {postbuild.output.folder}\{ameba.project}
+recipe.hooks.objcopy.preobjcopy.07.pattern.windows=cmd /c mkdir {postbuild.output.folder}\{ameba.project}
+recipe.hooks.objcopy.preobjcopy.07.pattern.linux=mkdir {postbuild.output.folder}/{ameba.project}
+# 08 Copy ld
+recipe.hooks.objcopy.preobjcopy.08.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\ld\ameba_layout.ld "{postbuild.output.folder}\{ameba.project}"
+recipe.hooks.objcopy.preobjcopy.08.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\ld\ameba_layout.ld "{postbuild.output.folder}\{ameba.project}"
+recipe.hooks.objcopy.preobjcopy.08.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/ld\ameba_layout.ld "{postbuild.output.folder}/{ameba.project}"
+# 09 Copy manifest
+recipe.hooks.objcopy.preobjcopy.09.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\manifest.json5 "{postbuild.output.folder}"
+recipe.hooks.objcopy.preobjcopy.09.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\manifest.json5 "{postbuild.output.folder}"
+recipe.hooks.objcopy.preobjcopy.09.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/manifest.json5 "{postbuild.output.folder}"
+# 10 Copy info
+recipe.hooks.objcopy.preobjcopy.10.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\info.json "{postbuild.output.folder}"
+recipe.hooks.objcopy.preobjcopy.10.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\info.json "{postbuild.output.folder}"
+recipe.hooks.objcopy.preobjcopy.10.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/info.json "{postbuild.output.folder}"
+# 11 Add xip padding
+recipe.hooks.objcopy.preobjcopy.11.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" pad -i {postbuild.objcopy.xip.output} -l 32
+recipe.hooks.objcopy.preobjcopy.11.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" pad -i {postbuild.objcopy.xip.output} -l 32
+recipe.hooks.objcopy.preobjcopy.11.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}/" pad -i {postbuild.objcopy.xip.output} -l 32
+# 12 Add sram padding
+recipe.hooks.objcopy.preobjcopy.12.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" pad -i {postbuild.objcopy.sram.output} -l 32
+recipe.hooks.objcopy.preobjcopy.12.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" pad -i {postbuild.objcopy.sram.output} -l 32
+recipe.hooks.objcopy.preobjcopy.12.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}/" pad -i {postbuild.objcopy.sram.output} -l 32
+# 13 Add psram padding
+recipe.hooks.objcopy.preobjcopy.13.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" pad -i {postbuild.objcopy.psram.output} -l 32
+recipe.hooks.objcopy.preobjcopy.13.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" pad -i {postbuild.objcopy.psram.output} -l 32
+recipe.hooks.objcopy.preobjcopy.13.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}/" pad -i {postbuild.objcopy.psram.output} -l 32
+# 14 Add xip header
+postbuild.objcopy.xip.prepend={postbuild.output.folder}\xip_image2_prepend.bin
+recipe.hooks.objcopy.preobjcopy.14.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.xip.prepend} -i {postbuild.objcopy.xip.output} -s __flash_text_start__ -m "{postbuild.output.folder}\application.map"
+recipe.hooks.objcopy.preobjcopy.14.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.xip.prepend} -i {postbuild.objcopy.xip.output} -s __flash_text_start__ -m "{postbuild.output.folder}\application.map"
+recipe.hooks.objcopy.preobjcopy.14.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}" prepend_header -o {postbuild.objcopy.xip.prepend} -i {postbuild.objcopy.xip.output} -s __flash_text_start__ -m "{postbuild.output.folder}/application.map"
+# 15 Add sram header
+postbuild.objcopy.sram.prepend={postbuild.output.folder}\sram_2_prepend.bin
+recipe.hooks.objcopy.preobjcopy.15.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.sram.prepend} -i {postbuild.objcopy.sram.output} -s __sram_image2_start__ -m "{postbuild.output.folder}\application.map"
+recipe.hooks.objcopy.preobjcopy.15.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.sram.prepend} -i {postbuild.objcopy.sram.output} -s __sram_image2_start__ -m "{postbuild.output.folder}\application.map"
+recipe.hooks.objcopy.preobjcopy.15.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}" prepend_header -o {postbuild.objcopy.sram.prepend} -i {postbuild.objcopy.sram.output} -s __sram_image2_start__ -m "{postbuild.output.folder}/application.map"
+# 16 Add psram header
+postbuild.objcopy.psram.prepend={postbuild.output.folder}\psram_2_prepend.bin
+recipe.hooks.objcopy.preobjcopy.16.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.psram.prepend} -i {postbuild.objcopy.psram.output} -s __psram_image2_start__ -m "{postbuild.output.folder}\application.map"
+recipe.hooks.objcopy.preobjcopy.16.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.psram.prepend} -i {postbuild.objcopy.psram.output} -s __psram_image2_start__ -m "{postbuild.output.folder}\application.map"
+recipe.hooks.objcopy.preobjcopy.16.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}" prepend_header -o {postbuild.objcopy.psram.prepend} -i {postbuild.objcopy.psram.output} -s __psram_image2_start__ -m "{postbuild.output.folder}/application.map"
+# 17 Combine
+recipe.hooks.objcopy.preobjcopy.17.pattern=cmd /c copy /b {postbuild.objcopy.xip.prepend}+{postbuild.objcopy.sram.prepend}+{postbuild.objcopy.psram.prepend} {postbuild.output.folder}\km4tz_image2_all.bin
+# 18/19 Copy necessary binary
+recipe.hooks.objcopy.preobjcopy.18.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\img\boot.bin {postbuild.output.folder}\
+recipe.hooks.objcopy.preobjcopy.18.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\img\boot.bin {postbuild.output.folder}\
+recipe.hooks.objcopy.preobjcopy.18.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/img\boot.bin {postbuild.output.folder}/
+
+recipe.hooks.objcopy.preobjcopy.19.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\img\km4ns_image2_all.bin {postbuild.output.folder}\
+recipe.hooks.objcopy.preobjcopy.19.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\img\km4ns_image2_all.bin {postbuild.output.folder}\
+recipe.hooks.objcopy.preobjcopy.19.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/img\km4ns_image2_all.bin {postbuild.output.folder}/
+# Final packages
+recipe.objcopy.hex.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" fw_pack -o {postbuild.output.folder}\application.bin --image2 {postbuild.output.folder}\km4ns_image2_all.bin {postbuild.output.folder}\km4tz_image2_all.bin
+
+
+## Compute size
+recipe.size.pattern.windows="{runtime.tools.ameba_tools.path}/amebasize.exe" "{runtime.tools.ameba_tools.path}"
+recipe.size.pattern.linux="{runtime.tools.ameba_tools.path}/amebasize" "{runtime.tools.ameba_tools.path}"
+recipe.size.pattern.macosx="{runtime.tools.ameba_tools.path}/amebasize" "{runtime.tools.ameba_tools.path}"
+
+recipe.size.regex=^(?:bootloader_km0|bootloader_km4|image2)\s+([0-9]+).*
+
+# Ameba Uploader tools
+# -------------------
+tools.ameba_tools.upload.params.verbose=
+tools.ameba_tools.upload.params.quiet=
+
+##tools.ameba_tools.upload.pattern="{runtime.tools.ameba_tools.path}/upload_dap.sh" {upload.verbose}
+
+#tools.ameba_tools.upload.pattern.windows="{runtime.tools.ameba_tools.path}/upload_image_tool_windows.exe" "{runtime.tools.ameba_tools.path}" "{serial.port}" "{board}" "{upload.auto_mode}" "{upload.erase_flash}" {upload.speed} {upload.verbose}
+tools.ameba_tools.upload.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}/flash.exe" -d -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -i "{postbuild.output.folder}\application.bin" -a 0x8014000 {upload.erase_flash} -b {upload.speed} {upload.verbose}
+
+tools.ameba_tools.upload.pattern.linux="{runtime.tools.ameba_tools.path}/upload_image_tool_linux" "{runtime.tools.ameba_tools.path}" "{serial.port}" "{board}" "{upload.auto_mode}" "{upload.erase_flash}" {upload.speed} {upload.verbose}
+
+tools.ameba_tools.upload.pattern.macosx="{runtime.tools.ameba_tools.path}/upload_image_tool_macos" "{runtime.tools.ameba_tools.path}" "{serial.port}" "{board}" "{upload.auto_mode}" "{upload.erase_flash}" {upload.speed} {upload.verbose}
+
+##tools.ameba_tools.upload.network_pattern="{runtime.tools.ameba_tools.path}/upload_ota.exe" -i "{serial.port}" -p "{network.port}" -f "{runtime.tools.ameba_tools.path}\ota.bin"
+tools.ameba_tools.upload.network_pattern.windows="{runtime.tools.ameba_tools.path}/DownloadServer.exe" "8082" "{runtime.tools.ameba_tools.path}\misc\OTA_All.bin" "{serial.port}"
+tools.ameba_tools.upload.network_pattern.linux="{runtime.tools.ameba_tools.path}/DownloadServer.linux" "8082" "{runtime.tools.ameba_tools.path}/misc/OTA_All.bin" "{serial.port}"
+tools.ameba_tools.upload.network_pattern.macosx="{runtime.tools.ameba_tools.path}/DownloadServer.darwin" "8082" "{runtime.tools.ameba_tools.path}/misc/OTA_All.bin" "{serial.port}"
+
+# Debugger configuration (general options)
+# ----------------------------------------
+tools.gdb.path={runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/bin/
+tools.gdb.cmd=arm-none-eabi-gdb
+tools.gdb.cmd.windows=arm-none-eabi-gdb.exe
+tools.gdb.debug.pattern="{path}/{cmd}" --interpreter=mi2 -ex "set pagination off" --baud 115200 -ex "set target-charset ASCII" -ex "target remote {debug.port}" {postbuild.output.folder}/application.axf
+
+debug.executable={postbuild.output.folder}/application.axf
+debug.toolchain=gcc
+debug.toolchain.path={runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/bin/
+debug.toolchain.prefix=arm-none-eabi-
+
+# Options for JLink GDB server
+# ----------------------------------------
+debug.server=jlink
+debug.server.jlink.path.windows=C:/Program Files/SEGGER/JLink/JLinkGDBServerCL.exe
+#debug.server.jlink.device=CORTEX-M33
+#debug.server.jlink.interface=swd
+#debug.server.jlink.script={runtime.tools.ameba_tools.path}/tools/debug/RTL8722_Arduino_debug.JLinkScript

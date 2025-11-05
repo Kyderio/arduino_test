@@ -1,0 +1,9 @@
+#ifndef BT_CONTROLLER_HAL_LE_PKT_H
+#define BT_CONTROLLER_HAL_LE_PKT_H
+
+void bt_controller_hal_pdu_tx_le_adv_pkt(struct bt_controller_ll_le_adv_set *ple_adv_set);
+void bt_controller_hal_pdu_adv_rx_pkt(struct bt_controller_ll_le_adv_set *ple_adv_set);
+void bt_controller_hal_update_adv_rx_pkt_instant(struct bt_controller_ll_le_adv_set *ple_adv_set);
+void bt_controller_hal_pdu_tx_le_scan_rsp_pkt(struct bt_controller_ll_le_adv_set *ple_adv_set);
+
+#endif

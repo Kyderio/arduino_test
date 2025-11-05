@@ -1,0 +1,34 @@
+/*
+ * Copyright (c) 2022 Realtek, LLC.
+ * All rights reserved.
+ *
+ * Licensed under the Realtek License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License from Realtek
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef AMEBA_APPS_IOT_APP_UI_PAGES_LAUNCHER_SCROLLVIEW_HOME_MODEL_H
+#define AMEBA_APPS_IOT_APP_UI_PAGES_LAUNCHER_SCROLLVIEW_HOME_MODEL_H
+
+#include "lvgl.h"
+
+namespace Page
+{
+
+class HomeModel
+{
+public:
+	uint32_t tick_save;
+	uint32_t GetTime(char *buffer);
+	uint32_t GetDay(char *buffer);
+};
+
+}
+
+#endif // AMEBA_APPS_IOT_APP_UI_PAGES_LAUNCHER_SCROLLVIEW_HOME_MODEL_H

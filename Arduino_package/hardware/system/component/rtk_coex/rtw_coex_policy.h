@@ -1,0 +1,350 @@
+/******************************************************************************
+ *
+ * Copyright(c) 2016 - 2017 Realtek Corporation.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of version 2 of the GNU General Public License as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ *****************************************************************************/
+#ifndef RTW_COEX_POLICY_H
+#define RTW_COEX_POLICY_H
+
+enum rtk_coex_wl_state {
+	RTK_COEX_WL_STATE_UNDEF = 0,                                    /* 0 */
+	/* no need to set policy state*/
+	RTK_COEX_WL_INIT_RF_OFF,                                        /* 1 */
+	RTK_COEX_WL_INIT_WLONLY,                                        /* 2 */
+	RTK_COEX_WL_MP_MODE,                                            /* 3 */
+	RTK_COEX_WL_STOPDM,                                             /* 4 */
+	RTK_COEX_WL_STOPDM_SWGNT,                                       /* 5 */
+	/* wlan common*/
+	RTK_COEX_WL_COM_BEGIN,
+	RTK_COEX_WL_DUAL_ANT = RTK_COEX_WL_COM_BEGIN,                   /* 6 */
+	RTK_COEX_WL_SINGLE_ANT_WL5G_CONCURRENT,                         /* 7 */
+	RTK_COEX_WL_INIT,                                               /* 8 */
+	RTK_COEX_WL_ONLY,                                               /* 9 */
+	RTK_COEX_WL_RF_OFF,                                             /* 10 */
+	RTK_COEX_WL_IPS,                                                /* 11 */
+	RTK_COEX_WL_RFK,                                                /* 12 */
+	RTK_COEX_WL_IDLE,   // no connected                             /* 13 */
+	RTK_COEX_WL_COM_END = RTK_COEX_WL_IDLE,							/* !!! must equal to last state for current group*/
+	/* wlan station 2.4g*/
+	RTK_COEX_WL_STA_BEGIN,
+	RTK_COEX_WL_LINK = RTK_COEX_WL_STA_BEGIN,                       /* 14 */
+	RTK_COEX_WL_CONNECTED,                                          /* 15 */
+	RTK_COEX_WL_BUSY_TX,                                            /* 16 */
+	RTK_COEX_WL_BUSY_RX,                                            /* 17 */
+	RTK_COEX_WL_SCAN,                                               /* 18 */
+	RTK_COEX_WL_STA_END = RTK_COEX_WL_SCAN,							/* !!! must equal to last state for current group*/
+	/* wlan softap*/
+	RTK_COEX_WL_SOFTAP_BEGIN,
+	RTK_COEX_WL_SCC = RTK_COEX_WL_SOFTAP_BEGIN,     /* 2.4g, 5g */  /* 19 */
+	RTK_COEX_WL_MCC,                                /* 2.4g, 5g */  /* 20 */
+	RTK_COEX_WL_SOFTAP_END = RTK_COEX_WL_MCC,						/* !!! must equal to last state for current group*/
+
+	/* wlan p2p */
+	RTK_COEX_WL_P2P_BEGIN,
+	RTK_COEX_WL_P2P_END = RTK_COEX_WL_P2P_BEGIN,					/* !!! must equal to last state for current group*/
+
+	/* wlan nan */
+	RTK_COEX_WL_NAN_BEGIN,
+	RTK_COEX_WL_NAN_END = RTK_COEX_WL_NAN_BEGIN,					/* !!! must equal to last state for current group*/
+
+	/* end */
+	RTK_COEX_WL_MAX = 0xFF
+};
+
+enum rtk_coex_bt_state {
+	RTK_COEX_BT_STATE_UNDEF = 0,                                    /* 0 */
+	/* bt common */
+	RTK_COEX_BT_COM_BEGIN,
+	RTK_COEX_BT_OFF = RTK_COEX_BT_COM_BEGIN,                        /* 1 */
+	RTK_COEX_BT_RFK,                                                /* 2 */
+	RTK_COEX_BT_COM_END = RTK_COEX_BT_RFK,							/* !!! must equal to last state for current group*/
+	/* ble */
+	RTK_COEX_BT_BLE_BEGIN,
+	RTK_COEX_BT_BLE_IDLE = RTK_COEX_BT_BLE_BEGIN,                   /* 3 */
+	RTK_COEX_BT_BLE_CONNECTING,                                     /* 4 */
+	RTK_COEX_BT_BLE_CONNECTED_IDLE,                                 /* 5 */
+	RTK_COEX_BT_BLE_CONNECTED_BUSY,                                 /* 6 */
+	RTK_COEX_BT_BLE_SCAN_INIT_HIGHDUTY,                             /* 7 */
+	RTK_COEX_BT_BLE_SCAN_INIT_LOWDUTY,                              /* 8 */
+	RTK_COEX_BT_BLE_SCAN_HIGHDUTY,                                  /* 9 */
+	RTK_COEX_BT_BLE_SCAN_LOWDUTY,                                   /* 10 */
+	RTK_COEX_BT_BLE_MESH_BUSY_CO_RX,                                /* 11 */
+	RTK_COEX_BT_BLE_MESH_BUSY_SCAN_HIGHDUTY,                        /* 12 */
+	RTK_COEX_BT_BLE_MESH_BUSY_SCAN_LOWDUTY,                         /* 13 */
+	RTK_COEX_BT_BLE_SCAN_CONNECTED,									/* 14 */
+	RTK_COEX_BT_BLE_END = RTK_COEX_BT_BLE_SCAN_CONNECTED, 			/* !!! must equal to last state for current group*/
+	/* le audio*/
+#if (CONFIG_COEX_LE_AUDIO_SUPPORT == 1)
+	RTK_COEX_BT_LEAUDIO_BEGIN,
+	RTK_COEX_BT_LEAUDIO_HIGHDUTY = RTK_COEX_BT_LEAUDIO_BEGIN,    	/* 15 */
+	RTK_COEX_BT_LEAUDIO_MIDDUTY_CONNECTED,                         	/* 16 */
+	RTK_COEX_BT_LEAUDIO_MIDDUTY_BIS,                           		/* 17 */
+	RTK_COEX_BT_LEAUDIO_MIDDUTY,                          			/* 18 */
+	RTK_COEX_BT_LEAUDIO_LOWDUTY,                          			/* 19 */
+	RTK_COEX_BT_LEAUDIO_END = RTK_COEX_BT_LEAUDIO_LOWDUTY,			/* !!! must equal to last state for current group*/
+#endif
+	/* a2dp */
+#if (CONFIG_COEX_BR_EDR_SUPPORT == 1)
+	RTK_COEX_BT_A2DP_BEGIN,
+	RTK_COEX_BT_A2DP_INQPAGE = RTK_COEX_BT_A2DP_BEGIN,              /* 20 */
+	RTK_COEX_BT_A2DP_SNIFF,                                         /* 21 */
+	RTK_COEX_BT_A2DP_ACTIVE2SNIFF,                                  /* 22 */
+	RTK_COEX_BT_A2DP_SNK_QUALITY_LOW,                          		/* 23 */
+	RTK_COEX_BT_A2DP_SNK_QUALITY_MID,                          		/* 24 */
+	RTK_COEX_BT_A2DP_SNK_QUALITY_HIGH,                         		/* 25 */
+	RTK_COEX_BT_A2DP_SNK_INQPAGE,                           		/* 26 */
+	RTK_COEX_BT_A2DP_SRC_ACTIVE,                            		/* 27 */
+	RTK_COEX_BT_A2DP_SRC_INQPAGE,                         			/* 28 */
+	RTK_COEX_BT_A2DP_END = RTK_COEX_BT_A2DP_SRC_INQPAGE,			/* !!! must equal to last state for current group*/
+#endif
+	/* le audio | a2dp*/
+#if (CONFIG_COEX_BR_EDR_SUPPORT == 1) && (CONFIG_COEX_LE_AUDIO_SUPPORT == 1)
+	RTK_COEX_BT_LEA_A2DP_BEGIN,
+	RTK_COEX_BT_LEA_A2DP_SNK_OR_SRC = RTK_COEX_BT_LEA_A2DP_BEGIN, 	/* 29 */
+	RTK_COEX_BT_LEA_A2DP_SNK_OR_SRC_INQPAGE,                     	/* 30 */
+	RTK_COEX_BT_LEA_A2DP_END = RTK_COEX_BT_LEA_A2DP_SNK_OR_SRC_INQPAGE,		/* !!! must equal to last state for current group*/
+#endif
+	/* TODO */
+	RTK_COEX_BT_TODO,
+
+	/* end*/
+	RTK_COEX_BT_MAX = 0xFF
+};
+
+
+/* wlan common*/
+const u8 rtk_coex_wl_com_policy[] = {
+	/* RTK_COEX_WL_DUAL_ANT */                      IX(RTK_COEX_TDMA_OFF_EQ1),
+	/* RTK_COEX_WL_SINGLE_ANT_WL5G_CONCURRENT */    IX(RTK_COEX_TDMA_OFF_EQ1),
+	/* RTK_COEX_WL_INIT */                          IX(RTK_COEX_TDMA_OFF_BT),
+	/* RTK_COEX_WL_ONLY */                          IX(RTK_COEX_TDMA_OFF_WL),
+	/* RTK_COEX_WL_RF_OFF */                        IX(RTK_COEX_TDMA_OFF_BWB0),
+	/* RTK_COEX_WL_IPS */                           IX(RTK_COEX_TDMA_OFF_BWB0),
+	/* RTK_COEX_WL_RFK */                           IX(RTK_COEX_TDMA_OFF_WL),
+	/* RTK_COEX_WL_IDLE */                          IX(RTK_COEX_TDMA_OFF_BT),
+};
+
+/* bt common */
+const u8 rtk_coex_bt_com_policy[] = {
+	/* RTK_COEX_BT_OFF */                           IX(RTK_COEX_TDMA_OFF_WL),
+	/* RTK_COEX_BT_RFK */                           IX(RTK_COEX_TDMA_OFF_BT),
+};
+
+/* ble */
+// row: wl_status; col: bt_status
+const u8 rtk_coex_ble_wl_policy[][RTK_COEX_BT_BLE_END - RTK_COEX_BT_BLE_BEGIN + 1] = {
+	/* RTK_COEX_BT_BLE_IDLE,              RTK_COEX_BT_BLE_CONNECTING,
+	   RTK_COEX_BT_BLE_CONNECTED_IDLE,    RTK_COEX_BT_BLE_CONNECTED_BUSY, RTK_COEX_BT_BLE_SCAN_INIT_HIGHDUTY,
+	   RTK_COEX_BT_BLE_SCAN_INIT_LOWDUTY, RTK_COEX_BT_BLE_SCAN_HIGHDUTY,  RTK_COEX_BT_BLE_SCAN_LOWDUTY,
+	   RTK_COEX_BT_BLE_MESH_BUSY_CO_RX, RTK_COEX_BT_BLE_MESH_BUSY_SCAN_HIGHDUTY, RTK_COEX_BT_BLE_MESH_BUSY_SCAN_LOWDUTY,
+	   RTK_COEX_BT_BLE_SCAN_CONNECTED */
+	/* wlan station*/
+	/* RTK_COEX_WL_LINK */       {
+		IX(RTK_COEX_TDMA_OFF_BWB2),    IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),    IX(RTK_COEX_TDMA_OFF_BWB2),                 IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD5050_BWB0),
+		IX(RTK_COEX_TDMA_OFF_BWB2),    IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD5050_BWB0),  IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD5050_BWB0),
+		IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD5050_BWB0),    IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD5050_BWB0),  IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD5050_BWB0),
+		IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD5050_BWB1)
+	},
+	/* RTK_COEX_WL_CONNECTED */     {
+		IX(RTK_COEX_TDMA_OFF_BWB6),   IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2), IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2), IX(RTK_COEX_TDMA_OFF_BT),
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB3),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2), IX(RTK_COEX_TDMA_OFF_BT),
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB3)
+	},
+	/* RTK_COEX_WL_BUSY_TX */       {
+		IX(RTK_COEX_TDMA_OFF_BWB6),   IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB2), IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5842_BWB0),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB2), IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5842_BWB0),
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB3),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2), IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2),
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB3)
+	},
+	/* RTK_COEX_WL_BUSY_RX */       {
+		IX(RTK_COEX_TDMA_OFF_BWB6),   IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB2), IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5842_BWB0),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB2), IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5842_BWB0),
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB3),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2), IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2),
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB3)
+	},
+	/* RTK_COEX_WL_SCAN */          {
+		IX(RTK_COEX_TDMA_OFF_WL),     IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_TDMA_OFF_BWB2),              IX(RTK_COEX_TDMA_DRVC_SCAN_2SLOT),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_TDMA_DRVC_SCAN_2SLOT),   IX(RTK_COEX_TDMA_DRVC_SCAN_2SLOT),
+		IX(RTK_COEX_TDMA_OFF_BWB6),   IX(RTK_COEX_TDMA_DRVC_SCAN_2SLOT), IX(RTK_COEX_TDMA_DRVC_SCAN_2SLOT),
+		IX(RTK_COEX_TDMA_DRVC_SCAN_2SLOT)
+	},
+	/* wlan softap */
+	/* RTK_COEX_WL_SCC */           {
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3218_BWB0),                  IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3218_BWB0),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3218_BWB0),   IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3218_BWB0),
+		IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3218_BWB0),   IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3218_BWB0),   IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3218_BWB0),
+		IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3218_BWB1)
+	},
+	/* RTK_COEX_WL_MCC */           {
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_TDMA_OFF_BWB2),             IX(RTK_COEX_TDMA_OFF_BWB6),
+		IX(RTK_COEX_TDMA_OFF_BWB6),   IX(RTK_COEX_TDMA_OFF_BWB6),             IX(RTK_COEX_TDMA_OFF_BWB6),
+		IX(RTK_COEX_TDMA_OFF_BWB6),   IX(RTK_COEX_TDMA_OFF_BWB6),             IX(RTK_COEX_TDMA_OFF_BWB6),
+		IX(RTK_COEX_TDMA_OFF_BWB6)
+	},
+	/* wlan p2p */
+	/* wlan nan */
+};
+
+#if (CONFIG_COEX_LE_AUDIO_SUPPORT == 1)
+/* le audio*/
+// row: wl_status; col: bt_status
+const u8 rtk_coex_leaudio_wl_policy[][RTK_COEX_BT_LEAUDIO_END - RTK_COEX_BT_LEAUDIO_BEGIN + 1] = {
+	/*  RTK_COEX_BT_LEAUDIO_HIGHDUTY,
+		RTK_COEX_BT_LEAUDIO_MIDDUTY_CONNECTED, RTK_COEX_BT_LEAUDIO_MIDDUTY_BIS, RTK_COEX_BT_LEAUDIO_MIDDUTY,
+		RTK_COEX_BT_LEAUDIO_LOWDUTY */
+	/* wlan station*/
+	/* RTK_COEX_WL_LINK */          {
+		IX(RTK_COEX_TDMA_OFF_BWB1),
+		IX(RTK_COEX_TDMA_OFF_BWB1),   IX(RTK_COEX_TDMA_OFF_BWB1),  IX(RTK_COEX_TDMA_OFF_BWB1),
+		IX(RTK_COEX_TDMA_OFF_BWB1)
+	},
+	/* RTK_COEX_WL_CONNECTED */     {
+		IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_TDMA_OFF_BWB2),  IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2)
+	},
+	/* RTK_COEX_WL_BUSY_TX */       {
+		IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_BT_TDMA_NULL_BWB3),    IX(RTK_COEX_BT_TDMA_NULL_BWB2),    IX(RTK_COEX_BT_TDMA_NULL_BWB0),
+		IX(RTK_COEX_TDMA_OFF_BWB2)
+	},
+	/* RTK_COEX_WL_BUSY_RX */       {
+		IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_BT_TDMA_NULL_BWB3),    IX(RTK_COEX_BT_TDMA_NULL_BWB2),    IX(RTK_COEX_BT_TDMA_NULL_BWB0),
+		IX(RTK_COEX_TDMA_OFF_BWB2)
+	},
+	/* RTK_COEX_WL_SCAN */          {
+		IX(RTK_COEX_TDMA_DRVC_SCAN_1SLOT_210MS),
+		IX(RTK_COEX_TDMA_DRVC_SCAN_1SLOT_210MS),   IX(RTK_COEX_TDMA_DRVC_SCAN_1SLOT_210MS),  IX(RTK_COEX_TDMA_DRVC_SCAN_1SLOT_210MS),
+		IX(RTK_COEX_TDMA_DRVC_SCAN_1SLOT_210MS)
+	},
+	/* wlan softap */
+	/* RTK_COEX_WL_SCC */           {
+		IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_TDMA_OFF_BWB2),  IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2)
+	},
+	/* RTK_COEX_WL_MCC */           {
+		IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),   IX(RTK_COEX_TDMA_OFF_BWB2),  IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2)
+	},
+
+	/* wlan p2p */
+	/* wlan nan */
+};
+#endif
+
+#if (CONFIG_COEX_BR_EDR_SUPPORT == 1)
+/* a2dp */
+// row: wl_status; col: bt_status
+const u8 rtk_coex_a2dp_wl_policy[][RTK_COEX_BT_A2DP_END - RTK_COEX_BT_A2DP_BEGIN + 1] = {
+	/*  RTK_COEX_BT_A2DP_INQPAGE,
+	    RTK_COEX_BT_A2DP_SNIFF, RTK_COEX_BT_A2DP_ACTIVE2SNIFF,
+	    RTK_COEX_BT_A2DP_SNK_QUALITY_LOW,  RTK_COEX_BT_A2DP_SNK_QUALITY_MID, RTK_COEX_BT_A2DP_SNK_QUALITY_HIGH, RTK_COEX_BT_A2DP_SNK_INQPAGE,
+	    RTK_COEX_BT_A2DP_SRC_ACTIVE, RTK_COEX_BT_A2DP_SRC_INQPAGE, */
+	/* wlan station*/
+	/* RTK_COEX_WL_LINK */          {
+		IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),                    IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3268_BWB1),     IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3268_BWB1),      IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3268_BWB1), IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD3268_BWB1),
+		IX(RTK_COEX_WL_TDMA_AUTO_SLOT_TD3268_BWB1),    IX(RTK_COEX_WL_TDMA_AUTO_SLOT_TD3268_BWB1),
+	},
+	/* RTK_COEX_WL_CONNECTED */     {
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB1),                    IX(RTK_COEX_TDMA_OFF_BWB6),
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD1684_BWB1),  IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD1684_BWB1),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD1684_BWB1),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD1684_BWB1),
+		IX(RTK_COEX_WL_PS_TDMA_AUTO_SLOT_TD1684_BWB1), IX(RTK_COEX_WL_PS_TDMA_AUTO_SLOT_TD1684_BWB1),
+	},
+	/* RTK_COEX_WL_BUSY_TX */       {
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB1),                    IX(RTK_COEX_TDMA_OFF_BWB6),
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB1),  IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB1),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD1684_BWB1),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2),
+		IX(RTK_COEX_WL_PS_TDMA_AUTO_SLOT_TD3268_BWB1), IX(RTK_COEX_WL_PS_TDMA_AUTO_SLOT_TD3268_BWB2),
+	},
+	/* RTK_COEX_WL_BUSY_RX */       {
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB1),                    IX(RTK_COEX_TDMA_OFF_BWB6),
+		IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD5050_BWB1),  IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB1),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD1684_BWB1),   IX(RTK_COEX_WL_PS_TDMA_FIX_SLOT_TD3268_BWB2),
+		IX(RTK_COEX_WL_PS_TDMA_AUTO_SLOT_TD3268_BWB1), IX(RTK_COEX_WL_PS_TDMA_AUTO_SLOT_TD3268_BWB2),
+	},
+	/* RTK_COEX_WL_SCAN */          {
+		IX(RTK_COEX_TDMA_OFF_WL),
+		IX(RTK_COEX_TDMA_OFF_BWB2),              IX(RTK_COEX_TDMA_DRVC_SCAN_6SLOT),
+		IX(RTK_COEX_TDMA_DRVC_SCAN_6SLOT), IX(RTK_COEX_TDMA_DRVC_SCAN_6SLOT),  IX(RTK_COEX_TDMA_DRVC_SCAN_6SLOT),  IX(RTK_COEX_TDMA_DRVC_SCAN_6SLOT),
+		IX(RTK_COEX_TDMA_DRVC_SCAN_6SLOT), IX(RTK_COEX_TDMA_DRVC_SCAN_6SLOT),
+	},
+	/* wlan softap */
+	/* RTK_COEX_WL_SCC */           {
+		IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD2030_BWB0),
+		IX(RTK_COEX_TDMA_OFF_BWB2),                IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD1634_BWB0), IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD1634_BWB0),  IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD1634_BWB0),  IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD2030_BWB0),
+		IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD1634_BWB0), IX(RTK_COEX_WL_TDMA_FIX_SLOT_TD2030_BWB0),
+	},
+	/* RTK_COEX_WL_MCC */           {
+		IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),    IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),    IX(RTK_COEX_TDMA_OFF_BWB2), IX(RTK_COEX_TDMA_OFF_BWB2), IX(RTK_COEX_TDMA_OFF_BWB2),
+		IX(RTK_COEX_TDMA_OFF_BWB2),    IX(RTK_COEX_TDMA_OFF_BWB2),
+	},
+	/* wlan p2p */
+	/* wlan nan */
+};
+#endif
+#if (CONFIG_COEX_BR_EDR_SUPPORT == 1) && (CONFIG_COEX_LE_AUDIO_SUPPORT == 1)
+/* le audio | a2dp*/
+// row: wl_status; col: bt_status
+const u8 rtk_coex_lea_a2dp_wl_policy[][RTK_COEX_BT_LEA_A2DP_END - RTK_COEX_BT_LEA_A2DP_BEGIN + 1] = {
+	/* RTK_COEX_BT_LEA_A2DP_SNK_OR_SRC, RTK_COEX_BT_LEA_A2DP_SNK_OR_SRC_INQPAGE, */
+	/* wlan station*/
+	/* RTK_COEX_WL_LINK */          {
+		IX(RTK_COEX_TDMA_OFF_BWB6),  IX(RTK_COEX_TDMA_OFF_BWB6)
+	},
+	/* RTK_COEX_WL_CONNECTED */     {
+		IX(RTK_COEX_TDMA_OFF_BWB8),  IX(RTK_COEX_TDMA_OFF_BWB2)
+	},
+	/* RTK_COEX_WL_BUSY_TX */       {
+		IX(RTK_COEX_TDMA_OFF_BWB8),  IX(RTK_COEX_TDMA_OFF_BWB1)
+	},
+	/* RTK_COEX_WL_BUSY_RX */       {
+		IX(RTK_COEX_TDMA_OFF_BWB8),  IX(RTK_COEX_TDMA_OFF_BWB1)
+	},
+	/* RTK_COEX_WL_SCAN */          {
+		IX(RTK_COEX_TDMA_OFF_BT),  IX(RTK_COEX_TDMA_OFF_BT)
+	},
+	/* wlan softap */
+	/* RTK_COEX_WL_SCC */           {
+		IX(RTK_COEX_TDMA_OFF_BWB7),  IX(RTK_COEX_TDMA_OFF_BWB1)
+	},
+	/* RTK_COEX_WL_MCC */           {
+		IX(RTK_COEX_TDMA_OFF_BWB2),  IX(RTK_COEX_TDMA_OFF_BWB2)
+	},
+	/* wlan p2p */
+	/* wlan nan */
+};
+#endif
+
+/* customer table */
+const struct rtk_coex_custom_policy_t rtk_coex_customer_policy[] = {
+	{ RTK_COEX_CUSTOM_VID_CLINTWOOD, RTK_COEX_CUSTOM_PID_GAMEPAD, TBL_REPLACE_ALL, RTK_COEX_WL_STA_BEGIN, RTK_COEX_WL_STA_END, RTK_COEX_BT_BLE_BEGIN, RTK_COEX_BT_BLE_END, IX(RTK_COEX_TDMA_DRVC_VENDOR_2SLOT) },
+	{ RTK_COEX_CUSTOM_VID_CLINTWOOD, RTK_COEX_CUSTOM_PID_GAMEPAD, TBL_REPLACE_PART, RTK_COEX_WL_SINGLE_ANT_WL5G_CONCURRENT, RTK_COEX_WL_SINGLE_ANT_WL5G_CONCURRENT, RTK_COEX_BT_BLE_BEGIN, RTK_COEX_BT_BLE_END, IX(RTK_COEX_TDMA_DRVC_VENDOR_2SLOT) },
+};
+
+#endif

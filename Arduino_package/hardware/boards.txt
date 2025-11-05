@@ -1,0 +1,102 @@
+menu.AutoUploadMode=* Auto Flash Mode
+menu.EraseFlash=* Erase All Flash Memory (4MB)
+menu.StdLibInit=* Standard Lib
+menu.UploadBaudrate=* Upload Speed
+
+##############################################################
+# PLEASE DO NOT PUT BOARDS ABOVE THE OFFICIAL AMEBA BOARDS! ##
+##############################################################
+
+Ameba_AMB21.name=AMB21 (RTL8722DM)
+#Ameba_AMB21.vid.0=0x0403
+#Ameba_AMB21.pid.0=0x6001
+
+Ameba_AMB21.build.tarch=cortex-m33
+Ameba_AMB21.build.mcu=RTL8722DM
+Ameba_AMB21.build.f_cpu=200000000L
+Ameba_AMB21.build.usb_product="AMB21"
+Ameba_AMB21.build.board=AMEBA
+Ameba_AMB21.build.core=ameba
+Ameba_AMB21.build.project=amebad
+Ameba_AMB21.build.extra_flags=-mthumb -DCORE_RTL8722DM -DCORE_RTL8722CSM -DBOARD_AMB21_AMB22 {build.usb_flags} -DArduino_STD_PRINTF
+Ameba_AMB21.build.variant=rtl8722dm
+
+Ameba_AMB21.upload.tool=ameba_tools
+Ameba_AMB21.upload.protocol=usb_serial
+Ameba_AMB21.upload.maximum_size=2097152
+Ameba_AMB21.upload.use_1200bps_touch=false
+Ameba_AMB21.upload.wait_for_upload_port=false
+Ameba_AMB21.upload.native_usb=false
+Ameba_AMB21.upload.auto_mode=Disable
+Ameba_AMB21.upload.erase_flash=Disable
+Ameba_AMB21.upload.speed=1500000
+
+Ameba_AMB21.menu.EraseFlash.Disable=Disable
+Ameba_AMB21.menu.EraseFlash.Disable.upload.erase_flash=Disable
+Ameba_AMB21.menu.EraseFlash.Enable=Erase only
+Ameba_AMB21.menu.EraseFlash.Enable.upload.erase_flash=Enable
+
+#Ameba_AMB21.menu.AutoUploadMode.Disable=Disable
+#Ameba_AMB21.menu.AutoUploadMode.Disable.upload.auto_mode=Disable
+#Ameba_AMB21.menu.AutoUploadMode.Enable=Enable
+#Ameba_AMB21.menu.AutoUploadMode.Enable.upload.auto_mode=Enable
+
+Ameba_AMB21.menu.StdLibInit.Enable=Arduino_STD_PRINTF
+Ameba_AMB21.menu.StdLibInit.Enable.build.extra_flags=-mthumb -DCORE_RTL8722DM -DCORE_RTL8722CSM -DBOARD_AMB21_AMB22 {build.usb_flags} -DArduino_STD_PRINTF
+Ameba_AMB21.menu.StdLibInit.Enable.build.ldscript=ameba_img2.ld
+Ameba_AMB21.menu.StdLibInit.Disable=Disable
+Ameba_AMB21.menu.StdLibInit.Disable.build.extra_flags=-mthumb -DCORE_RTL8722DM -DCORE_RTL8722CSM -DBOARD_AMB21_AMB22 {build.usb_flags}
+Ameba_AMB21.menu.StdLibInit.Disable.build.ldscript=ameba_img2.ld
+
+Ameba_AMB21.menu.UploadBaudrate.1500000=1500000
+Ameba_AMB21.menu.UploadBaudrate.1500000.upload.speed=1500000
+Ameba_AMB21.menu.UploadBaudrate.921600=921600
+Ameba_AMB21.menu.UploadBaudrate.921600.upload.speed=921600
+
+
+
+Ameba_AMBGreen2.name=AMBGreen2 (RTL8721FCM)
+#Ameba_AMBGreen2.vid.0=0x0403
+#Ameba_AMBGreen2.pid.0=0x6001
+
+#Ameba_AMBGreen2.build.tarch=cortex-m55
+Ameba_AMBGreen2.build.mcu=RTL8721F
+Ameba_AMBGreen2.build.f_cpu=240000000L
+Ameba_AMBGreen2.build.usb_product="AMBGreen2"
+Ameba_AMBGreen2.build.board=AMEBA
+Ameba_AMBGreen2.build.core=ameba
+Ameba_AMBGreen2.build.project=amebagreen2
+Ameba_AMBGreen2.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
+Ameba_AMBGreen2.build.variant=rtl8721f
+
+Ameba_AMBGreen2.upload.tool=ameba_tools
+Ameba_AMBGreen2.upload.protocol=usb_serial
+Ameba_AMBGreen2.upload.maximum_size=2097152
+Ameba_AMBGreen2.upload.use_1200bps_touch=false
+Ameba_AMBGreen2.upload.wait_for_upload_port=false
+Ameba_AMBGreen2.upload.native_usb=false
+Ameba_AMBGreen2.upload.auto_mode=Disable
+Ameba_AMBGreen2.upload.erase_flash=
+Ameba_AMBGreen2.upload.speed=1500000
+
+Ameba_AMBGreen2.menu.EraseFlash.Disable=Disable
+Ameba_AMBGreen2.menu.EraseFlash.Disable.upload.erase_flash=
+Ameba_AMBGreen2.menu.EraseFlash.Enable=Erase only
+Ameba_AMBGreen2.menu.EraseFlash.Enable.upload.erase_flash=-e
+
+#Ameba_AMBGreen2.menu.AutoUploadMode.Disable=Disable
+#Ameba_AMBGreen2.menu.AutoUploadMode.Disable.upload.auto_mode=Disable
+#Ameba_AMBGreen2.menu.AutoUploadMode.Enable=Enable
+#Ameba_AMBGreen2.menu.AutoUploadMode.Enable.upload.auto_mode=Enable
+
+Ameba_AMBGreen2.menu.StdLibInit.Enable=Arduino_STD_PRINTF
+Ameba_AMBGreen2.menu.StdLibInit.Enable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
+Ameba_AMBGreen2.menu.StdLibInit.Enable.build.ldscript=ameba_img2.ld
+Ameba_AMBGreen2.menu.StdLibInit.Disable=Disable
+Ameba_AMBGreen2.menu.StdLibInit.Disable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags}
+Ameba_AMBGreen2.menu.StdLibInit.Disable.build.ldscript=ameba_img2.ld
+
+Ameba_AMBGreen2.menu.UploadBaudrate.1500000=1500000
+Ameba_AMBGreen2.menu.UploadBaudrate.1500000.upload.speed=1500000
+Ameba_AMBGreen2.menu.UploadBaudrate.921600=921600
+Ameba_AMBGreen2.menu.UploadBaudrate.921600.upload.speed=921600

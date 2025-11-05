@@ -1,0 +1,276 @@
+#ifndef _LCDC_TEST_H_
+#define _LCDC_TEST_H_
+
+/* BLEN pin select */
+#ifdef LCDC_VERIFY_FPGA
+#define LCD_BLEN_SRGB	_PA_31
+#define LCD_BLEN_RGB	_PA_31
+#define LCD_BLEN_MCU	_PB_2
+
+#else
+#define LCD_BLEN_SRGB	_PC_1
+#define LCD_BLEN_RGB	_PC_1
+#define LCD_BLEN_MCU	_PC_1
+#endif
+
+/* Color mask and postion */
+//8bit, 24bit
+#define RGB888_MASK_WHITE		0x00FFFFFF
+#define RGB888_RED_POS			(16U)
+#define RGB888_MASK_RED			0x00FF0000
+#define RGB888_GREEN_POS		(8U)
+#define RGB888_MASK_GREEN		0x0000FF00
+#define RGB888_BLUE_POS			(0U)
+#define RGB888_MASK_BLUE		0x000000FF
+
+//6bit 8bit 16bit share
+#define RGB565_MASK_WHITE		0xFFFF
+#define RGB565_RED_POS			(11U)
+#define RGB565_MASK_RED			0xF800
+#define RGB565_GREEN_POS		(5U)
+#define RGB565_MASK_GREEN		0x07E0
+#define RGB565_BLUE_POS			(0U)
+#define RGB565_MASK_BLUE		0x001F
+
+/* BGR888 */
+#define BGR888_MASK_WHITE		0x00FFFFFF
+#define BGR888_RED_POS			(0U)
+#define BGR888_MASK_RED			0x000000FF
+#define BGR888_GREEN_POS		(8U)
+#define BGR888_MASK_GREEN		0x0000FF00
+#define BGR888_BLUE_POS			(16U)
+#define BGR888_MASK_BLUE		0x00FF0000
+
+/* BGR565 */
+#define BGR565_MASK_WHITE		0xFFFF
+#define BGR565_RED_POS			(0U)
+#define BGR565_MASK_RED			0x001F
+#define BGR565_GREEN_POS		(5U)
+#define BGR565_MASK_GREEN		0x07E0
+#define BGR565_BLUE_POS			(11U)
+#define BGR565_MASK_BLUE		0xF800
+
+/* ARGB8888 */
+#define ARGB8888_MASK_WHITE      0xFFFFFFFF
+#define ARGB8888_ALPHA_POS       (24U)
+#define ARGB8888_MASK_ALPHA      0xFF000000
+
+#define ARGB8888_RED_POS         (16U)
+#define ARGB8888_MASK_RED        0x00FF0000
+
+#define ARGB8888_GREEN_POS       (8U)
+#define ARGB8888_MASK_GREEN      0x0000FF00
+
+#define ARGB8888_BLUE_POS        (0U)
+#define ARGB8888_MASK_BLUE       0x000000FF
+
+/* ARGB1555 */
+#define ARGB1555_MASK_WHITE      0xFFFF
+#define ARGB1555_ALPHA_POS       (15U)
+#define ARGB1555_MASK_ALPHA      0x8000
+
+#define ARGB1555_RED_POS         (10U)
+#define ARGB1555_MASK_RED        0x7C00
+
+#define ARGB1555_GREEN_POS       (5U)
+#define ARGB1555_MASK_GREEN      0x03E0
+
+#define ARGB1555_BLUE_POS        (0U)
+#define ARGB1555_MASK_BLUE       0x001F
+
+/* ARGB4444 */
+#define ARGB4444_MASK_WHITE      0xFFFF
+#define ARGB4444_ALPHA_POS       (12U)
+#define ARGB4444_MASK_ALPHA      0xF000
+
+#define ARGB4444_RED_POS         (8U)
+#define ARGB4444_MASK_RED        0x0F00
+
+#define ARGB4444_GREEN_POS       (4U)
+#define ARGB4444_MASK_GREEN      0x00F0
+
+#define ARGB4444_BLUE_POS        (0U)
+#define ARGB4444_MASK_BLUE       0x000F
+
+/* ABGR8888 */
+#define ABGR8888_MASK_WHITE      0xFFFFFFFF
+#define ABGR8888_ALPHA_POS       (24U)
+#define ABGR8888_MASK_ALPHA      0xFF000000
+
+#define ABGR8888_BLUE_POS        (16U)
+#define ABGR8888_MASK_BLUE       0x00FF0000
+
+#define ABGR8888_GREEN_POS       (8U)
+#define ABGR8888_MASK_GREEN      0x0000FF00
+
+#define ABGR8888_RED_POS         (0U)
+#define ABGR8888_MASK_RED        0x000000FF
+
+
+
+
+struct LCDC_BitModeMap {
+	u32 bitVal;
+	u32 bitMapReg;
+};
+
+struct LCDC_ColorFormatMap {
+	char str[20];
+	u32 ColorFmtReg;
+};
+
+// struct LCDC_OutColorMap {
+// 	char str[20];
+// 	u32 ColorFmtReg;
+// };
+
+struct LCDC_ColorMaskMap {
+	char colorStr[20];
+
+	u32 colorValRgb565;
+	u32 colorValRgb888;
+
+	u32 colorValBgr565;
+	u32 colorValBgr888;
+
+	u32 colorValArgb8888;
+	u32 colorValArgb1555;
+	u32 colorValArgb4444;
+
+	u32 colorValAbgr8888;
+};
+
+
+struct LCDC_FrameInfoDef {
+	u32 ImgW;
+	u32 ImgH;
+	u32 BitMode;
+	u32 PixFormat;
+};
+
+enum LCDC_FormatType {
+	FORMAT_TYPE_INPUT = 0,
+	FORMAT_TYPE_OUTPUT,
+};
+
+enum LCDC_IFType {
+	IF_TYPE_MCU = 0,
+	IF_TYPE_RGB,
+};
+
+struct LCDC_IRQInfoDef {
+	u32 IrqNum;
+	u32 IrqData;
+	u32 IrqPriority;
+};
+
+// enum LCDC_ShiftDir {
+// 	/* Left to right */
+// 	LCDC_SHIFT_DIR_L2R = 0,
+// 	LCDC_SHIFT_DIR_R2L,
+
+// 	/* Top to bottom */
+// 	LCDC_SHIFT_DIR_T2B,
+// 	LCDC_SHIFT_DIR_B2T,
+// };
+
+enum LCDC_RgbTestCase {
+	/* HV mode */
+	RGB_HV_SIGNAL_POL_TEST = 0,
+	RGB_HV_SYNC_PARAM_TEST,
+	// RGB_HV_COLOR_FORMAT_TEST,
+	RGB_HV_INTR_TEST,//3 TE intr new !
+	// RGB_HV_DMA_AUTO_TEST,
+	// RGB_HV_DMA_TRIGGER_TEST,
+	RGB_HV_BUS_TIMING_TEST,
+
+	/* DE mode */
+	RGB_DE_SIGNAL_POL_TEST,
+	RGB_DE_BUS_TIMING,
+
+	/* TE mode, DV cover */
+	RGB_TE_SIGNAL_TIMING_TEST,
+	RGB_TE_BUS_TIMING_TEST,
+	RGB_TE_INTR_TEST,
+
+	/* DMA Test */
+	RGB_DMA_PIXEL_FORMAT_CONVERT,
+	RGB_DMA_AUTO_TEST,
+	RGB_DMA_TRIGGER_TEST,
+	RGB_DMA_UNDERFLOW_TEST,
+	RGB_DMA_FRM_INTERVAL_THRESHOLD,
+	RGB_DMA_SHIFTING_TEST,
+
+};
+
+enum LCDC_McuTestCase {
+	/* IO Mode */
+	MCU_IO_SIGNAL_POL_TEST = 0,
+	MCU_IO_SIGNAL_PULWIDTH_TEST,
+	// MCU_IO_COLOR_FORMAT_TEST,
+	MCU_IO_TIMEOUT_TEST,
+	MCU_IO_BUS_TIMING_TEST,
+	MCU_IO_DISPLAY_TEST,
+
+	/* Vsync Mode */
+	MCU_VSYNC_SIGNAL_TIMING_TEST,
+	MCU_VSYNC_COLOR_FORMAT_TEST,
+	MCU_VSYNC_INTR_TEST,//TE intr new !
+	MCU_VSYNC_BUS_TIMING_TEST,
+	MCU_VSYNC_DISPLAY_TEST,
+
+	/* TE mode, DV cover */
+	MCU_TE_SIGNAL_TIMING_TEST,
+	MCU_TE_BUS_TIMING_TEST,
+	MCU_TE_INTR_TEST,
+	// MCU_TE_COLOR_FORMAT_TEST,
+	// MCU_TE_DMA_AUTO_TEST,
+	// MCU_TE_DMA_TRIGGER_TEST,//new !
+	MCU_TE_DISPLAY_TEST,
+
+
+	MCU_PRESET_CMD_TEST,
+
+	/* DMA Test */
+	MCU_DMA_SWAP_TEST,//Only MCU_DMA && RGB565
+	MCU_DMA_PIXEL_FORMAT_CONVERT,//new!
+	MCU_DMA_AUTO_TEST,
+	MCU_DMA_TRIGGER_TEST,
+	MCU_DMA_TRIGGER_BUS_TEST,
+	// MCU_DMA_UNDERFLOW_TEST,//gram
+};
+
+enum LCDC_McuSyncModeTest {
+	MCU_INTERNAL_CLK_MODE_TEST = 0,
+	MCU_VSYNC_MODE_TEST,
+	MCU_TE_SYNC_MODE_TEST,
+};
+
+enum LCDC_DmaModeTest {
+	DMA_AUTO_MODE_TEST = 0,
+	DMA_TRIGGER_MODE_TEST,
+};
+
+extern void LCDC_DumpRegister(void);
+extern u32 pix_srgb;//todo
+
+//todo
+#define RGB888_RED_MASK 	0x00FF0000
+#define RGB888_GREEN_MASK 	0x0000FF00
+#define RGB888_BLUE_MASK 	0x000000FF
+#define RGB888_MASK			0x00FFFFFF
+#define RGB666_MASK			0x003F3F3F
+#define RGB565_MASK			0x0000FFFF
+#define RGB555_MASK			0x00007FFF
+
+#define FRAME_BUF_BYTE_MASK	0xFF
+#define RGB888_WHITE		0x00FFFFFF
+
+
+
+
+
+
+
+
+#endif
