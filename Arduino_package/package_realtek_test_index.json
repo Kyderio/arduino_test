@@ -47,10 +47,10 @@
           "systems": [
             {
               "host":"i686-mingw32",
-              "archiveFileName":"ameba_toolchain_windows-1.0.1.tar.bz2",
-              "url":"https://github.com/Kyderio/Arduino_package/release/ameba_toolchain_windows-1.0.1.tar.bz2",
-              "checksum":"SHA-256:9dce3a702033ac78d76b2f88189e72c909b0b1c999d757cf9c82f0b3bfe4c125",
-              "size":"353044370"
+              "archiveFileName":"asdk-12.3.1-mingw32-newlib-build-4431-x86_64.zip",
+              "url":"https://github.com/Ameba-AIoT/ameba-toolchain/releases/download/12.3.1_v2/asdk-12.3.1-mingw32-newlib-build-4431-x86_64.zip",
+              "checksum":"SHA-256:f15c6cb6e88d0764499577a9e4f92735d57a41d761013db3c30647371ae7e1c7",
+              "size":"440481789"
             },
             {
               "host":"x86_64-pc-linux-gnu",
