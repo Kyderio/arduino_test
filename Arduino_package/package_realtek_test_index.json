@@ -20,8 +20,8 @@
           },
           "url": "https://github.com/Kyderio/arduino_test/raw/main/Arduino_package/release/realtektest-1.0.0.tar.gz",
           "archiveFileName": "realtektest-1.0.0.tar.gz",
-          "checksum": "SHA-256:abb7d5d0ea9b8444eb3b786a5aaa29eb1f96ae3367e4239cff56d3e2e9ac8935",
-          "size": "77996239",
+          "checksum": "SHA-256:232d9d0572eee18fabd1cf8c37a4be53686727113c79cd280b14df3c38316131",
+          "size": "77871363",
           "boards": [
 		        {"name": "AMBG2 (RTL8721F)"}
           ],
