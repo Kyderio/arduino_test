@@ -1,0 +1,71 @@
+/******************************************************************************
+ *
+ * Copyright(c) 2007 - 2021  Realtek Corporation.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of version 2 of the GNU General Public License as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * The full GNU General Public License is included in this distribution in the
+ * file called LICENSE.
+ *
+ * Contact Information:
+ * wlanfae <wlanfae@realtek.com>
+ * Realtek Corporation, No. 2, Innovation Road II, Hsinchu Science Park,
+ * Hsinchu 300, Taiwan.
+ *
+ * Larry Finger <Larry.Finger@lwfinger.net>
+ *
+ *****************************************************************************/
+
+#ifndef __HALRF_TXGAPK_8721F_H__
+#define __HALRF_TXGAPK_8721F_H__
+
+#ifdef RF_8721F_SUPPORT
+
+#define TXGAPK_VER_8721F 0x03
+
+/*--------------------------Define Parameters-------------------------------*/
+//#define TXGAPK_RF_PATH_MAX_8721F 1
+//#define TXGAPK_RF_REG_NUM_8721F 1
+//#define GAPK_REG_DBG_8721F 0
+
+#define GAPK_TRK_K_8721F 0
+#define GAPK_TRK_WTA_8721F 1
+#define GAPK_PWR_K_8721F 2
+#define GAPK_PWR_WTA_8721F 3
+#define GAPK_RPT_DBG_8721F 0
+#define GAPK_TRACK_EN_8721F 1
+#define GAPK_POWER_EN_8721F 1
+
+
+
+//#define TXGAPK_DEBUGMASK_8721F		0x100EE
+
+//#define TXGAP_TB_ADDR_8721F			0x10033
+
+//#define TXGAP_TB_VAL_8721F			0x1003F
+/*---------------------------End Define Parameters----------------------------*/
+
+
+void halrf_do_txgapk_8721f(void);
+
+#if 0
+void halrf_txgapk_enable_8721f
+(void);
+
+void halrf_txgapk_write_table_default_8721f
+(void);
+
+
+
+
+void halrf_txgapk_init_8721f(void);
+#endif
+#endif /* RF_8721F_SUPPORT */
+#endif /*#ifndef __HALRF_TXGAPK_8721F_H__*/

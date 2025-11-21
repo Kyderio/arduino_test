@@ -1,0 +1,117 @@
+/******************************************************************************
+ *
+ * Copyright(c) 2007 - 2017 Realtek Corporation.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of version 2 of the GNU General Public License as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * The full GNU General Public License is included in this distribution in the
+ * file called LICENSE.
+ *
+ * Contact Information:
+ * wlanfae <wlanfae@realtek.com>
+ * Realtek Corporation, No. 2, Innovation Road II, Hsinchu Science Park,
+ * Hsinchu 300, Taiwan.
+ *
+ * Larry Finger <Larry.Finger@lwfinger.net>
+ *
+ *****************************************************************************/
+
+#ifndef __INC_MP_BB_HW_IMG_8730E_BCN_MODE_H
+#define __INC_MP_BB_HW_IMG_8730E_BCN_MODE_H
+
+const u32 array_mp_8730e_Set_Ionly_reg[BCN_MODE_SET_IONLY_SIZE] = {
+	0x12AC, 0x00FFF000, 0xDDD,
+	0x4454, 0xffffffff, 0x3,
+	0x4978, 0x00000100, 0x1,
+	0x4738, 0x60000000, 0x2,
+};
+
+const u32 array_mp_8730e_Cancel_Ionly_reg[BCN_MODE_CANCEL_IONLY_SIZE] = {
+	0x12AC, 0x00FFF000, 0x333,
+	0x4454, 0x0000000c, 0x0,
+	0x4978, 0x00000F00, 0x0,
+	0x4738, 0x60000000, 0x1,
+};
+
+//AmebaSmart C cut,
+//close PD function,back to V56
+//4738 bit29 1//bit30 0
+const u32 array_mp_8730e_BCNmode_com_reg[BCN_MODE_COM_SIZE] = {
+	0x4694, 0xffffffff, 0x02fc2a2a,
+	0x469c, 0xffffffff, 0x79891428,
+	0x46b8, 0xF0000000, 0x3,
+	0x472c, 0x00038000, 0x0,
+	0x4730, 0x60000000, 0x2,
+	0x4f68, 0xffffffff, 0x80a4eff4,
+	0x4f6c, 0x00000080, 0x1,
+	0x4f6c, 0x00000400, 0x1,
+};
+
+const u32 array_mp_8730e_BCNmode_2G_reg[BCN_MODE_2G_SIZE] = {
+	0x4F38, 0x07FC0000, 0x57,
+	0x4F3C, 0x000001FF, 0x85,
+	0x4678, 0xFFFF0000, 0xA286,
+	0x467C, 0xFFFFFFFF, 0x2000E4B8,
+	0x4680, 0x0000FFFF, 0xE838,
+	0x4F4C, 0xFFFF0000, 0xFE04,
+	0x4F50, 0xFFFFFFFF, 0xC8C8C8C8,
+	0x4F54, 0xFFFFFFFF, 0xECF8C8C8,
+	0x4F58, 0xFFFFFFFF, 0xC8D0DBE5,
+	0x4F5C, 0x0000FFFF, 0xC8C8,
+};
+
+const u32 array_mp_8730e_BCNmode_5Gcom_reg[BCN_MODE_5G_COM_SIZE] = {
+	0x424c, 0x00000001, 0x0,
+};
+
+const u32 array_mp_8730e_BCNmode_5GL_reg[BCN_MODE_5GL_SIZE] = {
+	0x45dc, 0xffff0000, 0xBB9E,
+	0x4660, 0xffffffff, 0x2E11F3d8,
+	0x4664, 0x0000ffff, 0xE83C,
+	0x4F3C, 0x0001FE00, 0xFE,
+	0x4F3C, 0x01FE0000, 0xF8,
+	0x4F38, 0x0003FE00, 0x72,
+	0x4F38, 0x000001FF, 0x5A,
+	0x4F40, 0xFFFFFFFF, 0xC6C6C6C6,
+	0x4F44, 0xFFFFFFFF, 0xE4EEC6C6,
+	0x4F48, 0xFFFFFFFF, 0xC6D2D8Df,
+	0x4F4C, 0x0000FFFF, 0xC6C6,
+};
+
+
+const u32 array_mp_8730e_BCNmode_5GM_reg[BCN_MODE_5GM_SIZE] = {
+	0x45dc, 0xffff0000, 0xBB9E,
+	0x4660, 0xffffffff, 0x2C0FEFD8,
+	0x4664, 0x0000ffff, 0xE83D,
+	0x4F3C, 0x0001FE00, 0x00,
+	0x4F3C, 0x01FE0000, 0xF3,
+	0x4F38, 0x0003FE00, 0x74,
+	0x4F38, 0x000001FF, 0x56,
+	0x4F40, 0xFFFFFFFF, 0xC6C6C6C6,
+	0x4F44, 0xFFFFFFFF, 0xE4EBC6C6,
+	0x4F48, 0xFFFFFFFF, 0xC6CCD6DC,
+	0x4F4C, 0x0000FFFF, 0xC6C6,
+};
+
+const u32 array_mp_8730e_BCNmode_5GH_reg[BCN_MODE_5GH_SIZE] = {
+	0x45dc, 0xffff0000, 0xBE9E,
+	0x4660, 0xffffffff, 0x2C0FEFDD,
+	0x4664, 0x0000ffff, 0xE83A,
+	0x4F3C, 0x0001FE00, 0x00,
+	0x4F3C, 0x01FE0000, 0xF3,
+	0x4F38, 0x0003FE00, 0x6d,
+	0x4F38, 0x000001FF, 0x56,
+	0x4F40, 0xFFFFFFFF, 0xC6C6C6C6,
+	0x4F44, 0xFFFFFFFF, 0xE4EBC6C6,
+	0x4F48, 0xFFFFFFFF, 0xC6D0D6DC,
+	0x4F4C, 0x0000FFFF, 0xC6C6,
+};
+
+#endif /* end of HWIMG_SUPPORT*/

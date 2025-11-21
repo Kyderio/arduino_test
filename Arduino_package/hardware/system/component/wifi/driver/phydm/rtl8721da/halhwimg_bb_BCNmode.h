@@ -1,0 +1,115 @@
+/******************************************************************************
+ *
+ * Copyright(c) 2007 - 2017 Realtek Corporation.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of version 2 of the GNU General Public License as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * The full GNU General Public License is included in this distribution in the
+ * file called LICENSE.
+ *
+ * Contact Information:
+ * wlanfae <wlanfae@realtek.com>
+ * Realtek Corporation, No. 2, Innovation Road II, Hsinchu Science Park,
+ * Hsinchu 300, Taiwan.
+ *
+ * Larry Finger <Larry.Finger@lwfinger.net>
+ *
+ *****************************************************************************/
+
+/*Image2HeaderVersion: R3 1.5.10.1*/
+#if defined(CONFIG_AMEBADPLUS)
+#ifndef __INC_MP_BB_HW_IMG_BB_BCN_MODE_H
+#define __INC_MP_BB_HW_IMG_BB_BCN_MODE_H
+
+#define	RELEASE_DATE_8721DA_BCNmode		20241202
+#define	COMMIT_BY_8721DA_BCNmode		"oliver"
+#define	RELEASE_VERSION_8721DA_BCNmode	05
+
+const u32 array_mp_8721da_Set_Ionly_reg[BCN_MODE_SET_IONLY_SIZE] = {
+	0x0830, 0x08000000, 0x0,
+	0x093c, 0x000000FF, 0x5,
+	0x1800, 0x000FFF00, 0xddd,
+	0x0830, 0x08000000, 0x1,
+	0x1c68, 0x0000C000, 0x1,
+	0x093c, 0x0000FF00, 0x12,
+	0x2a34, 0x80000000, 0x1,
+	0x093c, 0x000000FF, 0x0,
+	0x1a40, 0x00001C00, 0x6,
+	0x1a40, 0x0000E000, 0x6,
+	0x1d0c, 0x00010000, 0x0,
+	0x1d0c, 0x00010000, 0x1,
+};
+
+const u32 array_mp_8721da_Cancel_Ionly_reg[BCN_MODE_CANCEL_IONLY_SIZE] = {
+	0x1800, 0x000FFF00, 0x333,
+	0x0830, 0x08000000, 0x0,
+	0x1c68, 0x0000C000, 0x0,
+	0x093c, 0x0000FFFF, 0x0,
+	0x2a34, 0x80000000, 0x0,
+	0x1a40, 0x00001C00, 0x4,
+	0x1a40, 0x0000E000, 0x4,
+	0x1d0c, 0x00010000, 0x0,
+	0x1d0c, 0x00010000, 0x1,
+};
+
+const u32 array_mp_8721da_BCNmode_2G_reg[BCN_MODE_2G_SIZE] = {
+	0x1a30, 0x0000001F, 0x5,
+	0x180c, 0x000E0000, 0x2,
+	0x1a64, 0x3FC00000, 0x1,
+	0x1944, 0x0FC00000, 0x6,
+	0x1a40, 0x00000001, 0x0,
+};
+
+const u32 array_mp_8721da_BCNmode_5Gcom_reg[BCN_MODE_5G_COM_SIZE] = {
+	0x190c, 0x40000000, 0x1,
+	0x190c, 0x08000000, 0x1,
+	0x190c, 0x01000000, 0x1,
+	0x190c, 0x00200000, 0x1,
+	0x1918, 0x00000002, 0x1,
+	0x1918, 0x00000010, 0x1,
+	0x1918, 0x00000080, 0x1,
+	0x1918, 0x00000400, 0x1,
+	0x180C, 0x000E0000, 0x0,
+	0x0810, 0x000000F8, 0xE,
+};
+
+const u32 array_mp_8721da_BCNmode_5GL_reg[BCN_MODE_5GL_SIZE] = {
+	0x1ea8, 0x00000080, 0x0,
+	0x18ac, 0x00000070, 0x7,
+	0x0F00, 0xFFFFFFFF, 0x02360337,
+	0x0F04, 0xFFFFFFFF, 0x042d0332,
+	0x0F08, 0xFFFFFFFF, 0x08220528,
+	0x0F0C, 0xFFFFFFFF, 0x0d17081e,
+	0x0F10, 0x000000FF, 0xFF,
+};
+
+const u32 array_mp_8721da_BCNmode_5GM_reg[BCN_MODE_5GM_SIZE] = {
+	0x1ea8, 0x00000080, 0x1,
+	0x18ac, 0x00000070, 0x0,
+	0x0F24, 0xFFFFFFFF, 0x02360337,
+	0x0F28, 0xFFFFFFFF, 0x022F0233,
+	0x0F2C, 0xFFFFFFFF, 0x0326012B,
+	0x0F30, 0xFFFFFFFF, 0x09190223,
+	0x0F34, 0x000000FF, 0xFF,
+};
+
+const u32 array_mp_8721da_BCNmode_5GH_reg[BCN_MODE_5GH_SIZE] = {
+	0x1ea8, 0x00000080, 0x1,
+	0x18ac, 0x00000070, 0x1,
+	0x0F48, 0xFFFFFFFF, 0x02360237,
+	0x0F4C, 0xFFFFFFFF, 0x022f0233,
+	0x0F50, 0xFFFFFFFF, 0x0226012b,
+	0x0F54, 0xFFFFFFFF, 0x07190222,
+	0x0F58, 0x000000FF, 0xFF,
+};
+
+#endif
+#endif /* end of HWIMG_SUPPORT*/
+
