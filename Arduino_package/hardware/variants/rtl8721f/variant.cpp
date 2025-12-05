@@ -16,7 +16,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/* AMB21/AMB22 (RTL8722DM/CSM) */
+/* AMBGreen2 (RTL8721FCM) */
 
 #include "variant.h"
 
@@ -32,40 +32,40 @@ void __libc_init_array(void);
  */
 PinDescription g_APinDescription[TOTAL_GPIO_PIN_NUM]=
 {
-    {PA_2,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                              | PIO_UART                    , MODE_NOT_INITIAL}, // AMB_D0
-    {PB_20, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                              | PIO_UART                    , MODE_NOT_INITIAL}, // AMB_D1
-/*    {PB_3,  TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ           | PIO_ADC                                        , MODE_NOT_INITIAL}, // AMB_D2
-    {PB_31, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                     | PIO_IR                               , MODE_NOT_INITIAL}, // AMB_D3
-    {PB_30, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                            , MODE_NOT_INITIAL}, // AMB_D4
-    {PB_28, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                            , MODE_NOT_INITIAL}, // AMB_D5
-    {PB_29, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                     | PIO_IR                               , MODE_NOT_INITIAL}, // AMB_D6
-    {NC,    NOT_INITIAL,                NOT_INITIAL                                                                        , MODE_NOT_INITIAL}, // AMB_D7
-    {PB_22, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM           | PIO_IR                               , MODE_NOT_INITIAL}, // AMB_D8
-    {PB_23, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM           | PIO_IR                               , MODE_NOT_INITIAL}, // AMB_D9
-    {PB_21, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM                    | PIO_UART           | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D10
-    {PB_18, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM                    | PIO_UART           | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D11
-    {PB_19, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM                    | PIO_UART           | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D12
-    {PB_20, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM                    | PIO_UART           | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D13
-    {PA_7,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                              | PIO_UART                    , MODE_NOT_INITIAL}, // AMB_D14
-    {PA_8,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                              | PIO_UART                    , MODE_NOT_INITIAL}, // AMB_D15
-    {PA_25, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM           | PIO_IR | PIO_UART | PIO_I2C          , MODE_NOT_INITIAL}, // AMB_D16
-    {PA_26, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM           | PIO_IR | PIO_UART | PIO_I2C          , MODE_NOT_INITIAL}, // AMB_D17
-    {PB_7,  TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM | PIO_ADC                               | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D18
-    {PB_6,  TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ           | PIO_ADC                     | PIO_I2C | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D19
-    {PB_5,  TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM | PIO_ADC                     | PIO_I2C | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D20
-    {PB_4,  TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM | PIO_ADC                               | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D21
-    {PA_28, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                            , MODE_NOT_INITIAL}, // AMB_D22
-    {PA_24, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM                    | PIO_UART | PIO_I2C          , MODE_NOT_INITIAL}, // AMB_D23
-    {PA_23, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ | PIO_PWM                    | PIO_UART | PIO_I2C          , MODE_NOT_INITIAL}, // AMB_D24
-    {PA_22, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                              | PIO_UART                    , MODE_NOT_INITIAL}, // AMB_D25
-    {PA_21, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                              | PIO_UART                    , MODE_NOT_INITIAL}, // AMB_D26
-    {PA_20, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                            , MODE_NOT_INITIAL}, // AMB_D27
-    {PA_19, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                            , MODE_NOT_INITIAL}  // AMB_D28
-*/
+    {PA_2,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ           | PIO_UART                    , MODE_NOT_INITIAL}, // AMB_D0
+    {PB_20, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ           | PIO_UART                    , MODE_NOT_INITIAL}, // AMB_D1
+    {PA_26, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                      | PIO_I2C          , MODE_NOT_INITIAL}, // AMB_D2
+    {PA_25, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                      | PIO_I2C          , MODE_NOT_INITIAL}, // AMB_D3
+    {PA_24, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D4
+    {PA_23, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D5
+    {PA_22, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D6
+    {PA_21, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D7
+    {PA_18, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                               , MODE_NOT_INITIAL}, // AMB_D8
+    {PA_19, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                               , MODE_NOT_INITIAL}, // AMB_D9
+    {PA_28, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D10
+    {PA_15, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                      | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D11
+    {PA_16, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D12
+    {PA_20, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                               , MODE_NOT_INITIAL}, // AMB_D13
+    {PA_14, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                      | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D14
+    {PA_17, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                      | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D15
+    {PA_5,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D16
+    {PB_26, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D17
+    {PA_4,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D18
+    {PB_25, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D19
+    {PA_27, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D20
+    {PB_24, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D21
+    {PB_23, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D22
+    {PB_22, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D23
+    {PB_14, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D24
+    {PB_17, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D25
+    {PB_21, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D26
+    {PA_3,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D27
+    {PB_19, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D28
+    {PB_15, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D29
+    {PB_16, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D30
+    {PB_18, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                         , MODE_NOT_INITIAL}, // AMB_D31
+    {PB_13, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                | PIO_SPI, MODE_NOT_INITIAL}, // AMB_D32
 };
-
-void *gpio_pin_struct[TOTAL_GPIO_PIN_NUM] = {NULL};
-void *gpio_irq_handler_list[TOTAL_GPIO_PIN_NUM] = {NULL};
 
 #ifdef __cplusplus
 } // extern C
