@@ -63,7 +63,7 @@ compiler.objcopy.cmd=arm-none-eabi-objcopy
 #compiler.elf2hex.cmd=arm-none-eabi-objcopy
 #compiler.ldflags=
 compiler.libraries.ldflags=
-#compiler.size.cmd=arm-none-eabi-size
+compiler.size.cmd=arm-none-eabi-size
 #compiler.define=-DARDUINO=
 
 # this can be overriden in boards.txt
@@ -102,11 +102,8 @@ compiler.ameba.c.flags={compiler.arduino.c.include}
 ###compiler.ameba.ar.list= "{build.variant.path}/lib_cmsis_dsp.a" "{build.variant.path}/lib_coap.a" "{build.variant.path}/lib_dct.a" "{build.variant.path}/lib_eap.a" "{build.variant.path}/lib_httpc.a" "{build.variant.path}/lib_httpd.a" "{build.variant.path}/lib_m4a_self.a" "{build.variant.path}/lib_mdns.a" "{build.variant.path}/lib_tftp.a" "{build.variant.path}/lib_usbd.a" "{build.variant.path}/lib_usbh.a" "{build.variant.path}/lib_usbd_new.a" "{build.variant.path}/lib_user.a" "{build.variant.path}/lib_websocket.a" "{build.variant.path}/lib_wlan.a" "{build.variant.path}/lib_wps.a" "{build.variant.path}/lib_arduino_bt.a" "{build.variant.path}/btgap.a" "{build.variant.path}/lib_arduino.a" "{build.variant.path}/lib_arduino_mbedtls240.a" "{build.variant.path}/lib_pmc_hp.a" "{build.variant.path}/lib_pmc_lp.a"
 
 #"{runtime.platform.path}/variants/common_libs/lib_arduino_bt.a" 
-#compiler.ameba.ar.list= "{runtime.platform.path}/variants/common_libs/lib_cmsis_dsp.a" "{runtime.platform.path}/variants/common_libs/lib_coap.a" "{runtime.platform.path}/variants/common_libs/lib_dct.a" "{runtime.platform.path}/variants/common_libs/lib_eap.a" "{runtime.platform.path}/variants/common_libs/lib_httpc.a" "{runtime.platform.path}/variants/common_libs/lib_httpd.a" "{runtime.platform.path}/variants/common_libs/lib_m4a_self.a" "{runtime.platform.path}/variants/common_libs/lib_mdns.a" "{runtime.platform.path}/variants/common_libs/lib_tftp.a" "{runtime.platform.path}/variants/common_libs/lib_usbd.a" "{runtime.platform.path}/variants/common_libs/lib_usbh.a" "{runtime.platform.path}/variants/common_libs/lib_usbd_new.a" "{runtime.platform.path}/variants/common_libs/lib_user.a" "{runtime.platform.path}/variants/common_libs/lib_websocket.a" "{runtime.platform.path}/variants/common_libs/lib_wlan.a" "{runtime.platform.path}/variants/common_libs/lib_wps.a" "{runtime.platform.path}/variants/common_libs/btgap.a" "{runtime.platform.path}/variants/common_libs/lib_arduino.a" "{runtime.platform.path}/variants/common_libs/lib_arduino_mbedtls240.a" "{runtime.platform.path}/variants/common_libs/lib_pmc_hp.a" "{runtime.platform.path}/variants/common_libs/lib_pmc_lp.a"
 #compiler.ameba.ar.list="{ameba.sdkpath}/{ameba.project}/libs/lib_at_cmd.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_chipinfo.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_cJSON.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_cmsis_dsp.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_coap.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_crashdump.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_dhcp.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_diagnose.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_eap.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_fatfs.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_freertos.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_freertos_os_wrapper.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_freertos_posix.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_fwlib_common.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_fwlib_crypto.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_fwlib_hp.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_hal.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_httpc.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_httpd.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_httplite.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_ip6_rlocal.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_ipdnrd.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_iperf.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_iperf3.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_ipnat.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_kv.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_littlefs.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_lwip.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_mbedtls.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_misc.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_monitor.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_MQTTClient.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_MQTTPacket.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_pingtest.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_pmc.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_project_src.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_rpc_ringbuffer.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_rtk_assert.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_rtw_event.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_sntp.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_swlib.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_usb.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_usbd.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_usbh.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_usrcfg.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_vfs.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_websocket.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_api.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_com_sec.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_feature_disable.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_rtk_app.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_rtk_app_open.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wifi_single_core.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wpa_lite.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_wps.a" "{ameba.sdkpath}/{ameba.project}/libs/lib_xml.a"
 #compiler.ameba.ar.list="@{ameba.sdkpath}/{ameba.project}/libs/list.rsp"
-#compiler.ameba.ar.list="@C:/Users/kevin_si/AppData/Local/Arduino15/packages/realtek_test/hardware/Ameba/1.0.0/system/amebagreen2_gcc_project/libs/list.rsp"
-#compiler.ameba.ar.list="C:/Users/kevin_si/AppData/Local/Arduino15/packages/realtek_test/hardware/Ameba/1.0.0/system/amebagreen2_gcc_project/libs/lib_arduino.a"
 compiler.ameba.ar.list="{ameba.sdkpath}/{ameba.project}/libs/lib_arduino.a"
 
 # USB Flags
@@ -172,8 +169,8 @@ recipe.objcopy.hex.imagepath.macosx="{postbuild.output.folder}/application.axf"
 # 01 Create map
 recipe.hooks.objcopy.preobjcopy.01.pattern={recipe.nm.pattern}
 # 02 Sort map
-recipe.hooks.objcopy.preobjcopy.02.pattern=sort /O "{postbuild.output.folder}\application.map" "{postbuild.output.folder}\application_temp.map"
-recipe.hooks.objcopy.preobjcopy.02.pattern.windows=sort /O "{postbuild.output.folder}\application.map" "{postbuild.output.folder}\application_temp.map"
+recipe.hooks.objcopy.preobjcopy.02.pattern=cmd /c sort "{postbuild.output.folder}\application_temp.map" > "{postbuild.output.folder}\application.map"
+recipe.hooks.objcopy.preobjcopy.02.pattern.windows=cmd /c sort "{postbuild.output.folder}\application_temp.map" > "{postbuild.output.folder}\application.map"
 recipe.hooks.objcopy.preobjcopy.02.pattern.linux=sort "{postbuild.output.folder}/application_temp.map" | tee "{postbuild.output.folder}/application.map"
 # 03 Create strip axf
 recipe.hooks.objcopy.preobjcopy.03.pattern={recipe.strip.pattern}
@@ -247,21 +244,17 @@ recipe.objcopy.hex.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objc
 
 
 ## Compute size
-recipe.size.pattern.windows="{runtime.tools.ameba_tools.path}/amebasize.exe" "{runtime.tools.ameba_tools.path}"
-recipe.size.pattern.linux="{runtime.tools.ameba_tools.path}/amebasize" "{runtime.tools.ameba_tools.path}"
-recipe.size.pattern.macosx="{runtime.tools.ameba_tools.path}/amebasize" "{runtime.tools.ameba_tools.path}"
-
-recipe.size.regex=^(?:bootloader_km0|bootloader_km4|image2)\s+([0-9]+).*
+recipe.size.pattern={compiler.path}{compiler.size.cmd} -A {recipe.objcopy.hex.imagepath}
+recipe.size.regex=^.*(?:\.text|\.data|\.ARM\.extab|\.ARM\.exidx)\s+([0-9]+).*
+recipe.size.regex.data=^.*(?:\.bss|\.data)\s+([0-9]+).*
 
 # Ameba Uploader tools
 # -------------------
 tools.ameba_tools.upload.params.verbose=
 tools.ameba_tools.upload.params.quiet=
 
-##tools.ameba_tools.upload.pattern="{runtime.tools.ameba_tools.path}/upload_dap.sh" {upload.verbose}
-
-#tools.ameba_tools.upload.pattern.windows="{runtime.tools.ameba_tools.path}/upload_image_tool_windows.exe" "{runtime.tools.ameba_tools.path}" "{serial.port}" "{board}" "{upload.auto_mode}" "{upload.erase_flash}" {upload.speed} {upload.verbose}
-tools.ameba_tools.upload.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}/flash.exe" -d -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -i "{postbuild.output.folder}\application.bin" -a 0x8014000 {upload.erase_flash} -b {upload.speed} {upload.verbose}
+tools.ameba_tools.upload.pattern=cmd /c "{runtime.tools.ameba_tools.path}/flash.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}/flash.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
+tools.ameba_tools.upload.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}/flash.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}/flash.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
 
 tools.ameba_tools.upload.pattern.linux="{runtime.tools.ameba_tools.path}/upload_image_tool_linux" "{runtime.tools.ameba_tools.path}" "{serial.port}" "{board}" "{upload.auto_mode}" "{upload.erase_flash}" {upload.speed} {upload.verbose}
 
