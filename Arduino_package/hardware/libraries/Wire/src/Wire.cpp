@@ -1,0 +1,295 @@
+/*
+ * Copyright (c) 2015 Arduino LLC. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+#include "Arduino.h"
+#include "Wire.h"
+
+using namespace arduino;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <string.h>
+#include "PinNames.h"
+#include "i2c_api.h"
+#include "i2c_slave.h"
+
+i2c_t i2cwire0;
+//i2c_t i2cwire1;
+
+#ifdef __cplusplus
+}
+#endif
+
+TwoWire::TwoWire (uint32_t pinSDA, uint32_t pinSCL) {
+    this->pinSDA = pinSDA;
+    this->pinSCL = pinSCL;
+    this->onReceiveCallback = NULL;
+    this->onRequestCallback = NULL;
+    this->is_slave = false;
+
+    this->rxBufferIndex = 0;
+    this->rxBufferLength = 0;
+    this->txAddress = 0;
+    this->txBufferLength = 0;
+    this->twiClock = this->TWI_CLOCK;
+}
+
+void TwoWire::begin() {
+    amb_ard_pin_check_fun(pinSDA, PIO_I2C);
+    amb_ard_pin_check_fun(pinSCL, PIO_I2C);
+
+    pinSDA = g_APinDescription[pinSDA].pinname;
+    pinSCL = g_APinDescription[pinSCL].pinname;
+
+    if ((pinSDA == PA_26)/* || (pinSDA == PB_0) || (pinSDA == PB_6)*/) {
+        if ((pinSCL == PA_25)/* || (pinSCL == PA_31) || (pinSCL == PB_5)*/) {
+            i2cwire0.i2c_idx = I2C_0;
+            this->pI2C = (void *)&i2cwire0;
+        } else {
+            printf("Invalid I2C pin, SDA and SCL not in same group. \r\n");
+        }
+    /*} else if (pinSDA == PA_24) {
+        if (pinSCL == PA_23) {
+            this->pI2C = (void *)&i2cwire1;
+        } else {
+            printf("Invalid I2C pin, SDA and SCL not in same group. \r\n");
+        }*/
+    } else {
+        printf("Invalid I2C pin\r\n");
+    }
+
+    i2c_init((i2c_t *)this->pI2C, (PinName)this->pinSDA, (PinName)this->pinSCL);
+    i2c_frequency(((i2c_t *)this->pI2C), this->twiClock);
+}
+
+void TwoWire::begin(uint8_t address = 0) {
+    amb_ard_pin_check_fun(pinSDA, PIO_I2C);
+    amb_ard_pin_check_fun(pinSCL, PIO_I2C);
+
+    pinSDA = g_APinDescription[pinSDA].pinname;
+    pinSCL = g_APinDescription[pinSCL].pinname;
+
+    if ((pinSDA == PA_26)/* || (pinSDA == PB_0) || (pinSDA == PB_6)*/) {
+        if ((pinSCL == PA_25)/* || (pinSCL == PA_31) || (pinSCL == PB_5)*/) {
+            i2cwire0.i2c_idx = I2C_0;
+            this->pI2C = (void *)&i2cwire0;
+        } else {
+            printf("Invalid I2C pin, SDA and SCL not in same group. \r\n");
+        }
+    /*} else if (pinSDA == PA_24) {
+        if (pinSCL == PA_23) {
+            this->pI2C = (void *)&i2cwire1;
+        } else {
+            printf("Invalid I2C pin, SDA and SCL not in same group. \r\n");
+        }*/
+    } else {
+        printf("Invalid I2C pin\r\n");
+    }
+
+    // Attach user callbacks 
+    i2c_slave_attach_callbacks(onRequestService, onReceiveService, this);
+
+    // Init I2C as slave and enable I2C interrupt
+    i2c_slave_init((i2c_t *)this->pI2C, (PinName)this->pinSDA, (PinName)this->pinSCL, address, this->twiClock, this->rxBuffer);
+
+    is_slave = true;
+}
+
+void TwoWire::begin(int address) {
+    begin((uint8_t)address);
+}
+
+void TwoWire::end() {
+    i2c_reset((i2c_t *)this->pI2C);
+}
+
+void TwoWire::setClock(uint32_t freq) {
+    twiClock = freq;
+    i2c_frequency((i2c_t *)this->pI2C, this->twiClock);
+}
+
+size_t TwoWire::requestFrom(uint8_t address, size_t len, bool stopBit) {
+    size_t read = 0;
+
+    if (len > BUFFER_LENGTH) {
+        len = BUFFER_LENGTH;
+    }
+
+    // perform blocking read into buffer
+    read = i2c_read((i2c_t *)this->pI2C, (int)address, (char*)&this->rxBuffer[0], (int)len, (int)stopBit);
+
+    // i2c_read error;
+    if (read != len) {
+        printf("requestFrom: read=%d, len=%d : ERROR\n", read, len);
+        return read;
+    }
+
+    // set rx buffer iterator vars
+    rxBufferIndex = 0;
+    rxBufferLength = read;
+
+    return read;
+}
+
+size_t TwoWire::requestFrom(uint8_t address, size_t len) {
+    return requestFrom(address, len, true);
+}
+
+size_t TwoWire::requestFrom(int address, size_t len) {
+    return requestFrom((uint8_t)address, len, true);
+}
+
+size_t TwoWire::requestFrom (int address, size_t len, bool stopBit) {
+    return requestFrom((uint8_t)address, len, stopBit);
+}
+
+void TwoWire::beginTransmission(uint8_t address) {
+    // save address of target and empty buffer
+    if (txAddress != address) {
+        txAddress = address;
+        // If target address changes, wait for 50us to avoid losing next data packet, tested ok down to 10us
+        delayMicroseconds(50);
+    }
+    txBufferLength = 0;
+}
+
+void TwoWire::beginTransmission(int address) {
+    beginTransmission(((uint8_t)address));
+}
+
+//  Originally, 'endTransmission' was an f(void) function.
+//  It has been modified to take one parameter indicating
+//  whether or not a STOP should be performed on the bus.
+//  Calling endTransmission(false) allows a sketch to
+//  perform a repeated start.
+//
+//  WARNING: Nothing in the library keeps track of whether
+//  the bus tenure has been properly ended with a STOP. It
+//  is very possible to leave the bus in a hung state if
+//  no call to endTransmission(true) is made. Some I2C
+//  devices will behave oddly if they do not see a STOP.
+uint8_t TwoWire::endTransmission(bool stopBit) {
+    int length;
+    uint8_t error = 0;
+
+    length = i2c_write((i2c_t *)this->pI2C, (int)this->txAddress, (const char*)&this->txBuffer[0], (int)this->txBufferLength, (int)stopBit);
+    if ((txBufferLength > 0) && (length <= 0)) {
+        error = 1;
+    }
+
+    txBufferLength = 0; // empty buffer
+    return error;
+}
+
+// This provides backwards compatibility with the original
+// definition, and expected behaviour, of endTransmission
+uint8_t TwoWire::endTransmission(void) {
+    return endTransmission(true);
+}
+
+size_t TwoWire::write(uint8_t data) {
+    if (txBufferLength >= BUFFER_LENGTH) {
+        return 0;
+    }
+    txBuffer[txBufferLength++] = data;
+    return 1;
+}
+
+size_t TwoWire::write(const uint8_t *data, size_t quantity) {
+    for (size_t i = 0; i < quantity; ++i) {
+        if (txBufferLength >= BUFFER_LENGTH) {
+            return i;
+        }
+        txBuffer[txBufferLength++] = data[i];
+    }
+    return quantity;
+}
+
+int TwoWire::available(void) {
+    return (rxBufferLength - rxBufferIndex);
+}
+
+int TwoWire::read(void) {
+    if (rxBufferIndex < rxBufferLength) {
+        return rxBuffer[rxBufferIndex++];
+    }
+    return -1;
+}
+
+int TwoWire::peek(void) {
+    if (rxBufferIndex < rxBufferLength) {
+        return rxBuffer[rxBufferIndex];
+    }
+    return -1;
+}
+
+void TwoWire::flush(void) {
+    // Do nothing, use endTransmission(..) to force
+    // data transfer.
+}
+
+size_t TwoWire::slaveWrite(int buffer) {
+    return slaveWrite((uint8_t *)&buffer, 1);
+}
+
+size_t TwoWire::slaveWrite(char *buffer) {
+    return slaveWrite((uint8_t *)buffer, (size_t)sizeof(buffer));
+}
+
+size_t TwoWire::slaveWrite(uint8_t *buffer, size_t len) {
+    return i2cSlaveWrite(buffer, len, RECV_TIMEOUT);
+}
+void TwoWire::onReceiveService(uint8_t *inBytes, size_t numBytes, /*bool stop, */void *arg) {
+    // stop = stop;
+
+    TwoWire *wire = (TwoWire*)arg;
+    if(!wire->onReceiveCallback){
+        return;
+    }
+    for (size_t i = 0; i < numBytes; ++i) {
+        wire->rxBuffer[i] = inBytes[i];
+    }
+    wire->rxBufferIndex = 0;
+    wire->rxBufferLength = numBytes;
+    wire->onReceiveCallback(numBytes);
+}
+
+void TwoWire::onRequestService(void * arg) {
+    TwoWire *wire = (TwoWire*)arg;
+    if(!wire->onRequestCallback){
+        return;
+    }
+    wire->txBufferLength = 0;
+    wire->onRequestCallback(); // user callback normally write data into txbuffer
+    if (wire->txBufferLength){
+        wire->slaveWrite((uint8_t*)wire->txBuffer, wire->txBufferLength);
+        //wire->slaveWrite((uint8_t*)txBuffer, txBufferLength);
+    }
+}
+
+void TwoWire::onReceive(void(*function)(int)) {
+    onReceiveCallback = function;
+}
+
+void TwoWire::onRequest(void(*function)(void)) {
+    onRequestCallback = function;
+}
+
+TwoWire Wire = TwoWire(I2C_SDA, I2C_SCL); // PA_26, PA_25
