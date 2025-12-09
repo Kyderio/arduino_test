@@ -18,10 +18,10 @@
           "help": {
             "online": "https://www.amebaiot.com/"
           },
-          "url": "https://github.com/Kyderio/arduino_test/raw/main/Arduino_package/release/realtektest-1.0.0.tar.gz",
+          "url": "https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/realtektest-1.0.0.tar.gz",
           "archiveFileName": "realtektest-1.0.0.tar.gz",
-          "checksum": "SHA-256:232d9d0572eee18fabd1cf8c37a4be53686727113c79cd280b14df3c38316131",
-          "size": "77871363",
+          "checksum": "SHA-256:4fc2dd9ae06198ecddfe47211f597abed18baa60d67369a951290ccb4fcf7523",
+          "size": "72421512",
           "boards": [
 		        {"name": "AMBG2 (RTL8721F)"}
           ],
@@ -55,14 +55,14 @@
             {
               "host":"x86_64-pc-linux-gnu",
               "archiveFileName":"ameba_toolchain_linux_64-1.0.1.tar.bz2",
-              "url":"https://github.com/Kyderio/arduino_test/raw/main/Arduino_package/release/ameba_toolchain_linux_64-1.0.1.tar.bz2",
+              "url":"https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_toolchain_linux_64-1.0.1.tar.bz2",
               "checksum":"SHA-256:340ab2af5100102f7a1f5ba89b3490a843fa2aed05276427f5cc6c6c01032cd7",
               "size":"87899387"
             },
             {
               "host":"x86_64-apple-darwin",
               "archiveFileName":"ameba_toolchain_macos-1.0.1.tar.bz2",
-              "url":"https://github.com/Kyderio/arduino_test/raw/main/Arduino_package/release/ameba_toolchain_macos-1.0.1.tar.bz2",
+              "url":"https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_toolchain_macos-1.0.1.tar.bz2",
               "checksum":"SHA-256:cc52c2c3650e21ef636bc10242432f75cd0f4884b1188f328982e77030d91787",
               "size":"91538901"
             }
@@ -75,21 +75,21 @@
             {
               "host": "i686-mingw32",
               "archiveFileName": "ameba_tools_windows-1.1.3.tar.gz",
-              "url": "https://github.com/Kyderio/arduino_test/raw/main/Arduino_package/release/ameba_tools_windows-1.1.3.tar.gz",
+              "url": "https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_tools_windows-1.1.3.tar.gz",
               "checksum": "SHA-256:87b2d1cbe68aafe3fdac002d82f73c2835790dd57fb4e59d8d87a583726d219c",
               "size": "25463641"
             },
             {  
               "host": "x86_64-pc-linux-gnu",
               "archiveFileName": "ameba_tools_linux-1.1.3.tar.gz",
-              "url": "https://github.com/Kyderio/arduino_test/raw/main/Arduino_package/release/ameba_tools_linux-1.1.3.tar.gz",
+              "url": "https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_tools_linux-1.1.3.tar.gz",
               "checksum": "SHA-256:f3cb543d63c59ba3d66f1181252cec407824d5cc196cf2fb1719aee4328c2c0e",
               "size": "2976097"
             },
             {  
               "host": "x86_64-apple-darwin",
               "archiveFileName": "ameba_tools_macos-1.1.3.tar.gz",
-              "url": "https://github.com/Kyderio/arduino_test/raw/main/Arduino_package/release/ameba_tools_macos-1.1.3.tar.gz",
+              "url": "https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_tools_macos-1.1.3.tar.gz",
               "checksum": "SHA-256:fec90f971a7f22b4e6ffbe770d25da4bd52cbd92cc8d473620d8b86ac1040713",
               "size": "1063699"
             }
