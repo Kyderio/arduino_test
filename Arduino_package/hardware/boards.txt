@@ -7,49 +7,99 @@ menu.UploadBaudrate=* Upload Speed
 # PLEASE DO NOT PUT BOARDS ABOVE THE OFFICIAL AMEBA BOARDS! ##
 ##############################################################
 
-Ameba_AMBGreen2.name=AMBGreen2 (RTL8721FCM)
-#Ameba_AMBGreen2.vid.0=0x0403
-#Ameba_AMBGreen2.pid.0=0x6001
+# EV721FC0 (RTL8721FCM) #
+EV721FC0.name=EV721FC0 (RTL8721FCM)
+#EV721FC0.vid.0=0x0403
+#EV721FC0.pid.0=0x6001
 
-#Ameba_AMBGreen2.build.tarch=cortex-m55
-Ameba_AMBGreen2.build.mcu=RTL8721F
-Ameba_AMBGreen2.build.f_cpu=240000000L
-Ameba_AMBGreen2.build.usb_product="AMBGreen2"
-Ameba_AMBGreen2.build.board=AMEBA
-Ameba_AMBGreen2.build.core=ameba
-Ameba_AMBGreen2.build.project=amebagreen2
-Ameba_AMBGreen2.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
-Ameba_AMBGreen2.build.variant=rtl8721f
+#EV721FC0.build.tarch=cortex-m55
+EV721FC0.build.mcu=RTL8721F
+EV721FC0.build.f_cpu=240000000L
+EV721FC0.build.usb_product="EV721FC0"
+EV721FC0.build.board=AMEBA
+EV721FC0.build.core=ameba
+EV721FC0.build.project=amebagreen2
+EV721FC0.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
+EV721FC0.build.variant=rtl8721fcm
 
-Ameba_AMBGreen2.upload.tool=ameba_tools
-Ameba_AMBGreen2.upload.protocol=usb_serial
-Ameba_AMBGreen2.upload.maximum_size=2015232
-Ameba_AMBGreen2.upload.maximum_data_size=303072
-Ameba_AMBGreen2.upload.use_1200bps_touch=false
-Ameba_AMBGreen2.upload.wait_for_upload_port=false
-Ameba_AMBGreen2.upload.native_usb=false
-Ameba_AMBGreen2.upload.auto_mode=Disable
-Ameba_AMBGreen2.upload.erase_flash=
-Ameba_AMBGreen2.upload.speed=1500000
+EV721FC0.upload.tool=ameba_tools
+EV721FC0.upload.protocol=usb_serial
+EV721FC0.upload.maximum_size=2015232
+EV721FC0.upload.maximum_data_size=303072
+EV721FC0.upload.use_1200bps_touch=false
+EV721FC0.upload.wait_for_upload_port=false
+EV721FC0.upload.native_usb=false
+EV721FC0.upload.auto_mode=Disable
+EV721FC0.upload.erase_flash=
+EV721FC0.upload.speed=1500000
 
-Ameba_AMBGreen2.menu.EraseFlash.Disable=Disable
-Ameba_AMBGreen2.menu.EraseFlash.Disable.upload.erase_flash=
-Ameba_AMBGreen2.menu.EraseFlash.Enable=Enable
-Ameba_AMBGreen2.menu.EraseFlash.Enable.upload.erase_flash=--chip-erase
+EV721FC0.menu.EraseFlash.Disable=Disable
+EV721FC0.menu.EraseFlash.Disable.upload.erase_flash=
+EV721FC0.menu.EraseFlash.Enable=Enable
+EV721FC0.menu.EraseFlash.Enable.upload.erase_flash=--chip-erase
 
-#Ameba_AMBGreen2.menu.AutoUploadMode.Disable=Disable
-#Ameba_AMBGreen2.menu.AutoUploadMode.Disable.upload.auto_mode=Disable
-#Ameba_AMBGreen2.menu.AutoUploadMode.Enable=Enable
-#Ameba_AMBGreen2.menu.AutoUploadMode.Enable.upload.auto_mode=Enable
+#EV721FC0.menu.AutoUploadMode.Disable=Disable
+#EV721FC0.menu.AutoUploadMode.Disable.upload.auto_mode=Disable
+#EV721FC0.menu.AutoUploadMode.Enable=Enable
+#EV721FC0.menu.AutoUploadMode.Enable.upload.auto_mode=Enable
 
-Ameba_AMBGreen2.menu.StdLibInit.Enable=Arduino_STD_PRINTF
-Ameba_AMBGreen2.menu.StdLibInit.Enable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
-Ameba_AMBGreen2.menu.StdLibInit.Enable.build.ldscript=ameba_img2.ld
-Ameba_AMBGreen2.menu.StdLibInit.Disable=Disable
-Ameba_AMBGreen2.menu.StdLibInit.Disable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags}
-Ameba_AMBGreen2.menu.StdLibInit.Disable.build.ldscript=ameba_img2.ld
+EV721FC0.menu.StdLibInit.Enable=Arduino_STD_PRINTF
+EV721FC0.menu.StdLibInit.Enable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
+EV721FC0.menu.StdLibInit.Enable.build.ldscript=ameba_img2.ld
+EV721FC0.menu.StdLibInit.Disable=Disable
+EV721FC0.menu.StdLibInit.Disable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags}
+EV721FC0.menu.StdLibInit.Disable.build.ldscript=ameba_img2.ld
 
-Ameba_AMBGreen2.menu.UploadBaudrate.1500000=1500000
-Ameba_AMBGreen2.menu.UploadBaudrate.1500000.upload.speed=1500000
-Ameba_AMBGreen2.menu.UploadBaudrate.921600=921600
-Ameba_AMBGreen2.menu.UploadBaudrate.921600.upload.speed=921600
+EV721FC0.menu.UploadBaudrate.1500000=1500000
+EV721FC0.menu.UploadBaudrate.1500000.upload.speed=1500000
+EV721FC0.menu.UploadBaudrate.921600=921600
+EV721FC0.menu.UploadBaudrate.921600.upload.speed=921600
+
+
+# EV721FL0 (RTL8721FLM) #
+EV721FL0.name=EV721FL0 (RTL8721FLM)
+#EV721FL0.vid.0=0x0403
+#EV721FL0.pid.0=0x6001
+
+#EV721FL0.build.tarch=cortex-m55
+EV721FL0.build.mcu=RTL8721F
+EV721FL0.build.f_cpu=240000000L
+EV721FL0.build.usb_product="EV721FL0"
+EV721FL0.build.board=AMEBA
+EV721FL0.build.core=ameba
+EV721FL0.build.project=amebagreen2
+EV721FL0.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
+EV721FL0.build.variant=rtl8721flm
+
+EV721FL0.upload.tool=ameba_tools
+EV721FL0.upload.protocol=usb_serial
+EV721FL0.upload.maximum_size=2015232
+EV721FL0.upload.maximum_data_size=303072
+EV721FL0.upload.use_1200bps_touch=false
+EV721FL0.upload.wait_for_upload_port=false
+EV721FL0.upload.native_usb=false
+EV721FL0.upload.auto_mode=Disable
+EV721FL0.upload.erase_flash=
+EV721FL0.upload.speed=1500000
+
+EV721FL0.menu.EraseFlash.Disable=Disable
+EV721FL0.menu.EraseFlash.Disable.upload.erase_flash=
+EV721FL0.menu.EraseFlash.Enable=Enable
+EV721FL0.menu.EraseFlash.Enable.upload.erase_flash=--chip-erase
+
+#EV721FL0.menu.AutoUploadMode.Disable=Disable
+#EV721FL0.menu.AutoUploadMode.Disable.upload.auto_mode=Disable
+#EV721FL0.menu.AutoUploadMode.Enable=Enable
+#EV721FL0.menu.AutoUploadMode.Enable.upload.auto_mode=Enable
+
+EV721FL0.menu.StdLibInit.Enable=Arduino_STD_PRINTF
+EV721FL0.menu.StdLibInit.Enable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
+EV721FL0.menu.StdLibInit.Enable.build.ldscript=ameba_img2.ld
+EV721FL0.menu.StdLibInit.Disable=Disable
+EV721FL0.menu.StdLibInit.Disable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags}
+EV721FL0.menu.StdLibInit.Disable.build.ldscript=ameba_img2.ld
+
+EV721FL0.menu.UploadBaudrate.1500000=1500000
+EV721FL0.menu.UploadBaudrate.1500000.upload.speed=1500000
+EV721FL0.menu.UploadBaudrate.921600=921600
+EV721FL0.menu.UploadBaudrate.921600.upload.speed=921600

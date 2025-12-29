@@ -16,7 +16,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/* AMBGreen2 (RTL8721FCM) */
+/* EV721FC0 (RTL8721FCM) */
 
 #ifndef _VARIANT_ARDUINO_AMEBA_
 #define _VARIANT_ARDUINO_AMEBA_
@@ -136,5 +136,11 @@ extern void wait_for_debug(void);
 /* SWD pin mapping */
 //#define SWD_DATA                                AMB_D9
 //#define SWD_CLK                                 AMB_D8
+
+/* CAN pin mapping */
+#define CAN_TX0                                 AMB_D2
+#define CAN_RX0                                 AMB_D3
+#define CAN_TX1                                 AMB_D25
+#define CAN_RX1                                 AMB_D31
 
 #endif /* _VARIANT_ARDUINO_AMEBA_ */

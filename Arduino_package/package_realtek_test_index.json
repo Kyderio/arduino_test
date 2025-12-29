@@ -23,7 +23,8 @@
           "checksum": "SHA-256:4fc2dd9ae06198ecddfe47211f597abed18baa60d67369a951290ccb4fcf7523",
           "size": "72421512",
           "boards": [
-		        {"name": "AMBG2 (RTL8721F)"}
+                {"name": "EV721FC0 (RTL8721FCM)"},
+                {"name": "EV721FL0 (RTL8721FLM)"}
           ],
           "toolsDependencies": [
             {
