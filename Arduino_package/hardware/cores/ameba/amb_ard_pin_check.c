@@ -89,6 +89,12 @@ void amb_ard_pin_check_fun(pin_size_t pin, uint32_t pin_fun) {
         case PIO_SPI:
             // strcpy(pin_fun_name, "PIO_SPI");
             break;
+        case PIO_CAN:
+            // strcpy(pin_fun_name, "PIO_CAN");
+            break;
+        case PIO_LCDC:
+            // strcpy(pin_fun_name, "PIO_LCDC");
+            break;
         default:
             while (1) {
                 printf("Error %s. Incorrect pin: %d \n\r", __FUNCTION__, pin);

@@ -57,6 +57,8 @@ extern uint32_t SystemCoreClock;
 #define PIO_IR                          (1UL<<7)
 #define PIO_UART                        (1UL<<8)
 #define PIO_SPI                         (1UL<<9)
+#define PIO_CAN                         (1UL<<10)
+#define PIO_LCDC                        (1UL<<11)
 
 //#define TYPE_ANALOG                     (1UL<<7)
 //#define TYPE_DIGITAL                    (1UL<<8)
