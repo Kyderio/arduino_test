@@ -159,8 +159,8 @@ recipe.strip.pattern="{compiler.path}{compiler.strip.cmd}" "{postbuild.output.fo
 #recipe.objcopy.hex.cmd.windows=postbuild_img2_arduino_windows.exe
 #recipe.objcopy.hex.cmd.linux=postbuild_img2_arduino_linux
 #recipe.objcopy.hex.cmd.macosx=postbuild_img2_arduino_macos
-recipe.objcopy.hex.cmd=axf2bin_arduino_windows.exe
-recipe.objcopy.hex.cmd.windows=axf2bin_arduino_windows.exe
+recipe.objcopy.hex.cmd=axf2bin_windows.exe
+recipe.objcopy.hex.cmd.windows=axf2bin_windows.exe
 
 recipe.objcopy.hex.imagepath={postbuild.output.folder}\application.axf
 recipe.objcopy.hex.imagepath.windows="{postbuild.output.folder}\application.axf"
@@ -256,8 +256,8 @@ recipe.size.regex.data=^.*(?:\.bss|\.data)\s+([0-9]+).*
 tools.ameba_tools.upload.params.verbose=
 tools.ameba_tools.upload.params.quiet=
 
-tools.ameba_tools.upload.pattern=cmd /c "{runtime.tools.ameba_tools.path}/flash.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}/flash.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
-tools.ameba_tools.upload.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}/flash.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}/flash.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
+tools.ameba_tools.upload.pattern=cmd /c "{runtime.tools.ameba_tools.path}/flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}/flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
+tools.ameba_tools.upload.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}/flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}/flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
 
 tools.ameba_tools.upload.pattern.linux="{runtime.tools.ameba_tools.path}/upload_image_tool_linux" "{runtime.tools.ameba_tools.path}" "{serial.port}" "{board}" "{upload.auto_mode}" "{upload.erase_flash}" {upload.speed} {upload.verbose}
 

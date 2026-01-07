@@ -74,11 +74,11 @@
           "version": "1.1.3",
           "systems": [
             {
-              "host": "i686-mingw32",
+              "host": "x86_64-mingw32",
               "archiveFileName": "ameba_tools_windows-1.1.3.tar.gz",
               "url": "https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_tools_windows-1.1.3.tar.gz",
-              "checksum": "SHA-256:87b2d1cbe68aafe3fdac002d82f73c2835790dd57fb4e59d8d87a583726d219c",
-              "size": "25463641"
+              "checksum": "SHA-256:DC4AB826E3476396CE314EB1955EEF12E6627B4437014DA6DA7C8701AFCCF00B",
+              "size": "20397057"
             },
             {  
               "host": "x86_64-pc-linux-gnu",
