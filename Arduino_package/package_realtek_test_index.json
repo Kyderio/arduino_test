@@ -55,10 +55,10 @@
             },
             {
               "host":"x86_64-pc-linux-gnu",
-              "archiveFileName":"ameba_toolchain_linux_64-1.0.1.tar.bz2",
-              "url":"https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_toolchain_linux_64-1.0.1.tar.bz2",
-              "checksum":"SHA-256:340ab2af5100102f7a1f5ba89b3490a843fa2aed05276427f5cc6c6c01032cd7",
-              "size":"87899387"
+              "archiveFileName":"asdk-12.3.1-linux-newlib-build-4568-x86_64.tar.bz2",
+              "url":"https://github.com/Ameba-AIoT/ameba-toolchain/releases/download/12.3.1_v3/asdk-12.3.1-linux-newlib-build-4568-x86_64.tar.bz2",
+              "checksum":"SHA-256:fc1e7c04ed3fb577222af5b6a96274639d5a5b04d769584a871b7da34a8b5595",
+              "size":"359264474"
             },
             {
               "host":"x86_64-apple-darwin",
@@ -84,8 +84,8 @@
               "host": "x86_64-pc-linux-gnu",
               "archiveFileName": "ameba_tools_linux-1.1.3.tar.gz",
               "url": "https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_tools_linux-1.1.3.tar.gz",
-              "checksum": "SHA-256:f3cb543d63c59ba3d66f1181252cec407824d5cc196cf2fb1719aee4328c2c0e",
-              "size": "2976097"
+              "checksum": "SHA-256:e308a0df2334ad0221f0b4523f28caf75ef384e91a374532ec37f20fc7368a95",
+              "size": "23224012"
             },
             {  
               "host": "x86_64-apple-darwin",

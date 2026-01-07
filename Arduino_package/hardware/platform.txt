@@ -15,7 +15,9 @@ ameba.project={build.project}_gcc_project
 
 # Ameba compile variables
 # ----------------------
-compiler.path={runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/bin/
+compiler.path={runtime.tools.ameba_asdk_toolchain.path}\mingw32\newlib\bin\
+compiler.path.windows={runtime.tools.ameba_asdk_toolchain.path}\mingw32\newlib\bin\
+compiler.path.linux={runtime.tools.ameba_asdk_toolchain.path}/linux/newlib/bin/
 
 # O2 = optimize for code size and execution speed
 # Og = optimize for debugging experience
@@ -138,18 +140,26 @@ recipe.hooks.linking.prelink.1.pattern="{compiler.path}{compiler.c.elf.cmd}" -E 
 
 ## Delete exist folder
 postbuild.output.folder={build.path}\output
+postbuild.output.folder.windows={build.path}\output
+postbuild.output.folder.linux={build.path}/output
 recipe.hooks.linking.prelink.2.pattern=cmd /c if exist {postbuild.output.folder} rmdir /s /q {postbuild.output.folder}
 recipe.hooks.linking.prelink.2.pattern.windows=cmd /c if exist {postbuild.output.folder} rmdir /s /q {postbuild.output.folder}
+recipe.hooks.linking.prelink.2.pattern.linux=sh -c 'if [ -d "{postbuild.output.folder}" ]; then rm -rf "{postbuild.output.folder}"; fi'
 
 ## Create output folder
 recipe.hooks.linking.prelink.3.pattern=cmd /c if not exist {postbuild.output.folder} mkdir {postbuild.output.folder}
 recipe.hooks.linking.prelink.3.pattern.windows=cmd /c if not exist {postbuild.output.folder} mkdir {postbuild.output.folder}
+recipe.hooks.linking.prelink.3.pattern.linux=sh -c 'if [ ! -d "{postbuild.output.folder}" ]; then mkdir -p "{postbuild.output.folder}"; fi'
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" "-L{runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/lib/" "-L{ameba.sdkpath}/{ameba.project}/libs/" "-T{ameba.sdkpath}/{ameba.project}/ld/{build.ldscript}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -o "{postbuild.output.folder}/application.axf" -Wl,--start-group {object_files} {compiler.libraries.ldflags} -Wl,--end-group -Wl,--start-group -Wl,--whole-archive "{build.path}/{archive_file}" -Wl,--no-whole-archive {compiler.ameba.ar.list} -lm -lstdc++ -Wl,--end-group
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" "-L{runtime.tools.ameba_asdk_toolchain.path}\mingw32\newlib\lib\" "-L{ameba.sdkpath}\{ameba.project}\libs\" "-T{ameba.sdkpath}\{ameba.project}\ld\{build.ldscript}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -o "{postbuild.output.folder}\application.axf" -Wl,--start-group {object_files} {compiler.libraries.ldflags} -Wl,--end-group -Wl,--start-group -Wl,--whole-archive "{build.path}\{archive_file}" -Wl,--no-whole-archive {compiler.ameba.ar.list} -lm -lstdc++ -Wl,--end-group
+recipe.c.combine.pattern.windows="{compiler.path}{compiler.c.elf.cmd}" "-L{runtime.tools.ameba_asdk_toolchain.path}\mingw32\newlib\lib\" "-L{ameba.sdkpath}\{ameba.project}\libs\" "-T{ameba.sdkpath}\{ameba.project}\ld\{build.ldscript}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -o "{postbuild.output.folder}\application.axf" -Wl,--start-group {object_files} {compiler.libraries.ldflags} -Wl,--end-group -Wl,--start-group -Wl,--whole-archive "{build.path}\{archive_file}" -Wl,--no-whole-archive {compiler.ameba.ar.list} -lm -lstdc++ -Wl,--end-group
+recipe.c.combine.pattern.linux="{compiler.path}{compiler.c.elf.cmd}" "-L{runtime.tools.ameba_asdk_toolchain.path}/linux/newlib/lib/" "-L{ameba.sdkpath}/{ameba.project}/libs/" "-T{ameba.sdkpath}/{ameba.project}/ld/{build.ldscript}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -o "{postbuild.output.folder}/application.axf" -Wl,--start-group {object_files} {compiler.libraries.ldflags} -Wl,--end-group -Wl,--start-group -Wl,--whole-archive "{build.path}/{archive_file}" -Wl,--no-whole-archive {compiler.ameba.ar.list} -lm -lstdc++ -Wl,--end-group
 
 ## Create nm map
 recipe.nm.pattern=cmd /c "{compiler.path}{compiler.nm.cmd}" "{postbuild.output.folder}\application.axf" > "{postbuild.output.folder}\application_temp.map"
+recipe.nm.pattern.windows=cmd /c "{compiler.path}{compiler.nm.cmd}" "{postbuild.output.folder}\application.axf" > "{postbuild.output.folder}\application_temp.map"
+recipe.nm.pattern.linux=sh -c 'touch "{postbuild.output.folder}/application_temp.map" && "{compiler.path}{compiler.nm.cmd}" "{postbuild.output.folder}/application.axf" > "{postbuild.output.folder}/application_temp.map"'
 
 ## Create strip
 recipe.strip.pattern="{compiler.path}{compiler.strip.cmd}" "{postbuild.output.folder}/application.axf"
@@ -161,6 +171,7 @@ recipe.strip.pattern="{compiler.path}{compiler.strip.cmd}" "{postbuild.output.fo
 #recipe.objcopy.hex.cmd.macosx=postbuild_img2_arduino_macos
 recipe.objcopy.hex.cmd=axf2bin_windows.exe
 recipe.objcopy.hex.cmd.windows=axf2bin_windows.exe
+recipe.objcopy.hex.cmd.linux=axf2bin_linux
 
 recipe.objcopy.hex.imagepath={postbuild.output.folder}\application.axf
 recipe.objcopy.hex.imagepath.windows="{postbuild.output.folder}\application.axf"
@@ -174,37 +185,37 @@ recipe.hooks.objcopy.preobjcopy.01.pattern={recipe.nm.pattern}
 # 02 Sort map
 recipe.hooks.objcopy.preobjcopy.02.pattern=cmd /c sort "{postbuild.output.folder}\application_temp.map" > "{postbuild.output.folder}\application.map"
 recipe.hooks.objcopy.preobjcopy.02.pattern.windows=cmd /c sort "{postbuild.output.folder}\application_temp.map" > "{postbuild.output.folder}\application.map"
-recipe.hooks.objcopy.preobjcopy.02.pattern.linux=sort "{postbuild.output.folder}/application_temp.map" | tee "{postbuild.output.folder}/application.map"
+recipe.hooks.objcopy.preobjcopy.02.pattern.linux=sh -c 'touch "{postbuild.output.folder}/application.map" && sort "{postbuild.output.folder}/application_temp.map" > "{postbuild.output.folder}/application.map"'
 # 03 Create strip axf
 recipe.hooks.objcopy.preobjcopy.03.pattern={recipe.strip.pattern}
 # 04 Extract xip
 postbuild.objcopy.xip.flags=-j .xip_image2.text -Obinary {recipe.objcopy.hex.imagepath}
-postbuild.objcopy.xip.output={postbuild.output.folder}\xip_image2.bin
+postbuild.objcopy.xip.output={postbuild.output.folder}/xip_image2.bin
 recipe.hooks.objcopy.preobjcopy.04.pattern="{compiler.path}{compiler.objcopy.cmd}" {postbuild.objcopy.xip.flags} {postbuild.objcopy.xip.output}
 # 05 Extract sram
 postbuild.objcopy.sram.flags=-j .sram_image2.text.data -j .ARM.extab -j .ARM.exidx -Obinary {recipe.objcopy.hex.imagepath}
-postbuild.objcopy.sram.output={postbuild.output.folder}\sram_2.bin
+postbuild.objcopy.sram.output={postbuild.output.folder}/sram_2.bin
 recipe.hooks.objcopy.preobjcopy.05.pattern="{compiler.path}{compiler.objcopy.cmd}" {postbuild.objcopy.sram.flags} {postbuild.objcopy.sram.output}
 # 06 Extract psram
 postbuild.objcopy.psram.flags=-j .psram_image2.text.data -Obinary {recipe.objcopy.hex.imagepath}
-postbuild.objcopy.psram.output={postbuild.output.folder}\psram_2.bin
+postbuild.objcopy.psram.output={postbuild.output.folder}/psram_2.bin
 recipe.hooks.objcopy.preobjcopy.06.pattern="{compiler.path}{compiler.objcopy.cmd}" {postbuild.objcopy.psram.flags} {postbuild.objcopy.psram.output}
 # 07 Create project folder
 recipe.hooks.objcopy.preobjcopy.07.pattern=cmd /c mkdir {postbuild.output.folder}\{ameba.project}
 recipe.hooks.objcopy.preobjcopy.07.pattern.windows=cmd /c mkdir {postbuild.output.folder}\{ameba.project}
-recipe.hooks.objcopy.preobjcopy.07.pattern.linux=mkdir {postbuild.output.folder}/{ameba.project}
+recipe.hooks.objcopy.preobjcopy.07.pattern.linux=mkdir -p "{postbuild.output.folder}/{ameba.project}"
 # 08 Copy ld
 recipe.hooks.objcopy.preobjcopy.08.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\ld\ameba_layout.ld "{postbuild.output.folder}\{ameba.project}"
 recipe.hooks.objcopy.preobjcopy.08.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\ld\ameba_layout.ld "{postbuild.output.folder}\{ameba.project}"
-recipe.hooks.objcopy.preobjcopy.08.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/ld\ameba_layout.ld "{postbuild.output.folder}/{ameba.project}"
+recipe.hooks.objcopy.preobjcopy.08.pattern.linux=cp "{ameba.sdkpath}/{ameba.project}/ld/ameba_layout.ld" "{postbuild.output.folder}/{ameba.project}"
 # 09 Copy manifest
 recipe.hooks.objcopy.preobjcopy.09.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\manifest.json5 "{postbuild.output.folder}"
 recipe.hooks.objcopy.preobjcopy.09.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\manifest.json5 "{postbuild.output.folder}"
-recipe.hooks.objcopy.preobjcopy.09.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/manifest.json5 "{postbuild.output.folder}"
+recipe.hooks.objcopy.preobjcopy.09.pattern.linux=cp "{ameba.sdkpath}/{ameba.project}/manifest.json5" "{postbuild.output.folder}"
 # 10 Copy info
 recipe.hooks.objcopy.preobjcopy.10.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\info.json "{postbuild.output.folder}"
 recipe.hooks.objcopy.preobjcopy.10.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\info.json "{postbuild.output.folder}"
-recipe.hooks.objcopy.preobjcopy.10.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/info.json "{postbuild.output.folder}"
+recipe.hooks.objcopy.preobjcopy.10.pattern.linux=cp "{ameba.sdkpath}/{ameba.project}/info.json" "{postbuild.output.folder}"
 # 11 Add xip padding
 recipe.hooks.objcopy.preobjcopy.11.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" pad -i {postbuild.objcopy.xip.output} -l 32
 recipe.hooks.objcopy.preobjcopy.11.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" pad -i {postbuild.objcopy.xip.output} -l 32
@@ -219,31 +230,41 @@ recipe.hooks.objcopy.preobjcopy.13.pattern.windows=cmd /c "{runtime.tools.ameba_
 recipe.hooks.objcopy.preobjcopy.13.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}/" pad -i {postbuild.objcopy.psram.output} -l 32
 # 14 Add xip header
 postbuild.objcopy.xip.prepend={postbuild.output.folder}\xip_image2_prepend.bin
+postbuild.objcopy.xip.prepend.windows={postbuild.output.folder}\xip_image2_prepend.bin
+postbuild.objcopy.xip.prepend.linux={postbuild.output.folder}/xip_image2_prepend.bin
 recipe.hooks.objcopy.preobjcopy.14.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.xip.prepend} -i {postbuild.objcopy.xip.output} -s __flash_text_start__ -m "{postbuild.output.folder}\application.map"
 recipe.hooks.objcopy.preobjcopy.14.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.xip.prepend} -i {postbuild.objcopy.xip.output} -s __flash_text_start__ -m "{postbuild.output.folder}\application.map"
 recipe.hooks.objcopy.preobjcopy.14.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}" prepend_header -o {postbuild.objcopy.xip.prepend} -i {postbuild.objcopy.xip.output} -s __flash_text_start__ -m "{postbuild.output.folder}/application.map"
 # 15 Add sram header
 postbuild.objcopy.sram.prepend={postbuild.output.folder}\sram_2_prepend.bin
+postbuild.objcopy.sram.prepend.windows={postbuild.output.folder}\sram_2_prepend.bin
+postbuild.objcopy.sram.prepend.linux={postbuild.output.folder}/sram_2_prepend.bin
 recipe.hooks.objcopy.preobjcopy.15.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.sram.prepend} -i {postbuild.objcopy.sram.output} -s __sram_image2_start__ -m "{postbuild.output.folder}\application.map"
 recipe.hooks.objcopy.preobjcopy.15.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.sram.prepend} -i {postbuild.objcopy.sram.output} -s __sram_image2_start__ -m "{postbuild.output.folder}\application.map"
 recipe.hooks.objcopy.preobjcopy.15.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}" prepend_header -o {postbuild.objcopy.sram.prepend} -i {postbuild.objcopy.sram.output} -s __sram_image2_start__ -m "{postbuild.output.folder}/application.map"
 # 16 Add psram header
 postbuild.objcopy.psram.prepend={postbuild.output.folder}\psram_2_prepend.bin
+postbuild.objcopy.psram.prepend.windows={postbuild.output.folder}\psram_2_prepend.bin
+postbuild.objcopy.psram.prepend.linux={postbuild.output.folder}/psram_2_prepend.bin
 recipe.hooks.objcopy.preobjcopy.16.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.psram.prepend} -i {postbuild.objcopy.psram.output} -s __psram_image2_start__ -m "{postbuild.output.folder}\application.map"
 recipe.hooks.objcopy.preobjcopy.16.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" prepend_header -o {postbuild.objcopy.psram.prepend} -i {postbuild.objcopy.psram.output} -s __psram_image2_start__ -m "{postbuild.output.folder}\application.map"
-recipe.hooks.objcopy.preobjcopy.16.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}" prepend_header -o {postbuild.objcopy.psram.prepend} -i {postbuild.objcopy.psram.output} -s __psram_image2_start__ -m "{postbuild.output.folder}/application.map"
+recipe.hooks.objcopy.preobjcopy.16.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}/" prepend_header -o {postbuild.objcopy.psram.prepend} -i {postbuild.objcopy.psram.output} -s __psram_image2_start__ -m "{postbuild.output.folder}/application.map"
 # 17 Combine
 recipe.hooks.objcopy.preobjcopy.17.pattern=cmd /c copy /b {postbuild.objcopy.xip.prepend}+{postbuild.objcopy.sram.prepend}+{postbuild.objcopy.psram.prepend} {postbuild.output.folder}\km4tz_image2_all.bin
+recipe.hooks.objcopy.preobjcopy.17.pattern.windows=cmd /c copy /b {postbuild.objcopy.xip.prepend}+{postbuild.objcopy.sram.prepend}+{postbuild.objcopy.psram.prepend} {postbuild.output.folder}\km4tz_image2_all.bin
+recipe.hooks.objcopy.preobjcopy.17.pattern.linux=sh -c 'touch "{postbuild.output.folder}/km4tz_image2_all.bin" && cat "{postbuild.objcopy.xip.prepend}" "{postbuild.objcopy.sram.prepend}" "{postbuild.objcopy.psram.prepend}" > "{postbuild.output.folder}/km4tz_image2_all.bin"'
 # 18/19 Copy necessary binary
 recipe.hooks.objcopy.preobjcopy.18.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\img\boot.bin {postbuild.output.folder}\
 recipe.hooks.objcopy.preobjcopy.18.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\img\boot.bin {postbuild.output.folder}\
-recipe.hooks.objcopy.preobjcopy.18.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/img\boot.bin {postbuild.output.folder}/
+recipe.hooks.objcopy.preobjcopy.18.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/img/boot.bin {postbuild.output.folder}/
 
 recipe.hooks.objcopy.preobjcopy.19.pattern=cmd /c copy {ameba.sdkpath}\{ameba.project}\img\km4ns_image2_all.bin {postbuild.output.folder}\
 recipe.hooks.objcopy.preobjcopy.19.pattern.windows=cmd /c copy {ameba.sdkpath}\{ameba.project}\img\km4ns_image2_all.bin {postbuild.output.folder}\
-recipe.hooks.objcopy.preobjcopy.19.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/img\km4ns_image2_all.bin {postbuild.output.folder}/
+recipe.hooks.objcopy.preobjcopy.19.pattern.linux=cp {ameba.sdkpath}/{ameba.project}/img/km4ns_image2_all.bin {postbuild.output.folder}/
 # Final packages
 recipe.objcopy.hex.pattern=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" fw_pack -o {postbuild.output.folder}\application.bin --image2 {postbuild.output.folder}\km4ns_image2_all.bin {postbuild.output.folder}\km4tz_image2_all.bin
+recipe.objcopy.hex.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}\" fw_pack -o {postbuild.output.folder}\application.bin --image2 {postbuild.output.folder}\km4ns_image2_all.bin {postbuild.output.folder}\km4tz_image2_all.bin
+recipe.objcopy.hex.pattern.linux="{runtime.tools.ameba_tools.path}/{recipe.objcopy.hex.cmd}" --extern-dir "{postbuild.output.folder}/" fw_pack -o {postbuild.output.folder}/application.bin --image2 {postbuild.output.folder}/km4ns_image2_all.bin {postbuild.output.folder}/km4tz_image2_all.bin
 
 
 ## Compute size
@@ -256,11 +277,9 @@ recipe.size.regex.data=^.*(?:\.bss|\.data)\s+([0-9]+).*
 tools.ameba_tools.upload.params.verbose=
 tools.ameba_tools.upload.params.quiet=
 
-tools.ameba_tools.upload.pattern=cmd /c "{runtime.tools.ameba_tools.path}/flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}/flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
-tools.ameba_tools.upload.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}/flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}/flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
-
-tools.ameba_tools.upload.pattern.linux="{runtime.tools.ameba_tools.path}/upload_image_tool_linux" "{runtime.tools.ameba_tools.path}" "{serial.port}" "{board}" "{upload.auto_mode}" "{upload.erase_flash}" {upload.speed} {upload.verbose}
-
+tools.ameba_tools.upload.pattern=cmd /c "{runtime.tools.ameba_tools.path}\flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}\flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
+tools.ameba_tools.upload.pattern.windows=cmd /c "{runtime.tools.ameba_tools.path}\flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}\flash_windows.exe" -f "{runtime.tools.ameba_tools.path}\Devices\Profiles\{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}\application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}
+tools.ameba_tools.upload.pattern.linux=sh -c '"{runtime.tools.ameba_tools.path}/flash_linux" -f "{runtime.tools.ameba_tools.path}/Devices/Profiles/{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}/boot.bin" -a 0x8000000 -b {upload.speed} {upload.erase_flash} {upload.verbose} && "{runtime.tools.ameba_tools.path}/flash_linux" -f "{runtime.tools.ameba_tools.path}/Devices/Profiles/{build.project}_nor.rdev" -p "{serial.port}" -d -i "{postbuild.output.folder}/application.bin" -a 0x8014000 -b {upload.speed} {upload.verbose}'
 tools.ameba_tools.upload.pattern.macosx="{runtime.tools.ameba_tools.path}/upload_image_tool_macos" "{runtime.tools.ameba_tools.path}" "{serial.port}" "{board}" "{upload.auto_mode}" "{upload.erase_flash}" {upload.speed} {upload.verbose}
 
 ##tools.ameba_tools.upload.network_pattern="{runtime.tools.ameba_tools.path}/upload_ota.exe" -i "{serial.port}" -p "{network.port}" -f "{runtime.tools.ameba_tools.path}\ota.bin"
@@ -271,6 +290,8 @@ tools.ameba_tools.upload.network_pattern.macosx="{runtime.tools.ameba_tools.path
 # Debugger configuration (general options)
 # ----------------------------------------
 tools.gdb.path={runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/bin/
+tools.gdb.path.windows={runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/bin/
+tools.gdb.path.linux={runtime.tools.ameba_asdk_toolchain.path}/linux/newlib/bin/
 tools.gdb.cmd=arm-none-eabi-gdb
 tools.gdb.cmd.windows=arm-none-eabi-gdb.exe
 tools.gdb.debug.pattern="{path}/{cmd}" --interpreter=mi2 -ex "set pagination off" --baud 115200 -ex "set target-charset ASCII" -ex "target remote {debug.port}" {postbuild.output.folder}/application.axf
@@ -278,6 +299,8 @@ tools.gdb.debug.pattern="{path}/{cmd}" --interpreter=mi2 -ex "set pagination off
 debug.executable={postbuild.output.folder}/application.axf
 debug.toolchain=gcc
 debug.toolchain.path={runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/bin/
+debug.toolchain.path.windows={runtime.tools.ameba_asdk_toolchain.path}/mingw32/newlib/bin/
+debug.toolchain.path.linux={runtime.tools.ameba_asdk_toolchain.path}/linux/newlib/bin/
 debug.toolchain.prefix=arm-none-eabi-
 
 # Options for JLink GDB server
