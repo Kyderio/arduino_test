@@ -44,7 +44,7 @@ extern void wait_for_debug(void);
 
 #define MAIN_THREAD_STACK_SIZE                  (4096 * 4)
 
-#define TOTAL_GPIO_PIN_NUM                      (60)
+#define TOTAL_GPIO_PIN_NUM                      (61)
 //#define TOTAL_PWM_PIN_NUM                       (13)
 
 #define digitalPinToInterrupt(p)    (((p)<TOTAL_GPIO_PIN_NUM)?(p):-1)
@@ -101,17 +101,17 @@ extern void wait_for_debug(void);
 #define AMB_D47                                 47 // PB_25
 #define AMB_D48                                 48 // PA_4
 #define AMB_D49                                 49 // PA_3
-#define AMB_D50                                 50 // PA_31
-#define AMB_D51                                 51 // PA_30
-#define AMB_D52                                 52 // PA_27
-#define AMB_D53                                 53 // PA_21
-//#define AMB_D54                                 54 // PA_12
-#define AMB_D54                                 54 // PA_28
-#define AMB_D55                                 55 // PA_20
-#define AMB_D56                                 56 // PA_5
-#define AMB_D57                                 57 // PA_18
-#define AMB_D58                                 58 // PA_19
-#define AMB_D59                                 59 // PB_19
+#define AMB_D50                                 50 // PB_0
+#define AMB_D51                                 51 // PA_31
+#define AMB_D52                                 52 // PA_30
+#define AMB_D53                                 53 // PA_27
+#define AMB_D54                                 54 // PA_21
+#define AMB_D55                                 55 // PA_28
+#define AMB_D56                                 56 // PA_20
+#define AMB_D57                                 57 // PA_5
+#define AMB_D58                                 58 // PA_18
+#define AMB_D59                                 59 // PA_19
+#define AMB_D60                                 60 // PB_19
 
 /* Analog pin mapping */
 #define A0                                      AMB_D56 // PA_20    3.3V    CH0

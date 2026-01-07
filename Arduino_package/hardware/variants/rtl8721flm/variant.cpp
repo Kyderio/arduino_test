@@ -81,16 +81,17 @@ PinDescription g_APinDescription[TOTAL_GPIO_PIN_NUM]=
     {PB_25, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D47
     {PA_4,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D48
     {PA_3,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                              , MODE_NOT_INITIAL}, // AMB_D49
-    {PA_31, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D50
-    {PA_30, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D51
-    {PA_27, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D52
-    {PA_21, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D53
-    {PA_28, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D54
-    {PA_20, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                                          | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D55
-    {PA_5,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D56
-    {PA_18, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                                | PIO_CAN | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D57
-    {PA_19, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                                          | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D58
-    {PB_19, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D59
+    {PB_0,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D50
+    {PA_31, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D51
+    {PA_30, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D52
+    {PA_27, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D53
+    {PA_21, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D54
+    {PA_28, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D55
+    {PA_20, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                                          | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D56
+    {PA_5,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D57
+    {PA_18, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                                | PIO_CAN | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D58
+    {PA_19, TYPE_DIGITAL | TYPE_ANALOG, PIO_GPIO | PIO_GPIO_IRQ | PIO_ADC                                          | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D59
+    {PB_19, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D60
 };
 
 #ifdef __cplusplus
