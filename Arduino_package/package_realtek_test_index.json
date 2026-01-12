@@ -1,7 +1,7 @@
 {
   "packages": [
     {
-      "name": "realtek_test",
+      "name": "Realtek_Ameba",
       "maintainer": "Realtek",
       "websiteURL": "https://www.amebaiot.com/",
       "email": "ameba.arduino@gmail.com",
@@ -11,7 +11,7 @@
 
       "platforms": [
 		{
-          "name": "Realtek Test Boards(32-bits ARM Cortex-M33 @200MHz)",
+          "name": "Realtek Ameba EVB",
           "architecture": "ameba",
           "version": "1.0.0",
           "category": "Contributed",
@@ -23,17 +23,17 @@
           "checksum": "SHA-256:4fc2dd9ae06198ecddfe47211f597abed18baa60d67369a951290ccb4fcf7523",
           "size": "72421512",
           "boards": [
-                {"name": "EV721FC0 (RTL8721FCM)"},
-                {"name": "EV721FL0 (RTL8721FLM)"}
+            {"name": "EV721FC0 (RTL8721FCM)"},
+            {"name": "EV721FL0 (RTL8721FLM)"}
           ],
           "toolsDependencies": [
             {
-              "packager": "realtek_test",
+              "packager": "Realtek_Ameba",
               "name": "ameba_asdk_toolchain",
               "version": "1.0.1"
             },
             {
-              "packager": "realtek_test",
+              "packager": "Realtek_Ameba",
               "name": "ameba_tools",
               "version": "1.1.3"
             }
@@ -47,7 +47,7 @@
           "version":"1.0.1",
           "systems": [
             {
-              "host":"i686-mingw32",
+              "host":"x86_64-mingw32",
               "archiveFileName":"asdk-12.3.1-mingw32-newlib-build-4431-x86_64.zip",
               "url":"https://github.com/Ameba-AIoT/ameba-toolchain/releases/download/12.3.1_v2/asdk-12.3.1-mingw32-newlib-build-4431-x86_64.zip",
               "checksum":"SHA-256:f15c6cb6e88d0764499577a9e4f92735d57a41d761013db3c30647371ae7e1c7",
@@ -80,14 +80,14 @@
               "checksum": "SHA-256:DC4AB826E3476396CE314EB1955EEF12E6627B4437014DA6DA7C8701AFCCF00B",
               "size": "20397057"
             },
-            {  
+            {
               "host": "x86_64-pc-linux-gnu",
               "archiveFileName": "ameba_tools_linux-1.1.3.tar.gz",
               "url": "https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_tools_linux-1.1.3.tar.gz",
               "checksum": "SHA-256:e308a0df2334ad0221f0b4523f28caf75ef384e91a374532ec37f20fc7368a95",
               "size": "23224012"
             },
-            {  
+            {
               "host": "x86_64-apple-darwin",
               "archiveFileName": "ameba_tools_macos-1.1.3.tar.gz",
               "url": "https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/ameba_tools_macos-1.1.3.tar.gz",
