@@ -1,9 +1,6 @@
 #include "i2c_api.h"
 #include "os_wrapper.h"
 
-void I2CISRHandle(void *Data);
-
-
 typedef void (*i2c_slave_request_cb_t) (void * arg);
 typedef void (*i2c_slave_receive_cb_t) (uint8_t * data, size_t len, /*bool stop, */void * arg);
 

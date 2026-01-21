@@ -40,7 +40,7 @@ using namespace arduino;
 RingBuffer rx_buffer0;
 
 // void arduino_loguart_irq_handler(uint32_t id, SerialIrq event) {
-void arduino_loguart_irq_handler(void *arg) {
+static uint32_t arduino_loguart_irq_handler(void *arg) {
     // uint8_t c;
     RingBuffer *pRxBuffer = (RingBuffer *)arg;
 
@@ -114,6 +114,8 @@ void arduino_loguart_irq_handler(void *arg) {
     // }
 
     LOGUART_INTConfig(LOGUART_DEV, LOGUART_BIT_ERBI | LOGUART_BIT_ETOI, ENABLE);
+
+    return 0;
 }
 
 LOGUARTClass::LOGUARTClass(int dwIrq, RingBuffer* pRx_buffer) {

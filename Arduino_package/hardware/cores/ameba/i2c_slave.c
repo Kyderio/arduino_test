@@ -51,7 +51,7 @@ static i2c_slave_struct_t _i2c_slave = {NULL,          // i2c_t instance
 //     return 2;
 // }
 
-void I2CISRHandle(void *data) {
+static uint32_t I2CISRHandle(void *data) {
     i2c_slave_struct_t *obj = (i2c_slave_struct_t *) data;
     i2c_slave_queue_event_t event;
     //BaseType_t pxHigherPriorityTaskWoken = false;
@@ -59,7 +59,7 @@ void I2CISRHandle(void *data) {
 
     // Check if pointer passed in is correct
     if ((obj->i2c_slave_dev->I2Cx != I2C0_DEV) && (obj->i2c_slave_dev->I2Cx != I2C1_DEV))
-        return;
+        return 1;
 
     uint32_t intr_status = I2C_GetINT(obj->i2c_slave_dev->I2Cx);
 
@@ -236,6 +236,8 @@ void I2CISRHandle(void *data) {
     }
 
     DBG("end of ISR")
+
+    return 0;
 }
 
 
