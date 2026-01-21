@@ -45,7 +45,7 @@ void attachInterrupt(pin_size_t interruptNumber, voidFuncPtr callback, PinStatus
 
     if (((g_APinDescription[interruptNumber].ulPinMode & MODE_NOT_INITIAL) == 0)
         && ((g_APinDescription[interruptNumber].ulPinMode & PIN_IRQ_MASK) == mode)
-        && ((g_APinDescription[interruptNumber].ulPinMode & GPIO_IRQ_MODE_ENABLED) == GPIO_MODE_ENABLED)
+        && ((g_APinDescription[interruptNumber].ulPinMode & GPIO_IRQ_MODE_ENABLED) == GPIO_IRQ_MODE_ENABLED)
         && gpio_irq_handler_list[interruptNumber] == callback) {
         // Nothing changes
         printf("The pin mode is unchanged. \r\n");
