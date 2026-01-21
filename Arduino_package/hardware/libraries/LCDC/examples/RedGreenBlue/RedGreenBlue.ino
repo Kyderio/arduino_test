@@ -3,7 +3,6 @@
 uint8_t *PIX_DATA0 = NULL;
 uint8_t *PIX_DATA1 = NULL;
 uint8_t *PIX_DATA2 = NULL;
-uint32_t counter = 0;
 uint32_t index = 0;
 const bool user_buffer = false;
 AmebaLCDC lcdc(user_buffer);
@@ -36,30 +35,25 @@ static void fill_framebuf(uint32_t width, uint32_t height, uint32_t depth)
         DCache_Clean((u32)PIX_DATA2, width*height*depth/8);
 }
 
-static void flush_frame(void *data) {
-    if (counter == 0) {
-        if (user_buffer == true) {
-            /* display red green blue cyclically */
-            if (index % 3 == 0) {
-                lcdc.inform_render_done(PIX_DATA0);
-            } else if (index % 3 == 1) {
-                lcdc.inform_render_done(PIX_DATA1);
-            } else {
-                lcdc.inform_render_done(PIX_DATA2);
-            }
+static void flush_frame(void) {
+    if (user_buffer == true) {
+        /* display red green blue cyclically */
+        if (index % 3 == 0) {
+            lcdc.inform_render_done(PIX_DATA0);
+        } else if (index % 3 == 1) {
+            lcdc.inform_render_done(PIX_DATA1);
         } else {
-            /* display red green cyclically */
-            if (index % 2 == 0) {
-                lcdc.inform_render_done(PIX_DATA0);
-            } else {
-                lcdc.inform_render_done(PIX_DATA1);
-            }
+            lcdc.inform_render_done(PIX_DATA2);
         }
-        index++;
+    } else {
+        /* display red green cyclically */
+        if (index % 2 == 0) {
+            lcdc.inform_render_done(PIX_DATA0);
+        } else {
+            lcdc.inform_render_done(PIX_DATA1);
+        }
     }
-
-    if (counter++ == 50)
-        counter = 0;
+    index++;
 }
 
 void setup() {
@@ -91,11 +85,11 @@ void setup() {
     
     fill_framebuf(width, height, depth);
 
-    lcdc.register_callback(flush_frame, NULL);
     lcdc.begin(&lcdc);
     Serial.println("Setup done!!!");
 }
 
 void loop() {
-
+    flush_frame();
+    delay(1000);
 }

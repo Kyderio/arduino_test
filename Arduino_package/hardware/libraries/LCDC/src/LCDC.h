@@ -20,82 +20,9 @@
 #define _LCDC_H_
 
 #include <Arduino.h>
-
-typedef enum {
-    RGB,
-    MCU,
-} lcdc_interface;
-
-typedef enum {
-    WIDTH_6_BITS,
-    WIDTH_8_BITS,
-    WIDTH_16_BITS,
-    WIDTH_24_BITS,
-} lcdc_interface_width;
-
-typedef enum {
-    COLOR_DEPTH_16 = 16,
-    COLOR_DEPTH_24 = 24,
-    COLOR_DEPTH_32 = 32,
-} lcdc_color_depth;
-
-typedef struct {
-    uint32_t func_name;
-    pin_size_t pin_name;
-} lcdc_pin_config;
-
-typedef struct {
-    uint32_t func_name;
-    pin_size_t pin_name;
-    PinStatus def_sta;
-} lcdc_gpio_ctrl;
+#include "lcdc_interface.h"
 
 typedef void (*lcdc_vblank_cb)(void *data);
-
-typedef enum {
-    LCD_BLEN,
-    LCD_RESET,
-    LCD_DISPLAY,
-    LCD_IM0,
-    LCD_IM1,
-    LCD_IM2,
-    LCD_IM3,
-    LCD_GPIO_CTRL_FUNC_INVALID,
-} lcdc_gpio_ctrl_func;
-
-#define LCD_PIN_DEF_START                           \
-const lcdc_pin_config gPinCfg[] = {
-
-#define LCD_PIN_DEF(func, pin)                      \
-    {                                               \
-        .func_name = PINMUX_FUNCTION_##func,        \
-        .pin_name = pin,                            \
-    },
-
-#define LCD_PIN_DEF_END                             \
-    {                                               \
-        .func_name = 0xFFFFFFFF,                    \
-        .pin_name = TOTAL_GPIO_PIN_NUM,             \
-    },                                              \
-};
-
-#define LCD_GPIO_CTRL_START                         \
-const lcdc_gpio_ctrl gGpioCtrl[] = {
-
-#define LCD_GPIO_CTRL_DEF(func, pin, sta)           \
-    {                                               \
-        .func_name = func,                          \
-        .pin_name = pin,                            \
-        .def_sta = sta,                             \
-    },
-
-#define LCD_GPIO_CTRL_END                           \
-    {                                               \
-        .func_name = LCD_GPIO_CTRL_FUNC_INVALID,    \
-        .pin_name = TOTAL_GPIO_PIN_NUM,             \
-        .def_sta = HIGH,                            \
-    },                                              \
-};
 
 class AmebaLCDC {
     public:
@@ -111,6 +38,9 @@ class AmebaLCDC {
         uint8_t *get_cur_buffer(void);
         uint8_t *get_buffer(int buffer_id);
         void inform_render_done(uint8_t *buffer);
+        LCDC_Interface* lcdIf = NULL;
+        void clear(uint32_t color);
+        void setWindow(uint16_t xStar, uint16_t yStar, uint16_t xEnd, uint16_t yEnd);
     private:
         uint32_t lcdWidth;
         uint32_t lcdHeight;
