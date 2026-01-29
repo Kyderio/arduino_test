@@ -526,7 +526,7 @@ bool AmebaCAN::begin(uint32_t const can_bitrate) {
 
     // init a2c
     if (((pinTx == PA_25) && (pinRx == PA_26)) 
-        || ((pinTx == PA_6) && (pinRx == PA_7))) {
+        || ((pinTx == PA_13) && (pinRx == PA_12))) {
         A2Cx = A2C_DEV_TABLE[0].A2Cx;
         A2C_IRQ = A2C_DEV_TABLE[0].IrqNum;
         RCC_PeriphClockCmd(APBPeriph_A2C0, APBPeriph_A2C0_CLOCK, ENABLE);

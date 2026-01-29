@@ -44,7 +44,7 @@ extern void wait_for_debug(void);
 
 #define MAIN_THREAD_STACK_SIZE                  (4096 * 4)
 
-#define TOTAL_GPIO_PIN_NUM                      (61)
+#define TOTAL_GPIO_PIN_NUM                      (62)
 //#define TOTAL_PWM_PIN_NUM                       (13)
 
 #define digitalPinToInterrupt(p)    (((p)<TOTAL_GPIO_PIN_NUM)?(p):-1)
@@ -106,12 +106,13 @@ extern void wait_for_debug(void);
 #define AMB_D52                                 52 // PA_30
 #define AMB_D53                                 53 // PA_27
 #define AMB_D54                                 54 // PA_21
-#define AMB_D55                                 55 // PA_28
-#define AMB_D56                                 56 // PA_20
-#define AMB_D57                                 57 // PA_5
-#define AMB_D58                                 58 // PA_18
-#define AMB_D59                                 59 // PA_19
-#define AMB_D60                                 60 // PB_19
+#define AMB_D55                                 55 // PA_12
+#define AMB_D56                                 56 // PA_28
+#define AMB_D57                                 57 // PA_20
+#define AMB_D58                                 58 // PA_5
+#define AMB_D59                                 59 // PA_18
+#define AMB_D60                                 60 // PA_19
+#define AMB_D61                                 61 // PB_19
 
 /* Analog pin mapping */
 #define A0                                      AMB_D56 // PA_20    3.3V    CH0
@@ -121,7 +122,7 @@ extern void wait_for_debug(void);
 #define A4                                      AMB_D37 // PA_15    3.3V    CH4
 #define A5                                      AMB_D36 // PA_14    3.3V    CH5
 #define A6                                      AMB_D34 // PA_13    3.3V    CH6
-//#define A7                                      AMB_D54 // PA_12    3.3V    CH7
+#define A7                                      AMB_D55 // PA_12    3.3V    CH7
 
 /* LED pin mapping */
 #define LED_BUILTIN                             AMB_D30
@@ -168,9 +169,9 @@ extern void wait_for_debug(void);
 //#define SWD_CLK                                 AMB_D8
 
 /* CAN pin mapping */
-#define CAN_TX0                                 AMB_D26
-#define CAN_RX0                                 AMB_D27
-#define CAN_STB0                                AMB_D28
+#define CAN_TX0                                 AMB_D34
+#define CAN_RX0                                 AMB_D55
+#define CAN_STB0                                AMB_D29
 #define CAN_TX1                                 AMB_D37
 #define CAN_RX1                                 AMB_D36
 #define CAN_STB1                                AMB_D30
