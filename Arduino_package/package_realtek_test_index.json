@@ -20,8 +20,8 @@
           },
           "url": "https://github.com/Kyderio/arduino_test/raw/master/Arduino_package/release/realtektest-1.0.0.tar.gz",
           "archiveFileName": "realtektest-1.0.0.tar.gz",
-          "checksum": "SHA-256:660B568B72741995573FB468EED3F852548CFEC6CC3AB8924FC15EA0814295EE",
-          "size": "2952884",
+          "checksum": "SHA-256:8DE575818D94E2ADDA5B1B104E568D971CACA9F6F298143FE43A1DED24CF1FFC",
+          "size": "2952901",
           "boards": [
             {"name": "EV721FC0 (RTL8721FCM)"},
             {"name": "EV721FL0 (RTL8721FLM)"}
