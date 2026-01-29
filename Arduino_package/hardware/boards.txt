@@ -19,6 +19,7 @@ EV721FC0.build.usb_product="EV721FC0"
 EV721FC0.build.board=AMEBA
 EV721FC0.build.core=ameba
 EV721FC0.build.project=amebagreen2
+EV721FC0.build.chip=RTL8721F
 EV721FC0.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
 EV721FC0.build.variant=rtl8721fcm
 
@@ -45,10 +46,10 @@ EV721FC0.menu.EraseFlash.Enable.upload.erase_flash=--chip-erase
 
 EV721FC0.menu.StdLibInit.Enable=Arduino_STD_PRINTF
 EV721FC0.menu.StdLibInit.Enable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
-EV721FC0.menu.StdLibInit.Enable.build.ldscript=ameba_img2.ld
+EV721FC0.menu.StdLibInit.Enable.build.ldscript=ameba_img2_all.ld
 EV721FC0.menu.StdLibInit.Disable=Disable
 EV721FC0.menu.StdLibInit.Disable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags}
-EV721FC0.menu.StdLibInit.Disable.build.ldscript=ameba_img2.ld
+EV721FC0.menu.StdLibInit.Disable.build.ldscript=ameba_img2_all.ld
 
 EV721FC0.menu.UploadBaudrate.1500000=1500000
 EV721FC0.menu.UploadBaudrate.1500000.upload.speed=1500000
@@ -68,6 +69,7 @@ EV721FL0.build.usb_product="EV721FL0"
 EV721FL0.build.board=AMEBA
 EV721FL0.build.core=ameba
 EV721FL0.build.project=amebagreen2
+EV721FL0.build.chip=RTL8721F
 EV721FL0.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
 EV721FL0.build.variant=rtl8721flm
 
@@ -94,10 +96,10 @@ EV721FL0.menu.EraseFlash.Enable.upload.erase_flash=--chip-erase
 
 EV721FL0.menu.StdLibInit.Enable=Arduino_STD_PRINTF
 EV721FL0.menu.StdLibInit.Enable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags} -DArduino_STD_PRINTF
-EV721FL0.menu.StdLibInit.Enable.build.ldscript=ameba_img2.ld
+EV721FL0.menu.StdLibInit.Enable.build.ldscript=ameba_img2_all.ld
 EV721FL0.menu.StdLibInit.Disable=Disable
 EV721FL0.menu.StdLibInit.Disable.build.extra_flags=-mthumb -DCORE_RTL8721F -DBOARD_AMBGREEN2 {build.usb_flags}
-EV721FL0.menu.StdLibInit.Disable.build.ldscript=ameba_img2.ld
+EV721FL0.menu.StdLibInit.Disable.build.ldscript=ameba_img2_all.ld
 
 EV721FL0.menu.UploadBaudrate.1500000=1500000
 EV721FL0.menu.UploadBaudrate.1500000.upload.speed=1500000

@@ -108,16 +108,17 @@ int rtos_task_resume(rtos_task_t p_handle);
 int rtos_task_yield(void);
 
 /**
- * @brief  Get task name by handle.
- * @retval The task name string pointer
- */
-const char *rtos_task_get_name(rtos_task_t p_handle);
-
-/**
  * @brief  Get current os level task routine handle.
  * @retval The task handle pointer
  */
 rtos_task_t rtos_task_handle_get(void);
+
+/**
+ * @brief  Get task name by handle
+ * @param  p_handle: Task handle. If null is passed in here then the name of the calling task is being queried.
+ * @retval task name
+ */
+char *rtos_task_name_get(rtos_task_t p_handle);
 
 /**
  * @brief  Get os level task routine priority.

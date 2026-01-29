@@ -53,7 +53,7 @@
 #define KM4TZ_IMG1_SIZE              KBYTES(32)
 #endif
 
-#define RAM_KM4NS_IMG2_SIZE          KBYTES(192)
+#define RAM_KM4NS_IMG2_SIZE          KBYTES(96)
 /*
                   amebagreen2 SRAM Layout (512K)
 0x20000000 ──────────►┌──────────────────────┐
@@ -92,8 +92,8 @@ IMG3 size is 0.    │  │   KM4TZ_IMG3(44K)    │    │
 #define KM4TZ_RAM_TZ_NSC_START        (KM4TZ_IMG1_RAM_SATRT + KM4TZ_IMG1_SIZE )             /* 0x20006000 ~ 0x20007000 | unavailable */
 #define KM4TZ_RAM_TZ_ENTRY_START      (KM4TZ_RAM_TZ_NSC_START + RAM_TZ_NSC_SIZE )           /* 0x20007000 ~ 0x2000B000 | unavailable */
 #define KM4TZ_RAM_TZ_SECURE_START     (KM4TZ_RAM_TZ_ENTRY_START + RAM_TZ_ENTRY_SIZE )       /* 0x2000B000 ~ 0x20016000 | unavailable */
-#define KM4TZ_IMG2_RAM_START          (KM4TZ_RAM_TZ_SECURE_START + RAM_KM4TZ_IMG3_SIZE)     /* 0x20016000 ~ 0x20050000 | 0x20006000 ~ 0x20050000*/
-#define KM4NS_IMG2_RAM_START          (SRAM_END - RAM_KM4NS_IMG2_SIZE)                      /* 0x20050000 ~ 0x20080000 | 0x20050000 ~ 0x20080000*/
+#define KM4TZ_IMG2_RAM_START          (KM4TZ_RAM_TZ_SECURE_START + RAM_KM4TZ_IMG3_SIZE)     /* 0x20016000 ~ 0x20068000 | 0x20006000 ~ 0x20068000*/
+#define KM4NS_IMG2_RAM_START          (SRAM_END - RAM_KM4NS_IMG2_SIZE)                      /* 0x20068000 ~ 0x20080000 | 0x20068000 ~ 0x20080000*/
 
 /* IMG3 On PSRAM */
 #define KM4TZ_PSRAM_TZ_NSC_START      (PSRAM_BASE)                                          /* 0x60000000 ~ 0x60001000 | unavailable */
@@ -152,14 +152,14 @@ MEMORY
 #endif
 
     /* IMG2 RAM */
-#if defined (CONFIG_WIFI_HOST_CONTROL)
+#if (!defined (CONFIG_WHC_INTF_IPC) && defined (CONFIG_WHC_DEV))
     KM4TZ_BD_RAM (rwx) :                   ORIGIN = ORIGIN(FULLMAC_IMG2), LENGTH = LENGTH(FULLMAC_IMG2)
 #else
     KM4TZ_BD_RAM_TZ_NSC (rwx) :            ORIGIN = KM4TZ_RAM_TZ_NSC_START + IMAGE_HEADER_LEN,     LENGTH = RAM_TZ_NSC_SIZE - IMAGE_HEADER_LEN                                   /* KM4TZ BD RAM NSC: 4k */
     KM4TZ_BD_RAM_TZ_ENTRY (rwx) :          ORIGIN = KM4TZ_RAM_TZ_ENTRY_START,  LENGTH = RAM_TZ_ENTRY_SIZE                                                                        /* KM4TZ BD RAM ENTRY: 16k */
     KM4TZ_BD_RAM_TZ_S (rwx) :              ORIGIN = KM4TZ_RAM_TZ_SECURE_START + SECURE_ADDR_OFFSET  + IMAGE_HEADER_LEN, LENGTH = RAM_KM4TZ_IMG3_SIZE - IMAGE_HEADER_LEN          /* KM4TZ BD RAM S: 44k */
-    KM4TZ_BD_RAM (rwx) :                   ORIGIN = KM4TZ_IMG2_RAM_START + IMAGE_HEADER_LEN,   LENGTH = KM4NS_IMG2_RAM_START - KM4TZ_IMG2_RAM_START - IMAGE_HEADER_LEN           /* KM4TZ BD RAM: TZ On, 212KB; Tz off, 288K */
-    KM4NS_BD_RAM (rwx) :                   ORIGIN = KM4NS_IMG2_RAM_START + IMAGE_HEADER_LEN,   LENGTH = RAM_KM4NS_IMG2_SIZE - IMAGE_HEADER_LEN                                   /* KM4NS BD RAM: 192KB */
+    KM4TZ_BD_RAM (rwx) :                   ORIGIN = KM4TZ_IMG2_RAM_START + IMAGE_HEADER_LEN,   LENGTH = KM4NS_IMG2_RAM_START - KM4TZ_IMG2_RAM_START - IMAGE_HEADER_LEN           /* KM4TZ BD RAM: TZ On, 308KB; Tz off, 384K */
+    KM4NS_BD_RAM (rwx) :                   ORIGIN = KM4NS_IMG2_RAM_START + IMAGE_HEADER_LEN,   LENGTH = RAM_KM4NS_IMG2_SIZE - IMAGE_HEADER_LEN                                   /* KM4NS BD RAM: 96KB */
 #endif /* CONFIG_TRUSTZONE_EN */
 
 
@@ -179,8 +179,8 @@ MEMORY
     /* Flash */
     KM4TZ_BOOT_XIP (rx) :                  ORIGIN = 0x10400020, LENGTH = 0x10C00000 - 0x10400020    /* KM4TZ IMG1 Virtual address: 8M */
     KM4TZ_IMG3_XIP (rx) :                  ORIGIN = 0x10C00020, LENGTH = 0x11000000 - 0x10C00020    /* KM4TZ IMG3 Virtual address: 4M */
-    KM4TZ_IMG2_XIP (rx) :                  ORIGIN = 0x02000020, LENGTH = 0x04000000 - 0x02000020    /* KM4TZ IMG2 Virtual address: 32M */
-    KM4NS_IMG2_XIP (rx) :                  ORIGIN = 0x04000020, LENGTH = 0x06000000 - 0x04000020    /* KM4NS IMG2 Virtual address: 32M */
+    KM4NS_IMG2_XIP (rx) :                  ORIGIN = 0x02000020, LENGTH = 0x04000000 - 0x02000020    /* KM4TZ IMG2 Virtual address: 32M */
+    KM4TZ_IMG2_XIP (rx) :                  ORIGIN = 0x04000020, LENGTH = 0x06000000 - 0x04000020    /* KM4NS IMG2 Virtual address: 32M */
     BTRACE (rx) :                          ORIGIN = 0xC8800000, LENGTH = 0xC9000000 - 0xC8800000    /* BT LOG Virtual address: 8192k */
     CTRACE (rx) :                          ORIGIN = 0xCA000000, LENGTH = 0xCA7FFFFF - 0xCA000000    /* COEX LOG Virtual address: 8192k */
 }

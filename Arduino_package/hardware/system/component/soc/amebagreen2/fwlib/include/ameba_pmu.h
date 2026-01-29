@@ -13,7 +13,8 @@ typedef enum {
 	PMU_CPU0_RUN,
 	PMU_CPU1_RUN,
 	PMU_WLAN_FW_DEVICE,
-	PMU_BT_DEVICE,
+	PMU_BT_CONTROLLER,
+	PMU_BT_HOST,
 	PMU_WHC_WIFI,
 	PMU_DHCP_PROCESS,
 	PMU_LWIP_STACK,
@@ -41,7 +42,7 @@ typedef struct {
 
 uint32_t pmu_yield_os_check(void);
 uint32_t pmu_exec_sleep_hook_funs(void);
-void pmu_exec_wakeup_hook_funs(uint32_t nDeviceIdMax);
+void pmu_exec_wakeup_hook_funs(uint32_t nDeviceIdMax, uint32_t common_param);
 uint32_t pmu_set_sleep_type(uint32_t type);
 uint32_t pmu_get_sleep_type(void);
 uint32_t pmu_get_sleep_time(void);
@@ -83,4 +84,5 @@ extern void Systick_Cmd(uint32_t enable);
 extern uint32_t SYSTIMER_GetPassTick(uint32_t start);
 
 extern uint32_t system_can_yield;
+extern uint32_t cur_device_id;
 #endif

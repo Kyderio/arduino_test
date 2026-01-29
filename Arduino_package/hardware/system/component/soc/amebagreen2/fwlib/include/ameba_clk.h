@@ -109,6 +109,17 @@
   * @}
   */
 
+/** @defgroup SDM_USER_DEFINED_param_definitions
+  * @{
+  */
+#define SDM_OBS_CYC_DEFAULT		1024
+#define SDM_OBS_REF_CYC_DEFAULT		312500
+#define SDM_OBS_REF_CYC_MODIFY		312503
+#define SDM_XTAL_PERIOD_DEFAULT   102400
+/**
+  * @}
+  */
+
 /** @defgroup XTAL_CLK_definitions
 * @{
 */
@@ -179,6 +190,7 @@
   */
 _LONG_CALL_ void SDM32K_Enable(void);
 _LONG_CALL_ void SDM32K_TimerCalEnable(u32 RTCCalibration);
+_LONG_CALL_ void SDM32K_CalFactorModify(u32 newstatus);
 /**
   * @}
   */
@@ -277,6 +289,8 @@ _LONG_CALL_ int XTAL_Check_READY(void);
   */
 _LONG_CALL_ void PLL_Enable(u8 pll_name);
 _LONG_CALL_ void PLL_Disable(u8 pll_name);
+_LONG_CALL_ void PLL_I2S0_CLK(u32 status, u32 clk);
+_LONG_CALL_ void PLL_I2S_CLK_DIV(u32 index, u32 status, u32 clk);
 _LONG_CALL_ void PLL_SetFreq(u8 pll_name, u32 pll_freq);
 _LONG_CALL_ float PLL_I2S_98P304M_ClkTune(u32 pll_sel, float ppm, u32 action);
 _LONG_CALL_ float PLL_I2S_45P158M_ClkTune(u32 pll_sel, float ppm, u32 action);

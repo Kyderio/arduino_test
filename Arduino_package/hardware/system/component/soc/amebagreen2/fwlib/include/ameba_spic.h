@@ -1282,13 +1282,14 @@ _LONG_CALL_ void FLASH_DeepSleep_PDEX_Patch(u32 NewState);
 /* These functions will lock cpu when exec to forbit XIP, and flush cache after exec. */
 void FLASH_Write_Lock(void);
 void FLASH_Write_Unlock(void);
+void FLASH_Write_IPC_Int(void *Data, u32 IrqStatus, u32 ChanNum);
 void FLASH_RxCmd(u8 cmd, u32 read_len, u8 *read_data);
 void FLASH_RxCmdXIP(u8 cmd, u32 read_len, u8 *read_data);
 void FLASH_SetStatusXIP(u8 Cmd, u32 Len, u8 *Status);
 void FLASH_SetStatusBitsXIP(u32 SetBits, u32 NewState);
 void FLASH_TxDataXIP(u32 StartAddr, u32 DataPhaseLen, u8 *pData);
 void FLASH_EraseXIP(u32 EraseType, u32 Address);
-void FLASH_EreaseDwordsXIP(u32 address, u32 dword_num);
+void FLASH_EraseDwordsXIP(u32 address, u32 dword_num);
 int  FLASH_ReadStream(u32 address, u32 len, u8 *pbuf);
 int  FLASH_WriteStream(u32 address, u32 len, u8 *pbuf);
 /** @} */
