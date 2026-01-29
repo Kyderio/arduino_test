@@ -58,8 +58,8 @@ PinDescription g_APinDescription[TOTAL_GPIO_PIN_NUM]=
     {PB_14, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                | PIO_SPI           | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D24
     {PB_17, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                          | PIO_CAN | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D25
     {PB_21, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D26
-    {PA_3,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                              , MODE_NOT_INITIAL}, // AMB_D27
-    {PB_19, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                                    | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D28
+    {PA_3,  TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                          | PIO_CAN           , MODE_NOT_INITIAL}, // AMB_D27
+    {PB_19, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                          | PIO_CAN | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D28
     {PB_15, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                | PIO_SPI           | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D29
     {PB_16, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                | PIO_SPI           | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D30
     {PB_18, TYPE_DIGITAL,               PIO_GPIO | PIO_GPIO_IRQ                                          | PIO_CAN | PIO_LCDC, MODE_NOT_INITIAL}, // AMB_D31

@@ -170,7 +170,9 @@ extern void wait_for_debug(void);
 /* CAN pin mapping */
 #define CAN_TX0                                 AMB_D26
 #define CAN_RX0                                 AMB_D27
+#define CAN_STB0                                AMB_D28
 #define CAN_TX1                                 AMB_D37
 #define CAN_RX1                                 AMB_D36
+#define CAN_STB1                                AMB_D30
 
 #endif /* _VARIANT_ARDUINO_AMEBA_ */

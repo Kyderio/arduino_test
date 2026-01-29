@@ -138,9 +138,11 @@ extern void wait_for_debug(void);
 //#define SWD_CLK                                 AMB_D8
 
 /* CAN pin mapping */
-#define CAN_TX0                                 AMB_D2
-#define CAN_RX0                                 AMB_D3
+#define CAN_TX0                                 AMB_D3
+#define CAN_RX0                                 AMB_D2
+#define CAN_STB0                                AMB_D27
 #define CAN_TX1                                 AMB_D25
 #define CAN_RX1                                 AMB_D31
+#define CAN_STB1                                AMB_D28
 
 #endif /* _VARIANT_ARDUINO_AMEBA_ */
