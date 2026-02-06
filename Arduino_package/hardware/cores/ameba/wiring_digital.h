@@ -22,9 +22,8 @@
 #include "Arduino.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
-
 
 /**************************** Extend API by RTK ***********************************/
 extern uint32_t digitalPinToPort(pin_size_t pinNumber);

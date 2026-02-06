@@ -104,6 +104,7 @@ extern PinDescription g_APinDescription[];
 #include "amb_ard_pin_check.h"
 #include "WInterrupts.h"
 #include "wiring_digital.h"
+#include "wiring_analog.h"
 
 // ARM toolchain doesn't provide itoa etc, provide them
 #include "api/itoa.h"

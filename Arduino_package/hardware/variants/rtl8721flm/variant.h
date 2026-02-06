@@ -115,9 +115,9 @@ extern void wait_for_debug(void);
 #define AMB_D61                                 61 // PB_19
 
 /* Analog pin mapping */
-#define A0                                      AMB_D56 // PA_20    3.3V    CH0
-#define A1                                      AMB_D59 // PA_19    3.3V    CH1
-#define A2                                      AMB_D58 // PA_18    3.3V    CH2
+#define A0                                      AMB_D57 // PA_20    3.3V    CH0
+#define A1                                      AMB_D60 // PA_19    3.3V    CH1
+#define A2                                      AMB_D59 // PA_18    3.3V    CH2
 #define A3                                      AMB_D32 // PA_17    3.3V    CH3
 #define A4                                      AMB_D37 // PA_15    3.3V    CH4
 #define A5                                      AMB_D36 // PA_14    3.3V    CH5

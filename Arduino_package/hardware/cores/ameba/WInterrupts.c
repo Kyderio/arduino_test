@@ -58,9 +58,9 @@ void attachInterrupt(pin_size_t interruptNumber, voidFuncPtr callback, PinStatus
         sys_jtag_off();
     }
 
-    // if ((g_APinDescription[interruptNumber].ulPinMode & PWM_MODE_ENABLED) == PWM_MODE_ENABLED) {
-    //     pinRemoveMode(interruptNumber);
-    // }
+    if ((g_APinDescription[interruptNumber].ulPinMode & PWM_MODE_ENABLED) == PWM_MODE_ENABLED) {
+        pinRemoveMode(interruptNumber);
+    }
 
     if (((g_APinDescription[interruptNumber].ulPinMode & GPIO_MODE_ENABLED) == GPIO_MODE_ENABLED) && 
             ((g_APinDescription[interruptNumber].ulPinMode & PIN_MODE_MASK) == (OUTPUT << PIN_MODE_OFFSET))) {
