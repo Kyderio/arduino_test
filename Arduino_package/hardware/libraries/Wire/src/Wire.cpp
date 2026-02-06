@@ -60,7 +60,7 @@ void TwoWire::begin() {
 
     if ((pinSDA == PA_26)/* || (pinSDA == PB_0) || (pinSDA == PB_6)*/) {
         if ((pinSCL == PA_25)/* || (pinSCL == PA_31) || (pinSCL == PB_5)*/) {
-            i2cwire0.i2c_idx = I2C_0;
+            i2cwire0.i2c_idx = 0;
             this->pI2C = (void *)&i2cwire0;
         } else {
             printf("Invalid I2C pin, SDA and SCL not in same group. \r\n");
@@ -88,7 +88,7 @@ void TwoWire::begin(uint8_t address = 0) {
 
     if ((pinSDA == PA_26)/* || (pinSDA == PB_0) || (pinSDA == PB_6)*/) {
         if ((pinSCL == PA_25)/* || (pinSCL == PA_31) || (pinSCL == PB_5)*/) {
-            i2cwire0.i2c_idx = I2C_0;
+            i2cwire0.i2c_idx = 0;
             this->pI2C = (void *)&i2cwire0;
         } else {
             printf("Invalid I2C pin, SDA and SCL not in same group. \r\n");
