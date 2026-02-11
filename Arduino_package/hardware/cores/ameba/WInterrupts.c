@@ -23,7 +23,8 @@
 gpio_irq_t *gpio_irq_pin_struct[TOTAL_GPIO_PIN_NUM];
 voidFuncPtr gpio_irq_handler_list[TOTAL_GPIO_PIN_NUM] = {NULL};
 
-static void gpioIrqHandler(uint32_t id, gpio_irq_event event) {
+static void gpioIrqHandler(uint32_t id, uint32_t event) {
+    (void)event;
     if (gpio_irq_handler_list[id] != NULL) {
         gpio_irq_handler_list[id]();
     }

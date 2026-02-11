@@ -60,7 +60,7 @@ int analogRead(pin_size_t pinNumber) {
     amb_ard_pin_check_type(pinNumber, TYPE_ANALOG);
     amb_ard_pin_check_fun(pinNumber, PIO_ADC);
 
-    uint8_t ChIdx = NC;
+    uint8_t ChIdx = 0xFF;
 
     switch (g_APinDescription[pinNumber].pinname) {
         case AD_0:

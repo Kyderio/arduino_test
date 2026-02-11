@@ -60,5 +60,5 @@ unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout) {
 }
 
 unsigned long pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout) {
-    pulseIn(pin, state, timeout);
+    return pulseIn(pin, state, timeout);
 }
